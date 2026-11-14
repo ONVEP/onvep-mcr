@@ -107,4 +107,19 @@ export interface ApiDefinition {
     update: typeof routes['step_types.update']
     destroy: typeof routes['step_types.destroy']
   }
+  layers: {
+    index: typeof routes['layers.index']
+    store: typeof routes['layers.store']
+    show: typeof routes['layers.show']
+    update: typeof routes['layers.update']
+    destroy: typeof routes['layers.destroy']
+  }
+  graphics: {
+    tailwindClasses: typeof routes['graphics.tailwind_classes']
+  }
+  cg: {
+    all: typeof routes['cg.all']
+    layer: typeof routes['cg.layer']
+    tailwind: typeof routes['cg.tailwind']
+  }
 }

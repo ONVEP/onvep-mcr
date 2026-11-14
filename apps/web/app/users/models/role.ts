@@ -47,8 +47,9 @@ export default class Role extends BaseModel {
     return this.name === ROLES.ADMIN ? ALL_PERMISSIONS : this.permissions
   }
 
+  // Must go through effectivePermissions: the admin's stored column lags behind new permissions.
   hasPermission(permission: Permission): boolean {
-    return this.permissions.includes(permission)
+    return this.effectivePermissions.includes(permission)
   }
 
   async givePermissions(permissions: Permission[]): Promise<void> {

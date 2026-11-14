@@ -22,6 +22,7 @@ const dbConfig = defineConfig({
           'app/notifications/database/migrations',
           'app/media/database/migrations',
           'app/rundowns/database/migrations',
+          'app/graphics/database/migrations',
         ],
       },
       seeders: {

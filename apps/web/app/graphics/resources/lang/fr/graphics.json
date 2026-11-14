@@ -1,0 +1,30 @@
+{
+  "layers": {
+    "title": "Layers",
+    "new_placeholder": "Nouveau layer…",
+    "add": "Ajouter un layer",
+    "empty": "Aucun layer pour l'instant. Créez-en un dans la colonne de gauche pour commencer."
+  },
+  "editor": {
+    "name": "Nom",
+    "enabled": "Activé",
+    "disabled": "Désactivé",
+    "save": "Enregistrer",
+    "saved": "Layer enregistré",
+    "unsaved": "Modifications non enregistrées",
+    "delete": "Supprimer",
+    "copy_url": "Copier l'URL",
+    "leave_confirm": "Les modifications non enregistrées seront perdues. Quitter quand même ?"
+  },
+  "preview": {
+    "title": "Aperçu",
+    "resolution": "Résolution",
+    "custom": "Personnalisée",
+    "width": "Largeur",
+    "height": "Hauteur"
+  },
+  "delete": {
+    "title": "Supprimer le layer",
+    "description": "Supprimer le layer <strong>{name}</strong> ? Son URL cessera de fonctionner."
+  }
+}

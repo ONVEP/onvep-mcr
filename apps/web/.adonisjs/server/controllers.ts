@@ -13,6 +13,11 @@ export const controllers = {
     SignIn: () => import('#app/auth/controllers/sign_in_controller'),
     SignOut: () => import('#app/auth/controllers/sign_out_controller'),
   },
+  graphics: {
+    Cg: () => import('#app/graphics/controllers/cg_controller'),
+    Layers: () => import('#app/graphics/controllers/layers_controller'),
+    TailwindClasses: () => import('#app/graphics/controllers/tailwind_classes_controller'),
+  },
   marketing: {
     Marketing: () => import('#app/marketing/controllers/marketing_controller'),
   },

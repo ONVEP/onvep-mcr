@@ -273,7 +273,8 @@
     "tokens": "API tokens",
     "network_drives": "Network drives",
     "live": "Live",
-    "rundowns": "Rundowns"
+    "rundowns": "Rundowns",
+    "graphics": "Graphics"
   },
   "permissions": {
     "usersViewList": "View users",
@@ -294,6 +295,7 @@
     "liveView": "View the live page",
     "rundownsViewList": "View rundowns",
     "rundownsManage": "Manage rundowns and steps",
-    "rundownsManageStepTypes": "Manage step types"
+    "rundownsManageStepTypes": "Manage step types",
+    "graphicsManage": "Manage graphics layers"
   }
 }

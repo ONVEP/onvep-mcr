@@ -749,6 +749,123 @@ export interface Registry {
       rawResponse: ExtractRawResponse<Awaited<ReturnType<import('#app/rundowns/controllers/step_types_controller').default['destroy']>>>
     }
   }
+  'layers.index': {
+    methods: ["GET","HEAD"]
+    pattern: '/graphics'
+    types: {
+      body: {}
+      paramsTuple: []
+      params: {}
+      query: {}
+      response: ExtractResponse<Awaited<ReturnType<import('#app/graphics/controllers/layers_controller').default['index']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#app/graphics/controllers/layers_controller').default['index']>>>
+      rawResponse: ExtractRawResponse<Awaited<ReturnType<import('#app/graphics/controllers/layers_controller').default['index']>>>
+    }
+  }
+  'layers.store': {
+    methods: ["POST"]
+    pattern: '/graphics'
+    types: {
+      body: ExtractBody<InferInput<(typeof import('#graphics/validators/layers').createLayerValidator)>>
+      paramsTuple: []
+      params: {}
+      query: ExtractQuery<InferInput<(typeof import('#graphics/validators/layers').createLayerValidator)>>
+      response: ExtractResponse<Awaited<ReturnType<import('#app/graphics/controllers/layers_controller').default['store']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#app/graphics/controllers/layers_controller').default['store']>>> | { status: 422; response: { errors: SimpleError[] } }
+      rawResponse: ExtractRawResponse<Awaited<ReturnType<import('#app/graphics/controllers/layers_controller').default['store']>>> | { status: 422; response: { errors: SimpleError[] } }
+    }
+  }
+  'layers.show': {
+    methods: ["GET","HEAD"]
+    pattern: '/graphics/:id'
+    types: {
+      body: {}
+      paramsTuple: [ParamValue]
+      params: { id: ParamValue }
+      query: {}
+      response: ExtractResponse<Awaited<ReturnType<import('#app/graphics/controllers/layers_controller').default['show']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#app/graphics/controllers/layers_controller').default['show']>>>
+      rawResponse: ExtractRawResponse<Awaited<ReturnType<import('#app/graphics/controllers/layers_controller').default['show']>>>
+    }
+  }
+  'layers.update': {
+    methods: ["PUT"]
+    pattern: '/graphics/:id'
+    types: {
+      body: ExtractBody<InferInput<(typeof import('#graphics/validators/layers').updateLayerValidator)>>
+      paramsTuple: [ParamValue]
+      params: { id: ParamValue }
+      query: ExtractQuery<InferInput<(typeof import('#graphics/validators/layers').updateLayerValidator)>>
+      response: ExtractResponse<Awaited<ReturnType<import('#app/graphics/controllers/layers_controller').default['update']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#app/graphics/controllers/layers_controller').default['update']>>> | { status: 422; response: { errors: SimpleError[] } }
+      rawResponse: ExtractRawResponse<Awaited<ReturnType<import('#app/graphics/controllers/layers_controller').default['update']>>> | { status: 422; response: { errors: SimpleError[] } }
+    }
+  }
+  'layers.destroy': {
+    methods: ["DELETE"]
+    pattern: '/graphics/:id'
+    types: {
+      body: {}
+      paramsTuple: [ParamValue]
+      params: { id: ParamValue }
+      query: {}
+      response: ExtractResponse<Awaited<ReturnType<import('#app/graphics/controllers/layers_controller').default['destroy']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#app/graphics/controllers/layers_controller').default['destroy']>>>
+      rawResponse: ExtractRawResponse<Awaited<ReturnType<import('#app/graphics/controllers/layers_controller').default['destroy']>>>
+    }
+  }
+  'graphics.tailwind_classes': {
+    methods: ["GET","HEAD"]
+    pattern: '/graphics/tailwind-classes'
+    types: {
+      body: {}
+      paramsTuple: []
+      params: {}
+      query: {}
+      response: ExtractResponse<Awaited<ReturnType<import('#app/graphics/controllers/tailwind_classes_controller').default['handle']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#app/graphics/controllers/tailwind_classes_controller').default['handle']>>>
+      rawResponse: ExtractRawResponse<Awaited<ReturnType<import('#app/graphics/controllers/tailwind_classes_controller').default['handle']>>>
+    }
+  }
+  'cg.all': {
+    methods: ["GET","HEAD"]
+    pattern: '/cg/all'
+    types: {
+      body: {}
+      paramsTuple: []
+      params: {}
+      query: {}
+      response: ExtractResponse<Awaited<ReturnType<import('#app/graphics/controllers/cg_controller').default['all']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#app/graphics/controllers/cg_controller').default['all']>>>
+      rawResponse: ExtractRawResponse<Awaited<ReturnType<import('#app/graphics/controllers/cg_controller').default['all']>>>
+    }
+  }
+  'cg.layer': {
+    methods: ["GET","HEAD"]
+    pattern: '/cg/layer/:slug'
+    types: {
+      body: {}
+      paramsTuple: [ParamValue]
+      params: { slug: ParamValue }
+      query: {}
+      response: ExtractResponse<Awaited<ReturnType<import('#app/graphics/controllers/cg_controller').default['layer']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#app/graphics/controllers/cg_controller').default['layer']>>>
+      rawResponse: ExtractRawResponse<Awaited<ReturnType<import('#app/graphics/controllers/cg_controller').default['layer']>>>
+    }
+  }
+  'cg.tailwind': {
+    methods: ["GET","HEAD"]
+    pattern: '/cg/assets/tailwind.js'
+    types: {
+      body: {}
+      paramsTuple: []
+      params: {}
+      query: {}
+      response: ExtractResponse<Awaited<ReturnType<import('#app/graphics/controllers/cg_controller').default['tailwind']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#app/graphics/controllers/cg_controller').default['tailwind']>>>
+      rawResponse: ExtractRawResponse<Awaited<ReturnType<import('#app/graphics/controllers/cg_controller').default['tailwind']>>>
+    }
+  }
 }
 
 export namespace Route {

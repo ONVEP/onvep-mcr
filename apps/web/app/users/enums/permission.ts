@@ -14,6 +14,7 @@ export const PERMISSIONS = {
   rundownsViewList: 'rundowns.view_list',
   rundownsManage: 'rundowns.manage',
   rundownsManageStepTypes: 'rundowns.manage_step_types',
+  graphicsManage: 'graphics.manage',
   networkDrivesViewList: 'network_drives.view_list',
   networkDrivesCreate: 'network_drives.create',
   networkDrivesUpdate: 'network_drives.update',

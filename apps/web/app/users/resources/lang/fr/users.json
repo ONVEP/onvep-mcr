@@ -273,7 +273,8 @@
     "tokens": "Jetons API",
     "network_drives": "Lecteurs réseau",
     "live": "Live",
-    "rundowns": "Conduites"
+    "rundowns": "Conduites",
+    "graphics": "Habillage"
   },
   "permissions": {
     "usersViewList": "Voir les utilisateurs",
@@ -294,6 +295,7 @@
     "liveView": "Voir la page live",
     "rundownsViewList": "Voir les conduites",
     "rundownsManage": "Gérer les conduites et les pas",
-    "rundownsManageStepTypes": "Gérer les types de pas"
+    "rundownsManageStepTypes": "Gérer les types de pas",
+    "graphicsManage": "Gérer les layers d'habillage"
   }
 }

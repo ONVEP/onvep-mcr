@@ -106,6 +106,10 @@ export default defineConfig({
 
     //rundowns
     () => import('#rundowns/routes'),
+
+    //graphics
+    () => import('#graphics/routes'),
+    () => import('#graphics/start/view'),
   ],
 
   /*

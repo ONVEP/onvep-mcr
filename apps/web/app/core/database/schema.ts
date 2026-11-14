@@ -32,6 +32,25 @@ export class AuthAccessTokenSchema extends BaseModel {
   declare updatedAt: DateTime | null
 }
 
+export class LayerSchema extends BaseModel {
+  static $columns = ['content', 'createdAt', 'enabled', 'id', 'name', 'slug', 'updatedAt'] as const
+  $columns = LayerSchema.$columns
+  @column()
+  declare content: string
+  @column.dateTime({ autoCreate: true })
+  declare createdAt: DateTime | null
+  @column()
+  declare enabled: boolean
+  @column({ isPrimary: true })
+  declare id: number
+  @column()
+  declare name: string
+  @column()
+  declare slug: string
+  @column.dateTime({ autoCreate: true, autoUpdate: true })
+  declare updatedAt: DateTime | null
+}
+
 export class NetworkDriveSchema extends BaseModel {
   static $columns = ['createdAt', 'id', 'name', 'password', 'updatedAt', 'url', 'username'] as const
   $columns = NetworkDriveSchema.$columns

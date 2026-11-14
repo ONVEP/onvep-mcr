@@ -61,6 +61,15 @@ export type ScannedRoutes = {
     'step_types.store': { paramsTuple?: []; params?: {} }
     'step_types.update': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'step_types.destroy': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'layers.index': { paramsTuple?: []; params?: {} }
+    'layers.store': { paramsTuple?: []; params?: {} }
+    'layers.show': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'layers.update': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'layers.destroy': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'graphics.tailwind_classes': { paramsTuple?: []; params?: {} }
+    'cg.all': { paramsTuple?: []; params?: {} }
+    'cg.layer': { paramsTuple: [ParamValue]; params: {'slug': ParamValue} }
+    'cg.tailwind': { paramsTuple?: []; params?: {} }
   }
   GET: {
     'drive.fs.serve': { paramsTuple: [...ParamValue[]]; params: {'*': ParamValue[]} }
@@ -87,6 +96,12 @@ export type ScannedRoutes = {
     'rundowns.show': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'rundowns.edit': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'step_types.index': { paramsTuple?: []; params?: {} }
+    'layers.index': { paramsTuple?: []; params?: {} }
+    'layers.show': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'graphics.tailwind_classes': { paramsTuple?: []; params?: {} }
+    'cg.all': { paramsTuple?: []; params?: {} }
+    'cg.layer': { paramsTuple: [ParamValue]; params: {'slug': ParamValue} }
+    'cg.tailwind': { paramsTuple?: []; params?: {} }
   }
   HEAD: {
     'drive.fs.serve': { paramsTuple: [...ParamValue[]]; params: {'*': ParamValue[]} }
@@ -113,6 +128,12 @@ export type ScannedRoutes = {
     'rundowns.show': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'rundowns.edit': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'step_types.index': { paramsTuple?: []; params?: {} }
+    'layers.index': { paramsTuple?: []; params?: {} }
+    'layers.show': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'graphics.tailwind_classes': { paramsTuple?: []; params?: {} }
+    'cg.all': { paramsTuple?: []; params?: {} }
+    'cg.layer': { paramsTuple: [ParamValue]; params: {'slug': ParamValue} }
+    'cg.tailwind': { paramsTuple?: []; params?: {} }
   }
   POST: {
     'auth.sign_in.handle': { paramsTuple?: []; params?: {} }
@@ -133,6 +154,7 @@ export type ScannedRoutes = {
     'steps.store': { paramsTuple: [ParamValue]; params: {'rundown_id': ParamValue} }
     'steps.move': { paramsTuple: [ParamValue,ParamValue]; params: {'rundown_id': ParamValue,'id': ParamValue} }
     'step_types.store': { paramsTuple?: []; params?: {} }
+    'layers.store': { paramsTuple?: []; params?: {} }
   }
   PUT: {
     'users.update': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
@@ -143,6 +165,7 @@ export type ScannedRoutes = {
     'rundowns.update': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'steps.update': { paramsTuple: [ParamValue,ParamValue]; params: {'rundown_id': ParamValue,'id': ParamValue} }
     'step_types.update': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'layers.update': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
   }
   PATCH: {
     'users.update': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
@@ -159,6 +182,7 @@ export type ScannedRoutes = {
     'rundowns.destroy': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'steps.destroy': { paramsTuple: [ParamValue,ParamValue]; params: {'rundown_id': ParamValue,'id': ParamValue} }
     'step_types.destroy': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'layers.destroy': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
   }
 }
 declare module '@adonisjs/core/types/http' {

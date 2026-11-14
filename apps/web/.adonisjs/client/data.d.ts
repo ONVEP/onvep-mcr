@@ -6,6 +6,7 @@
 /// <reference path="./manifest.d.ts" />
 import type { InferData, InferVariants } from '@adonisjs/core/types/transformers'
 import type { InferSharedProps, InferFlashData } from '@adonisjs/inertia/types'
+import type GraphicsLayerTransformer from '#app/graphics/transformers/layer_transformer'
 import type MediaNetworkDriveTransformer from '#app/media/transformers/network_drive_transformer'
 import type NotificationsNotificationTransformer from '#app/notifications/transformers/notification_transformer'
 import type RundownsRundownTransformer from '#app/rundowns/transformers/rundown_transformer'
@@ -17,6 +18,12 @@ import type UsersUserTransformer from '#app/users/transformers/user_transformer'
 import type InertiaMiddleware from '#core/middleware/inertia_middleware'
 
 export namespace Data {
+  export namespace Graphics {
+    export type Layer = InferData<GraphicsLayerTransformer>
+    export namespace Layer {
+      export type Variants = InferVariants<GraphicsLayerTransformer>
+    }
+  }
   export namespace Media {
     export type NetworkDrive = InferData<MediaNetworkDriveTransformer>
     export namespace NetworkDrive {

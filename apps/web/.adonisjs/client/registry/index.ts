@@ -350,6 +350,60 @@ const routes = {
     tokens: [[0,"rundowns"],[0,"step-types"],[1,"id"]],
     types: placeholder as Registry['step_types.destroy']['types'],
   },
+  'layers.index': {
+    methods: ["GET","HEAD"],
+    pattern: '/graphics',
+    tokens: [[0,"graphics"]],
+    types: placeholder as Registry['layers.index']['types'],
+  },
+  'layers.store': {
+    methods: ["POST"],
+    pattern: '/graphics',
+    tokens: [[0,"graphics"]],
+    types: placeholder as Registry['layers.store']['types'],
+  },
+  'layers.show': {
+    methods: ["GET","HEAD"],
+    pattern: '/graphics/:id',
+    tokens: [[0,"graphics"],[1,"id"]],
+    types: placeholder as Registry['layers.show']['types'],
+  },
+  'layers.update': {
+    methods: ["PUT"],
+    pattern: '/graphics/:id',
+    tokens: [[0,"graphics"],[1,"id"]],
+    types: placeholder as Registry['layers.update']['types'],
+  },
+  'layers.destroy': {
+    methods: ["DELETE"],
+    pattern: '/graphics/:id',
+    tokens: [[0,"graphics"],[1,"id"]],
+    types: placeholder as Registry['layers.destroy']['types'],
+  },
+  'graphics.tailwind_classes': {
+    methods: ["GET","HEAD"],
+    pattern: '/graphics/tailwind-classes',
+    tokens: [[0,"graphics"],[0,"tailwind-classes"]],
+    types: placeholder as Registry['graphics.tailwind_classes']['types'],
+  },
+  'cg.all': {
+    methods: ["GET","HEAD"],
+    pattern: '/cg/all',
+    tokens: [[0,"cg"],[0,"all"]],
+    types: placeholder as Registry['cg.all']['types'],
+  },
+  'cg.layer': {
+    methods: ["GET","HEAD"],
+    pattern: '/cg/layer/:slug',
+    tokens: [[0,"cg"],[0,"layer"],[1,"slug"]],
+    types: placeholder as Registry['cg.layer']['types'],
+  },
+  'cg.tailwind': {
+    methods: ["GET","HEAD"],
+    pattern: '/cg/assets/tailwind.js',
+    tokens: [[0,"cg"],[0,"assets"],[0,"tailwind.js"]],
+    types: placeholder as Registry['cg.tailwind']['types'],
+  },
 } as const satisfies Record<string, AdonisEndpoint>
 
 export { routes }

@@ -4,6 +4,7 @@ import {
   ClipboardList,
   HardDrive,
   KeyRound,
+  Layers,
   LayoutDashboard,
   Radio,
   LogOut,
@@ -58,6 +59,12 @@ export function getMainNav(t: SimpleTFunction): NavMainItem[] {
       url: '/preparation',
       icon: ClipboardList,
       can: 'viewRundowns',
+    },
+    {
+      title: t('common.layout.navMain.graphics'),
+      url: '/graphics',
+      icon: Layers,
+      can: 'manageGraphics',
     },
   ]
 }

@@ -10,7 +10,8 @@
       "networkDrives": "Lecteurs réseau",
       "users": "Utilisateurs",
       "rundowns": "Conduites",
-      "stepTypes": "Types de pas"
+      "stepTypes": "Types de pas",
+      "graphics": "Habillage"
     },
     "navUser": {
       "settings": "Paramètres",
