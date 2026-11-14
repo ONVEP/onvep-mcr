@@ -27,7 +27,7 @@ Locales are declared in `config/i18n.ts` (`supportedLocales`, `defaultLocale`, `
 
 ## Repo refs
 
-- Locale config + per-module loaders: `config/i18n.ts`. Keys: `app/users/resources/lang/{en,fr,pt}/users.json`.
+- Locale config + per-module loaders: `config/i18n.ts`. Keys: `app/users/resources/lang/{en,fr}/users.json`.
 - Frontend hook: `app/common/ui/hooks/use_translation.ts`. Detection middleware: `app/core/middleware/detect_user_locale_middleware.ts`.
 
 ## Doc refs
@@ -45,7 +45,7 @@ Locales are declared in `config/i18n.ts` (`supportedLocales`, `defaultLocale`, `
 3. Add the same key path in every file with the localized value.
 4. Frontend: `t('<mod>.<path>')` via `useTranslation()`.
 5. Backend: `ctx.i18n.t('<mod>.<path>')`.
-6. Verify parity: grep the key across `app/<mod>/resources/lang/*/` — it must appear in all three locales. Present in only one → it falls back silently and ships a mixed-language UI.
+6. Verify parity: grep the key across `app/<mod>/resources/lang/*/` — it must appear in every locale. Present in only one → it falls back silently and ships a mixed-language UI.
 
 ### Add a new module's translations
 
@@ -87,7 +87,7 @@ VineJS looks these up automatically because the messages provider is bound in th
 Use during invite / sign-up when the target's language is known:
 
 ```ts
-await User.create({ email, locale: 'pt' })
+await User.create({ email, locale: 'fr' })
 ```
 
 The next login flow writes the cookie for them.

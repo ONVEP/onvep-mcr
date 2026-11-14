@@ -82,7 +82,7 @@ Detailed conventions live as agent skills in `packages/skills/`, in the [Vercel 
 **Frontend**
 
 - `inertia` — page resolver, shared props, `useForm`, `urlFor`, modals, provider tree.
-- `i18n` — three locales, `useTranslation()`, `ctx.i18n.t()`, `User.locale` persistence.
+- `i18n` — two locales (en, fr), `useTranslation()`, `ctx.i18n.t()`, `User.locale` persistence.
 - `layout-shells` — four coexisting shells; pages import explicitly, no runtime toggle.
 
 **Feature**

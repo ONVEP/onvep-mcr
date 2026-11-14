@@ -8,9 +8,9 @@ test.group('DetectUserLocaleMiddleware', () => {
   })
 
   test('X-User-Language define o locale quando suportado', async ({ client }) => {
-    const response = await client.get('/').header('X-User-Language', 'pt')
+    const response = await client.get('/').header('X-User-Language', 'fr')
 
-    response.assertCookie('user-locale', 'pt')
+    response.assertCookie('user-locale', 'fr')
   })
 
   test('cookie existente user-locale prevalece sobre Accept-Language (nao re-seta)', async ({
@@ -18,8 +18,8 @@ test.group('DetectUserLocaleMiddleware', () => {
   }) => {
     const response = await client
       .get('/')
-      .cookie('user-locale', 'fr')
-      .header('Accept-Language', 'pt-BR,pt;q=0.9')
+      .cookie('user-locale', 'en')
+      .header('Accept-Language', 'fr-FR,fr;q=0.9')
 
     response.assertCookieMissing('user-locale')
   })
@@ -27,19 +27,19 @@ test.group('DetectUserLocaleMiddleware', () => {
   test('X-User-Language prevalece sobre cookie existente', async ({ client }) => {
     const response = await client
       .get('/')
-      .cookie('user-locale', 'fr')
-      .header('X-User-Language', 'pt')
+      .cookie('user-locale', 'en')
+      .header('X-User-Language', 'fr')
 
-    response.assertCookie('user-locale', 'pt')
+    response.assertCookie('user-locale', 'fr')
   })
 
   test('X-User-Language desconhecido cai no fallback (Accept-Language)', async ({ client }) => {
     const response = await client
       .get('/')
       .header('X-User-Language', 'xx')
-      .header('Accept-Language', 'pt-BR,pt;q=0.9')
+      .header('Accept-Language', 'fr-FR,fr;q=0.9')
 
-    response.assertCookie('user-locale', 'pt')
+    response.assertCookie('user-locale', 'fr')
   })
 
   test('Accept-Language mapeia pra locale suportado (fr-CA -> fr)', async ({ client }) => {

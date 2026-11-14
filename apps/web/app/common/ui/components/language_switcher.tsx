@@ -16,7 +16,6 @@ import {
 const LOCALES = [
   { code: 'en', label: 'English' },
   { code: 'fr', label: 'Français' },
-  { code: 'pt', label: 'Português' },
 ] as const
 
 export function LanguageSwitcher() {
