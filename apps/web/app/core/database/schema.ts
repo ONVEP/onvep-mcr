@@ -140,6 +140,63 @@ export class RoleSchema extends BaseModel {
   declare updatedAt: DateTime | null
 }
 
+export class RundownSchema extends BaseModel {
+  static $columns = ['createdAt', 'id', 'name', 'startTime', 'updatedAt'] as const
+  $columns = RundownSchema.$columns
+  @column.dateTime({ autoCreate: true })
+  declare createdAt: DateTime | null
+  @column({ isPrimary: true })
+  declare id: number
+  @column()
+  declare name: string
+  @column()
+  declare startTime: string
+  @column.dateTime({ autoCreate: true, autoUpdate: true })
+  declare updatedAt: DateTime | null
+}
+
+export class StepTypeSchema extends BaseModel {
+  static $columns = ['color', 'createdAt', 'id', 'name', 'updatedAt'] as const
+  $columns = StepTypeSchema.$columns
+  @column()
+  declare color: string
+  @column.dateTime({ autoCreate: true })
+  declare createdAt: DateTime | null
+  @column({ isPrimary: true })
+  declare id: number
+  @column()
+  declare name: string
+  @column.dateTime({ autoCreate: true, autoUpdate: true })
+  declare updatedAt: DateTime | null
+}
+
+export class StepSchema extends BaseModel {
+  static $columns = ['autoNext', 'createdAt', 'id', 'order', 'plannedDuration', 'playedTime', 'rundownId', 'stepTypeId', 'title', 'updatedAt', 'waitUntil'] as const
+  $columns = StepSchema.$columns
+  @column()
+  declare autoNext: boolean
+  @column.dateTime({ autoCreate: true })
+  declare createdAt: DateTime | null
+  @column({ isPrimary: true })
+  declare id: number
+  @column()
+  declare order: number
+  @column()
+  declare plannedDuration: number
+  @column()
+  declare playedTime: string | null
+  @column()
+  declare rundownId: number
+  @column()
+  declare stepTypeId: number
+  @column()
+  declare title: string
+  @column.dateTime({ autoCreate: true, autoUpdate: true })
+  declare updatedAt: DateTime | null
+  @column()
+  declare waitUntil: string | null
+}
+
 export class UserRoleSchema extends BaseModel {
   static $columns = ['createdAt', 'id', 'roleId', 'userId'] as const
   $columns = UserRoleSchema.$columns

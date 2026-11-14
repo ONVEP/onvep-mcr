@@ -83,4 +83,28 @@ export interface ApiDefinition {
     update: typeof routes['network_drives.update']
     destroy: typeof routes['network_drives.destroy']
   }
+  live: {
+    show: typeof routes['live.show']
+  }
+  rundowns: {
+    index: typeof routes['rundowns.index']
+    create: typeof routes['rundowns.create']
+    store: typeof routes['rundowns.store']
+    show: typeof routes['rundowns.show']
+    edit: typeof routes['rundowns.edit']
+    update: typeof routes['rundowns.update']
+    destroy: typeof routes['rundowns.destroy']
+  }
+  steps: {
+    store: typeof routes['steps.store']
+    update: typeof routes['steps.update']
+    destroy: typeof routes['steps.destroy']
+    move: typeof routes['steps.move']
+  }
+  stepTypes: {
+    index: typeof routes['step_types.index']
+    store: typeof routes['step_types.store']
+    update: typeof routes['step_types.update']
+    destroy: typeof routes['step_types.destroy']
+  }
 }

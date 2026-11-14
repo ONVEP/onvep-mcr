@@ -271,7 +271,9 @@
     "users": "Utilisateurs",
     "roles": "Rôles",
     "tokens": "Jetons API",
-    "network_drives": "Lecteurs réseau"
+    "network_drives": "Lecteurs réseau",
+    "live": "Live",
+    "rundowns": "Conduites"
   },
   "permissions": {
     "usersViewList": "Voir les utilisateurs",
@@ -288,6 +290,10 @@
     "networkDrivesViewList": "Voir les lecteurs réseau",
     "networkDrivesCreate": "Ajouter des lecteurs réseau",
     "networkDrivesUpdate": "Modifier les lecteurs réseau",
-    "networkDrivesDelete": "Supprimer des lecteurs réseau"
+    "networkDrivesDelete": "Supprimer des lecteurs réseau",
+    "liveView": "Voir la page live",
+    "rundownsViewList": "Voir les conduites",
+    "rundownsManage": "Gérer les conduites et les pas",
+    "rundownsManageStepTypes": "Gérer les types de pas"
   }
 }

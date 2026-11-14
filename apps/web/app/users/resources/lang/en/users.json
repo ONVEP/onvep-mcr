@@ -271,7 +271,9 @@
     "users": "Users",
     "roles": "Roles",
     "tokens": "API tokens",
-    "network_drives": "Network drives"
+    "network_drives": "Network drives",
+    "live": "Live",
+    "rundowns": "Rundowns"
   },
   "permissions": {
     "usersViewList": "View users",
@@ -288,6 +290,10 @@
     "networkDrivesViewList": "View network drives",
     "networkDrivesCreate": "Add network drives",
     "networkDrivesUpdate": "Edit network drives",
-    "networkDrivesDelete": "Delete network drives"
+    "networkDrivesDelete": "Delete network drives",
+    "liveView": "View the live page",
+    "rundownsViewList": "View rundowns",
+    "rundownsManage": "Manage rundowns and steps",
+    "rundownsManageStepTypes": "Manage step types"
   }
 }

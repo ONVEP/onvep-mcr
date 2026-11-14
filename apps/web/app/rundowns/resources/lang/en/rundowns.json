@@ -1,0 +1,86 @@
+{
+  "live": {
+    "title": "Live"
+  },
+  "index": {
+    "title": "Preparation",
+    "description": "Prepare your rundowns and their steps"
+  },
+  "table": {
+    "name": "Name",
+    "start_time": "Start time",
+    "steps": "Steps"
+  },
+  "actions": {
+    "add": "Add",
+    "save": "Save",
+    "cancel": "Cancel",
+    "edit": "Edit",
+    "delete": "Delete",
+    "open_menu": "Open menu"
+  },
+  "create": {
+    "title": "New rundown"
+  },
+  "edit": {
+    "title": "Edit rundown"
+  },
+  "show": {
+    "starts_at": "Starts at {time}"
+  },
+  "form": {
+    "name": "Name",
+    "start_time": "Start time"
+  },
+  "toast": {
+    "saved": "Rundown saved"
+  },
+  "delete": {
+    "title": "Delete rundown",
+    "description": "Delete the rundown <strong>{name}</strong> and all its steps? This action cannot be undone."
+  },
+  "steps": {
+    "table": {
+      "wait_until": "Wait until",
+      "planned_play_time": "Planned",
+      "title": "Title",
+      "type": "Type",
+      "planned_duration": "Duration",
+      "played_time": "Played at",
+      "auto_next": "Auto next"
+    },
+    "actions": {
+      "add": "Add step",
+      "move_up": "Move up",
+      "move_down": "Move down"
+    },
+    "new": {
+      "title_placeholder": "New step title…"
+    },
+    "delete": {
+      "title": "Delete step",
+      "description": "Delete the step <strong>{name}</strong>? This action cannot be undone."
+    }
+  },
+  "step_types": {
+    "page": {
+      "title": "Step types",
+      "description": "Categories available for rundown steps, with their color"
+    },
+    "table": {
+      "color": "Color",
+      "name": "Name"
+    },
+    "actions": {
+      "add": "Add type"
+    },
+    "new": {
+      "name_placeholder": "New type name…"
+    },
+    "delete": {
+      "title": "Delete step type",
+      "description": "Delete the step type <strong>{name}</strong>? This cannot be undone.",
+      "in_use": "This type is used by at least one step and cannot be deleted."
+    }
+  }
+}

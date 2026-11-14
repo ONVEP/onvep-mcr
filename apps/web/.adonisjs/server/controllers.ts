@@ -22,6 +22,13 @@ export const controllers = {
   notifications: {
     Notifications: () => import('#app/notifications/controllers/notifications_controller'),
   },
+  rundowns: {
+    Live: () => import('#app/rundowns/controllers/live_controller'),
+    Rundowns: () => import('#app/rundowns/controllers/rundowns_controller'),
+    StepMoves: () => import('#app/rundowns/controllers/step_moves_controller'),
+    StepTypes: () => import('#app/rundowns/controllers/step_types_controller'),
+    Steps: () => import('#app/rundowns/controllers/steps_controller'),
+  },
   users: {
     Impersonates: () => import('#app/users/controllers/impersonates_controller'),
     Invite: () => import('#app/users/controllers/invite_controller'),

@@ -1,6 +1,17 @@
 import type { SimpleTFunction } from '#common/ui/hooks/use_translation'
 
-import { HardDrive, KeyRound, LayoutDashboard, LogOut, Settings, Shield, Users } from 'lucide-react'
+import {
+  ClipboardList,
+  HardDrive,
+  KeyRound,
+  LayoutDashboard,
+  Radio,
+  LogOut,
+  List,
+  Settings,
+  Shield,
+  Users,
+} from 'lucide-react'
 
 import type { NavMainItem, NavUserOptionsGroup } from '#common/ui/types/navigation'
 
@@ -36,6 +47,18 @@ export function getMainNav(t: SimpleTFunction): NavMainItem[] {
       title: t('common.layout.navMain.dashboard'),
       url: '/dashboard',
     },
+    {
+      title: t('common.layout.navMain.live'),
+      url: '/live',
+      icon: Radio,
+      can: 'viewLive',
+    },
+    {
+      title: t('common.layout.navMain.preparation'),
+      url: '/preparation',
+      icon: ClipboardList,
+      can: 'viewRundowns',
+    },
   ]
 }
 
@@ -60,6 +83,17 @@ export function getAdminNav(t: SimpleTFunction): NavMainItem[] {
           url: '/roles',
           icon: KeyRound,
           can: 'manageRoles',
+        },
+      ],
+    },
+    {
+      title: t('common.layout.navMain.rundowns'),
+      items: [
+        {
+          title: t('common.layout.navMain.stepTypes'),
+          url: '/rundowns/step-types',
+          icon: List,
+          can: 'manageStepTypes',
         },
       ],
     },

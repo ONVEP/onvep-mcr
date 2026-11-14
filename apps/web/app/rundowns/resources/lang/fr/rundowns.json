@@ -1,0 +1,86 @@
+{
+  "live": {
+    "title": "Live"
+  },
+  "index": {
+    "title": "Préparation",
+    "description": "Préparez vos conduites et leurs pas"
+  },
+  "table": {
+    "name": "Nom",
+    "start_time": "Heure de début",
+    "steps": "Pas"
+  },
+  "actions": {
+    "add": "Ajouter",
+    "save": "Enregistrer",
+    "cancel": "Annuler",
+    "edit": "Modifier",
+    "delete": "Supprimer",
+    "open_menu": "Ouvrir menu"
+  },
+  "create": {
+    "title": "Nouvelle conduite"
+  },
+  "edit": {
+    "title": "Modifier la conduite"
+  },
+  "show": {
+    "starts_at": "Début à {time}"
+  },
+  "form": {
+    "name": "Nom",
+    "start_time": "Heure de début"
+  },
+  "toast": {
+    "saved": "Conduite enregistrée"
+  },
+  "delete": {
+    "title": "Supprimer la conduite",
+    "description": "Supprimer la conduite <strong>{name}</strong> et tous ses pas ? Cette action est irréversible."
+  },
+  "steps": {
+    "table": {
+      "wait_until": "Attendre jusqu'à",
+      "planned_play_time": "Prévu",
+      "title": "Titre",
+      "type": "Type",
+      "planned_duration": "Durée",
+      "played_time": "Joué à",
+      "auto_next": "Enchaînement auto"
+    },
+    "actions": {
+      "add": "Ajouter un pas",
+      "move_up": "Monter",
+      "move_down": "Descendre"
+    },
+    "new": {
+      "title_placeholder": "Titre du nouveau pas…"
+    },
+    "delete": {
+      "title": "Supprimer le pas",
+      "description": "Supprimer le pas <strong>{name}</strong> ? Cette action est irréversible."
+    }
+  },
+  "step_types": {
+    "page": {
+      "title": "Types de pas",
+      "description": "Catégories disponibles pour les pas des conduites, avec leur couleur"
+    },
+    "table": {
+      "color": "Couleur",
+      "name": "Nom"
+    },
+    "actions": {
+      "add": "Ajouter un type"
+    },
+    "new": {
+      "name_placeholder": "Nom du nouveau type…"
+    },
+    "delete": {
+      "title": "Supprimer le type de pas",
+      "description": "Supprimer le type <strong>{name}</strong> ? Cette action est irréversible.",
+      "in_use": "Ce type est utilisé par au moins un pas et ne peut pas être supprimé."
+    }
+  }
+}

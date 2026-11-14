@@ -27,6 +27,7 @@
     "#analytics/*": "./app/analytics/*.js",
     "#notifications/*": "./app/notifications/*.js",
     "#media/*": "./app/media/*.js",
+    "#rundowns/*": "./app/rundowns/*.js",
     "#providers/*": "./providers/*.js",
     "#tests/*": "./tests/*.js",
     "#generated/*": "./.adonisjs/server/*.js"

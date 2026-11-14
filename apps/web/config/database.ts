@@ -21,10 +21,11 @@ const dbConfig = defineConfig({
           'app/users/database/migrations',
           'app/notifications/database/migrations',
           'app/media/database/migrations',
+          'app/rundowns/database/migrations',
         ],
       },
       seeders: {
-        paths: ['app/users/database/seeders'],
+        paths: ['app/users/database/seeders', 'app/rundowns/database/seeders'],
       },
       schemaGeneration: {
         outputPath: './app/core/database/schema.ts',

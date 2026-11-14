@@ -541,6 +541,214 @@ export interface Registry {
       rawResponse: ExtractRawResponse<Awaited<ReturnType<import('#app/media/controllers/network_drives_controller').default['destroy']>>>
     }
   }
+  'live.show': {
+    methods: ["GET","HEAD"]
+    pattern: '/live'
+    types: {
+      body: {}
+      paramsTuple: []
+      params: {}
+      query: {}
+      response: ExtractResponse<Awaited<ReturnType<import('#app/rundowns/controllers/live_controller').default['handle']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#app/rundowns/controllers/live_controller').default['handle']>>>
+      rawResponse: ExtractRawResponse<Awaited<ReturnType<import('#app/rundowns/controllers/live_controller').default['handle']>>>
+    }
+  }
+  'rundowns.index': {
+    methods: ["GET","HEAD"]
+    pattern: '/preparation'
+    types: {
+      body: {}
+      paramsTuple: []
+      params: {}
+      query: {}
+      response: ExtractResponse<Awaited<ReturnType<import('#app/rundowns/controllers/rundowns_controller').default['index']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#app/rundowns/controllers/rundowns_controller').default['index']>>>
+      rawResponse: ExtractRawResponse<Awaited<ReturnType<import('#app/rundowns/controllers/rundowns_controller').default['index']>>>
+    }
+  }
+  'rundowns.create': {
+    methods: ["GET","HEAD"]
+    pattern: '/preparation/create'
+    types: {
+      body: {}
+      paramsTuple: []
+      params: {}
+      query: {}
+      response: ExtractResponse<Awaited<ReturnType<import('#app/rundowns/controllers/rundowns_controller').default['create']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#app/rundowns/controllers/rundowns_controller').default['create']>>>
+      rawResponse: ExtractRawResponse<Awaited<ReturnType<import('#app/rundowns/controllers/rundowns_controller').default['create']>>>
+    }
+  }
+  'rundowns.store': {
+    methods: ["POST"]
+    pattern: '/preparation'
+    types: {
+      body: ExtractBody<InferInput<(typeof import('#rundowns/validators/rundowns').rundownValidator)>>
+      paramsTuple: []
+      params: {}
+      query: ExtractQuery<InferInput<(typeof import('#rundowns/validators/rundowns').rundownValidator)>>
+      response: ExtractResponse<Awaited<ReturnType<import('#app/rundowns/controllers/rundowns_controller').default['store']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#app/rundowns/controllers/rundowns_controller').default['store']>>> | { status: 422; response: { errors: SimpleError[] } }
+      rawResponse: ExtractRawResponse<Awaited<ReturnType<import('#app/rundowns/controllers/rundowns_controller').default['store']>>> | { status: 422; response: { errors: SimpleError[] } }
+    }
+  }
+  'rundowns.show': {
+    methods: ["GET","HEAD"]
+    pattern: '/preparation/:id'
+    types: {
+      body: {}
+      paramsTuple: [ParamValue]
+      params: { id: ParamValue }
+      query: {}
+      response: ExtractResponse<Awaited<ReturnType<import('#app/rundowns/controllers/rundowns_controller').default['show']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#app/rundowns/controllers/rundowns_controller').default['show']>>>
+      rawResponse: ExtractRawResponse<Awaited<ReturnType<import('#app/rundowns/controllers/rundowns_controller').default['show']>>>
+    }
+  }
+  'rundowns.edit': {
+    methods: ["GET","HEAD"]
+    pattern: '/preparation/:id/edit'
+    types: {
+      body: {}
+      paramsTuple: [ParamValue]
+      params: { id: ParamValue }
+      query: {}
+      response: ExtractResponse<Awaited<ReturnType<import('#app/rundowns/controllers/rundowns_controller').default['edit']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#app/rundowns/controllers/rundowns_controller').default['edit']>>>
+      rawResponse: ExtractRawResponse<Awaited<ReturnType<import('#app/rundowns/controllers/rundowns_controller').default['edit']>>>
+    }
+  }
+  'rundowns.update': {
+    methods: ["PUT","PATCH"]
+    pattern: '/preparation/:id'
+    types: {
+      body: ExtractBody<InferInput<(typeof import('#rundowns/validators/rundowns').rundownValidator)>>
+      paramsTuple: [ParamValue]
+      params: { id: ParamValue }
+      query: ExtractQuery<InferInput<(typeof import('#rundowns/validators/rundowns').rundownValidator)>>
+      response: ExtractResponse<Awaited<ReturnType<import('#app/rundowns/controllers/rundowns_controller').default['update']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#app/rundowns/controllers/rundowns_controller').default['update']>>> | { status: 422; response: { errors: SimpleError[] } }
+      rawResponse: ExtractRawResponse<Awaited<ReturnType<import('#app/rundowns/controllers/rundowns_controller').default['update']>>> | { status: 422; response: { errors: SimpleError[] } }
+    }
+  }
+  'rundowns.destroy': {
+    methods: ["DELETE"]
+    pattern: '/preparation/:id'
+    types: {
+      body: {}
+      paramsTuple: [ParamValue]
+      params: { id: ParamValue }
+      query: {}
+      response: ExtractResponse<Awaited<ReturnType<import('#app/rundowns/controllers/rundowns_controller').default['destroy']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#app/rundowns/controllers/rundowns_controller').default['destroy']>>>
+      rawResponse: ExtractRawResponse<Awaited<ReturnType<import('#app/rundowns/controllers/rundowns_controller').default['destroy']>>>
+    }
+  }
+  'steps.store': {
+    methods: ["POST"]
+    pattern: '/preparation/:rundown_id/steps'
+    types: {
+      body: ExtractBody<InferInput<(typeof import('#rundowns/validators/steps').stepValidator)>>
+      paramsTuple: [ParamValue]
+      params: { rundown_id: ParamValue }
+      query: ExtractQuery<InferInput<(typeof import('#rundowns/validators/steps').stepValidator)>>
+      response: ExtractResponse<Awaited<ReturnType<import('#app/rundowns/controllers/steps_controller').default['store']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#app/rundowns/controllers/steps_controller').default['store']>>> | { status: 422; response: { errors: SimpleError[] } }
+      rawResponse: ExtractRawResponse<Awaited<ReturnType<import('#app/rundowns/controllers/steps_controller').default['store']>>> | { status: 422; response: { errors: SimpleError[] } }
+    }
+  }
+  'steps.update': {
+    methods: ["PUT"]
+    pattern: '/preparation/:rundown_id/steps/:id'
+    types: {
+      body: ExtractBody<InferInput<(typeof import('#rundowns/validators/steps').stepValidator)>>
+      paramsTuple: [ParamValue, ParamValue]
+      params: { rundown_id: ParamValue; id: ParamValue }
+      query: ExtractQuery<InferInput<(typeof import('#rundowns/validators/steps').stepValidator)>>
+      response: ExtractResponse<Awaited<ReturnType<import('#app/rundowns/controllers/steps_controller').default['update']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#app/rundowns/controllers/steps_controller').default['update']>>> | { status: 422; response: { errors: SimpleError[] } }
+      rawResponse: ExtractRawResponse<Awaited<ReturnType<import('#app/rundowns/controllers/steps_controller').default['update']>>> | { status: 422; response: { errors: SimpleError[] } }
+    }
+  }
+  'steps.destroy': {
+    methods: ["DELETE"]
+    pattern: '/preparation/:rundown_id/steps/:id'
+    types: {
+      body: {}
+      paramsTuple: [ParamValue, ParamValue]
+      params: { rundown_id: ParamValue; id: ParamValue }
+      query: {}
+      response: ExtractResponse<Awaited<ReturnType<import('#app/rundowns/controllers/steps_controller').default['destroy']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#app/rundowns/controllers/steps_controller').default['destroy']>>>
+      rawResponse: ExtractRawResponse<Awaited<ReturnType<import('#app/rundowns/controllers/steps_controller').default['destroy']>>>
+    }
+  }
+  'steps.move': {
+    methods: ["POST"]
+    pattern: '/preparation/:rundown_id/steps/:id/move'
+    types: {
+      body: ExtractBody<InferInput<(typeof import('#rundowns/validators/steps').moveStepValidator)>>
+      paramsTuple: [ParamValue, ParamValue]
+      params: { rundown_id: ParamValue; id: ParamValue }
+      query: ExtractQuery<InferInput<(typeof import('#rundowns/validators/steps').moveStepValidator)>>
+      response: ExtractResponse<Awaited<ReturnType<import('#app/rundowns/controllers/step_moves_controller').default['handle']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#app/rundowns/controllers/step_moves_controller').default['handle']>>> | { status: 422; response: { errors: SimpleError[] } }
+      rawResponse: ExtractRawResponse<Awaited<ReturnType<import('#app/rundowns/controllers/step_moves_controller').default['handle']>>> | { status: 422; response: { errors: SimpleError[] } }
+    }
+  }
+  'step_types.index': {
+    methods: ["GET","HEAD"]
+    pattern: '/rundowns/step-types'
+    types: {
+      body: {}
+      paramsTuple: []
+      params: {}
+      query: {}
+      response: ExtractResponse<Awaited<ReturnType<import('#app/rundowns/controllers/step_types_controller').default['index']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#app/rundowns/controllers/step_types_controller').default['index']>>>
+      rawResponse: ExtractRawResponse<Awaited<ReturnType<import('#app/rundowns/controllers/step_types_controller').default['index']>>>
+    }
+  }
+  'step_types.store': {
+    methods: ["POST"]
+    pattern: '/rundowns/step-types'
+    types: {
+      body: ExtractBody<InferInput<(typeof import('#rundowns/validators/step_types').createStepTypeValidator)>>
+      paramsTuple: []
+      params: {}
+      query: ExtractQuery<InferInput<(typeof import('#rundowns/validators/step_types').createStepTypeValidator)>>
+      response: ExtractResponse<Awaited<ReturnType<import('#app/rundowns/controllers/step_types_controller').default['store']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#app/rundowns/controllers/step_types_controller').default['store']>>> | { status: 422; response: { errors: SimpleError[] } }
+      rawResponse: ExtractRawResponse<Awaited<ReturnType<import('#app/rundowns/controllers/step_types_controller').default['store']>>> | { status: 422; response: { errors: SimpleError[] } }
+    }
+  }
+  'step_types.update': {
+    methods: ["PUT","PATCH"]
+    pattern: '/rundowns/step-types/:id'
+    types: {
+      body: ExtractBody<InferInput<(typeof import('#rundowns/validators/step_types').editStepTypeValidator)>>
+      paramsTuple: [ParamValue]
+      params: { id: ParamValue }
+      query: ExtractQuery<InferInput<(typeof import('#rundowns/validators/step_types').editStepTypeValidator)>>
+      response: ExtractResponse<Awaited<ReturnType<import('#app/rundowns/controllers/step_types_controller').default['update']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#app/rundowns/controllers/step_types_controller').default['update']>>> | { status: 422; response: { errors: SimpleError[] } }
+      rawResponse: ExtractRawResponse<Awaited<ReturnType<import('#app/rundowns/controllers/step_types_controller').default['update']>>> | { status: 422; response: { errors: SimpleError[] } }
+    }
+  }
+  'step_types.destroy': {
+    methods: ["DELETE"]
+    pattern: '/rundowns/step-types/:id'
+    types: {
+      body: {}
+      paramsTuple: [ParamValue]
+      params: { id: ParamValue }
+      query: {}
+      response: ExtractResponse<Awaited<ReturnType<import('#app/rundowns/controllers/step_types_controller').default['destroy']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#app/rundowns/controllers/step_types_controller').default['destroy']>>>
+      rawResponse: ExtractRawResponse<Awaited<ReturnType<import('#app/rundowns/controllers/step_types_controller').default['destroy']>>>
+    }
+  }
 }
 
 export namespace Route {

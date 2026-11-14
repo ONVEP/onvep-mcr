@@ -271,7 +271,9 @@
     "users": "Usuários",
     "roles": "Papéis",
     "tokens": "Tokens de API",
-    "network_drives": "Unidades de rede"
+    "network_drives": "Unidades de rede",
+    "live": "Ao vivo",
+    "rundowns": "Roteiros"
   },
   "permissions": {
     "usersViewList": "Ver usuários",
@@ -288,6 +290,10 @@
     "networkDrivesViewList": "Ver unidades de rede",
     "networkDrivesCreate": "Adicionar unidades de rede",
     "networkDrivesUpdate": "Editar unidades de rede",
-    "networkDrivesDelete": "Excluir unidades de rede"
+    "networkDrivesDelete": "Excluir unidades de rede",
+    "liveView": "Ver a página ao vivo",
+    "rundownsViewList": "Ver roteiros",
+    "rundownsManage": "Gerenciar roteiros e etapas",
+    "rundownsManageStepTypes": "Gerenciar tipos de step"
   }
 }

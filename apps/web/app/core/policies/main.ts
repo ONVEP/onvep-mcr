@@ -19,6 +19,10 @@ export const policies = {
   TokenPolicy: () => import('#users/policies/token_policy'),
   RolePolicy: () => import('#users/policies/role_policy'),
 
+  // Rundowns policies
+  RundownPolicy: () => import('#rundowns/policies/rundown_policy'),
+  LivePolicy: () => import('#rundowns/policies/live_policy'),
+
   // Media policies
   NetworkDrivePolicy: () => import('#media/policies/network_drive_policy'),
 }

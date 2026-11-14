@@ -34,6 +34,9 @@ const i18nConfig = defineConfig({
     loaders.fs({
       location: app.makePath('app/media/resources/lang'),
     }),
+    loaders.fs({
+      location: app.makePath('app/rundowns/resources/lang'),
+    }),
   ],
 })
 

@@ -254,6 +254,102 @@ const routes = {
     tokens: [[0,"media"],[0,"network-drives"],[1,"id"]],
     types: placeholder as Registry['network_drives.destroy']['types'],
   },
+  'live.show': {
+    methods: ["GET","HEAD"],
+    pattern: '/live',
+    tokens: [[0,"live"]],
+    types: placeholder as Registry['live.show']['types'],
+  },
+  'rundowns.index': {
+    methods: ["GET","HEAD"],
+    pattern: '/preparation',
+    tokens: [[0,"preparation"]],
+    types: placeholder as Registry['rundowns.index']['types'],
+  },
+  'rundowns.create': {
+    methods: ["GET","HEAD"],
+    pattern: '/preparation/create',
+    tokens: [[0,"preparation"],[0,"create"]],
+    types: placeholder as Registry['rundowns.create']['types'],
+  },
+  'rundowns.store': {
+    methods: ["POST"],
+    pattern: '/preparation',
+    tokens: [[0,"preparation"]],
+    types: placeholder as Registry['rundowns.store']['types'],
+  },
+  'rundowns.show': {
+    methods: ["GET","HEAD"],
+    pattern: '/preparation/:id',
+    tokens: [[0,"preparation"],[1,"id"]],
+    types: placeholder as Registry['rundowns.show']['types'],
+  },
+  'rundowns.edit': {
+    methods: ["GET","HEAD"],
+    pattern: '/preparation/:id/edit',
+    tokens: [[0,"preparation"],[1,"id"],[0,"edit"]],
+    types: placeholder as Registry['rundowns.edit']['types'],
+  },
+  'rundowns.update': {
+    methods: ["PUT","PATCH"],
+    pattern: '/preparation/:id',
+    tokens: [[0,"preparation"],[1,"id"]],
+    types: placeholder as Registry['rundowns.update']['types'],
+  },
+  'rundowns.destroy': {
+    methods: ["DELETE"],
+    pattern: '/preparation/:id',
+    tokens: [[0,"preparation"],[1,"id"]],
+    types: placeholder as Registry['rundowns.destroy']['types'],
+  },
+  'steps.store': {
+    methods: ["POST"],
+    pattern: '/preparation/:rundown_id/steps',
+    tokens: [[0,"preparation"],[1,"rundown_id"],[0,"steps"]],
+    types: placeholder as Registry['steps.store']['types'],
+  },
+  'steps.update': {
+    methods: ["PUT"],
+    pattern: '/preparation/:rundown_id/steps/:id',
+    tokens: [[0,"preparation"],[1,"rundown_id"],[0,"steps"],[1,"id"]],
+    types: placeholder as Registry['steps.update']['types'],
+  },
+  'steps.destroy': {
+    methods: ["DELETE"],
+    pattern: '/preparation/:rundown_id/steps/:id',
+    tokens: [[0,"preparation"],[1,"rundown_id"],[0,"steps"],[1,"id"]],
+    types: placeholder as Registry['steps.destroy']['types'],
+  },
+  'steps.move': {
+    methods: ["POST"],
+    pattern: '/preparation/:rundown_id/steps/:id/move',
+    tokens: [[0,"preparation"],[1,"rundown_id"],[0,"steps"],[1,"id"],[0,"move"]],
+    types: placeholder as Registry['steps.move']['types'],
+  },
+  'step_types.index': {
+    methods: ["GET","HEAD"],
+    pattern: '/rundowns/step-types',
+    tokens: [[0,"rundowns"],[0,"step-types"]],
+    types: placeholder as Registry['step_types.index']['types'],
+  },
+  'step_types.store': {
+    methods: ["POST"],
+    pattern: '/rundowns/step-types',
+    tokens: [[0,"rundowns"],[0,"step-types"]],
+    types: placeholder as Registry['step_types.store']['types'],
+  },
+  'step_types.update': {
+    methods: ["PUT","PATCH"],
+    pattern: '/rundowns/step-types/:id',
+    tokens: [[0,"rundowns"],[0,"step-types"],[1,"id"]],
+    types: placeholder as Registry['step_types.update']['types'],
+  },
+  'step_types.destroy': {
+    methods: ["DELETE"],
+    pattern: '/rundowns/step-types/:id',
+    tokens: [[0,"rundowns"],[0,"step-types"],[1,"id"]],
+    types: placeholder as Registry['step_types.destroy']['types'],
+  },
 } as const satisfies Record<string, AdonisEndpoint>
 
 export { routes }

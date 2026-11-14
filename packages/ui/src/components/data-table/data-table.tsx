@@ -32,6 +32,13 @@ interface DataTableProps<TData, TValue> {
   }>;
   t: (key: string, options?: Record<string, unknown>) => string;
   remoteTableOptions?: RemoteTableOptions;
+  getRowProps?: (row: Row<TData>) => React.ComponentProps<"tr">;
+  // Extra rows rendered at the end of the body, e.g. an inline "add" row.
+  footer?: React.ReactNode;
+  // false renders every row and hides the pagination bar (local data only).
+  pagination?: boolean;
+  // false renders nothing instead of the "no results" row when there is no data.
+  showEmptyRow?: boolean;
 }
 
 export interface RemoteTableOptions {
@@ -58,6 +65,10 @@ export function DataTable<TData, TValue>({
   Toolbar,
   t,
   remoteTableOptions,
+  getRowProps,
+  footer,
+  pagination = true,
+  showEmptyRow = true,
   className = "table-fixed md:table-auto",
 }: DataTableProps<TData, TValue>) {
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
@@ -100,7 +111,9 @@ export function DataTable<TData, TValue>({
       ? remoteTableOptions!.onSortingChange
       : setLocalSorting,
 
-    ...(isRemote ? {} : { getPaginationRowModel: getPaginationRowModel() }),
+    ...(isRemote || !pagination
+      ? {}
+      : { getPaginationRowModel: getPaginationRowModel() }),
 
     getFilteredRowModel: getFilteredRowModel(),
   });
@@ -112,7 +125,7 @@ export function DataTable<TData, TValue>({
         <Table className={className}>
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
-              <TableRow key={headerGroup.id}>
+              <TableRow key={headerGroup.id} className="bg-neutral-100">
                 {headerGroup.headers.map((header) => {
                   const canSort = header.column.getCanSort();
                   const sortDir = header.column.getIsSorted();
@@ -155,42 +168,44 @@ export function DataTable<TData, TValue>({
             ))}
           </TableHeader>
           <TableBody>
-            {table.getRowModel().rows?.length ? (
-              table.getRowModel().rows.map((row) => (
-                <TableRow
-                  key={row.id}
-                  data-state={row.getIsSelected() && "selected"}
-                >
-                  {row.getVisibleCells().map((cell) => (
+            {table.getRowModel().rows?.length
+              ? table.getRowModel().rows.map((row) => (
+                  <TableRow
+                    key={row.id}
+                    data-state={row.getIsSelected() && "selected"}
+                    {...getRowProps?.(row)}
+                  >
+                    {row.getVisibleCells().map((cell) => (
+                      <TableCell
+                        key={cell.id}
+                        className={
+                          (cell.column.columnDef.meta as ColumnMeta)
+                            ?.columnClasses
+                        }
+                      >
+                        {flexRender(
+                          cell.column.columnDef.cell,
+                          cell.getContext(),
+                        )}
+                      </TableCell>
+                    ))}
+                  </TableRow>
+                ))
+              : showEmptyRow && (
+                  <TableRow>
                     <TableCell
-                      key={cell.id}
-                      className={
-                        (cell.column.columnDef.meta as ColumnMeta)
-                          ?.columnClasses
-                      }
+                      colSpan={columns.length}
+                      className="h-24 text-center"
                     >
-                      {flexRender(
-                        cell.column.columnDef.cell,
-                        cell.getContext(),
-                      )}
+                      {t("common.table.no_results")}
                     </TableCell>
-                  ))}
-                </TableRow>
-              ))
-            ) : (
-              <TableRow>
-                <TableCell
-                  colSpan={columns.length}
-                  className="h-24 text-center"
-                >
-                  {t("common.table.no_results")}
-                </TableCell>
-              </TableRow>
-            )}
+                  </TableRow>
+                )}
+            {footer}
           </TableBody>
         </Table>
       </div>
-      <DataTablePagination t={t} table={table} />
+      {pagination && <DataTablePagination t={t} table={table} />}
     </div>
   );
 }

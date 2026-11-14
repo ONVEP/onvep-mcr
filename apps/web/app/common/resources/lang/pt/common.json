@@ -3,10 +3,14 @@
     "navMain": {
       "dashboard": "Dashboard",
       "administration": "Administração",
+      "live": "Ao vivo",
+      "preparation": "Preparação",
       "roles": "Papéis",
       "media": "Mídia",
       "networkDrives": "Unidades de rede",
-      "users": "Usuários"
+      "users": "Usuários",
+      "rundowns": "Rundowns",
+      "stepTypes": "Tipos de step"
     },
     "navUser": {
       "settings": "Configurações",

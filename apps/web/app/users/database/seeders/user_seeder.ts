@@ -3,7 +3,7 @@ import { BaseSeeder } from '@adonisjs/lucid/seeders'
 import Role from '#users/models/role'
 import User from '#users/models/user'
 
-import { ALL_PERMISSIONS } from '#users/enums/permission'
+import { ALL_PERMISSIONS, PERMISSIONS } from '#users/enums/permission'
 import { ROLES } from '#users/enums/role'
 
 export default class UserSeeder extends BaseSeeder {
@@ -14,7 +14,16 @@ export default class UserSeeder extends BaseSeeder {
     )
     await adminRole.syncPermissions(ALL_PERMISSIONS)
 
-    await Role.updateOrCreate({ name: ROLES.USER }, { permissions: [] })
+    await Role.updateOrCreate(
+      { name: ROLES.USER },
+      {
+        permissions: [
+          PERMISSIONS.liveView,
+          PERMISSIONS.rundownsViewList,
+          PERMISSIONS.rundownsManage,
+        ],
+      }
+    )
 
     const admin = await User.updateOrCreate(
       { email: 'admin@repo.com' },

@@ -8,6 +8,9 @@ import type { InferData, InferVariants } from '@adonisjs/core/types/transformers
 import type { InferSharedProps, InferFlashData } from '@adonisjs/inertia/types'
 import type MediaNetworkDriveTransformer from '#app/media/transformers/network_drive_transformer'
 import type NotificationsNotificationTransformer from '#app/notifications/transformers/notification_transformer'
+import type RundownsRundownTransformer from '#app/rundowns/transformers/rundown_transformer'
+import type RundownsStepTransformer from '#app/rundowns/transformers/step_transformer'
+import type RundownsStepTypeTransformer from '#app/rundowns/transformers/step_type_transformer'
 import type UsersRoleTransformer from '#app/users/transformers/role_transformer'
 import type UsersTokenTransformer from '#app/users/transformers/token_transformer'
 import type UsersUserTransformer from '#app/users/transformers/user_transformer'
@@ -24,6 +27,20 @@ export namespace Data {
     export type Notification = InferData<NotificationsNotificationTransformer>
     export namespace Notification {
       export type Variants = InferVariants<NotificationsNotificationTransformer>
+    }
+  }
+  export namespace Rundowns {
+    export type Rundown = InferData<RundownsRundownTransformer>
+    export namespace Rundown {
+      export type Variants = InferVariants<RundownsRundownTransformer>
+    }
+    export type Step = InferData<RundownsStepTransformer>
+    export namespace Step {
+      export type Variants = InferVariants<RundownsStepTransformer>
+    }
+    export type StepType = InferData<RundownsStepTypeTransformer>
+    export namespace StepType {
+      export type Variants = InferVariants<RundownsStepTypeTransformer>
     }
   }
   export namespace Users {

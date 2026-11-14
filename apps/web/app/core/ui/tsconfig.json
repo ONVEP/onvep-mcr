@@ -26,6 +26,8 @@
     "../../analytics/ui/**/*.tsx",
     "../../media/ui/**/*.ts",
     "../../media/ui/**/*.tsx",
+    "../../rundowns/ui/**/*.ts",
+    "../../rundowns/ui/**/*.tsx",
     "../../../config/auth.ts",
     "../../../.adonisjs/client/**/*.ts",
     "../../../.adonisjs/server/**/*.d.ts"

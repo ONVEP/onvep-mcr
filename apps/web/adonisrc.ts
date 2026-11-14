@@ -103,6 +103,9 @@ export default defineConfig({
 
     //media
     () => import('#media/routes'),
+
+    //rundowns
+    () => import('#rundowns/routes'),
   ],
 
   /*
