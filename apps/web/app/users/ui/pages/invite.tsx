@@ -22,16 +22,22 @@ import { cn } from '@workspace/ui/lib/utils'
 import { urlFor } from '~/app/client'
 
 import { useTranslation } from '#common/ui/hooks/use_translation'
-import { userRoles } from '#users/ui/components/users_types'
-import { ROLES, type Role as RoleSlug } from '#users/enums/role'
+import { userRoles, type RoleOption } from '#users/ui/components/users_types'
+import { ROLES } from '#users/enums/role'
 
-export default function InviteUserPage() {
+import type { InertiaProps } from '#core/ui/types'
+
+type PageProps = InertiaProps<{
+  roleOptions: RoleOption[]
+}>
+
+export default function InviteUserPage({ roleOptions }: PageProps) {
   const { t } = useTranslation()
-  const roles = userRoles(t)
+  const roles = userRoles(t, roleOptions)
 
   const { data, setData, errors, post, progress, processing } = useForm<{
     email: string
-    role: RoleSlug
+    role: string
     description: string | null
   }>({
     email: '',
@@ -80,7 +86,7 @@ export default function InviteUserPage() {
               <FieldLabel htmlFor="role">{t('users.invite.form.role.label')}</FieldLabel>
               <Select
                 value={data.role}
-                onValueChange={(value) => setData('role', value as RoleSlug)}
+                onValueChange={(value) => setData('role', value)}
               >
                 <SelectTrigger className={errors?.role ? 'border-destructive' : ''}>
                   <SelectValue placeholder={t('users.invite.form.role.placeholder')} />

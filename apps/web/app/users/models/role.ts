@@ -5,7 +5,8 @@ import type { ManyToMany } from '@adonisjs/lucid/types/relations'
 import BaseModel from '#common/models/base_model'
 import User from '#users/models/user'
 
-import { isPermission, type Permission } from '#users/enums/permission'
+import { ALL_PERMISSIONS, isPermission, type Permission } from '#users/enums/permission'
+import { ROLES } from '#users/enums/role'
 
 export default class Role extends BaseModel {
   @column({ isPrimary: true })
@@ -41,6 +42,10 @@ export default class Role extends BaseModel {
     pivotRelatedForeignKey: 'user_id',
   })
   declare users: ManyToMany<typeof User>
+
+  get effectivePermissions(): Permission[] {
+    return this.name === ROLES.ADMIN ? ALL_PERMISSIONS : this.permissions
+  }
 
   hasPermission(permission: Permission): boolean {
     return this.permissions.includes(permission)

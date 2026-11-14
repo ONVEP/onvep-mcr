@@ -10,15 +10,17 @@ import { urlFor } from '~/app/client'
 import { useTranslation } from '#common/ui/hooks/use_translation'
 import UserFormFields, { type UserFormData } from '#users/ui/components/user_form_fields'
 import { mainRole, ROLES } from '#users/enums/role'
+import type { RoleOption } from '#users/ui/components/users_types'
 
 import type { InertiaProps } from '#core/ui/types'
 import type { Data } from '@generated/data'
 
 type PageProps = InertiaProps<{
   user: Data.Users.User.Variants['forEdit']
+  roleOptions: RoleOption[]
 }>
 
-export default function EditUserPage({ user }: PageProps) {
+export default function EditUserPage({ user, roleOptions }: PageProps) {
   const { t } = useTranslation()
 
   const { data, setData, errors, put, progress, processing, reset } = useForm<UserFormData>({
@@ -58,6 +60,7 @@ export default function EditUserPage({ user }: PageProps) {
               data={data}
               errors={errors}
               setData={(key, value) => setData(key, value as never)}
+              roleOptions={roleOptions}
             />
 
             {progress && (

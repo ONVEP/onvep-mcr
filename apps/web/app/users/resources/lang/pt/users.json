@@ -214,5 +214,80 @@
       "name": "Administrador",
       "description": "Superusuário"
     }
+  },
+  "roles_page": {
+    "page": {
+      "title": "Papéis",
+      "description": "Gerencie os papéis e as permissões que eles concedem"
+    },
+    "table": {
+      "columns": {
+        "name": "Nome",
+        "permissions": "Permissões",
+        "users": "Usuários"
+      },
+      "system": "Sistema",
+      "permissions_count": "{count} / {total}"
+    },
+    "row_actions": {
+      "open_menu": "Abrir menu",
+      "edit": "Editar",
+      "delete": "Excluir"
+    },
+    "actions": {
+      "add": "Adicionar",
+      "save": "Salvar",
+      "cancel": "Cancelar"
+    },
+    "create": {
+      "title": "Adicionar papel",
+      "description": "Dê um nome ao papel e escolha as permissões que ele concede."
+    },
+    "edit": {
+      "title": "Editar papel",
+      "description": "Atualize as permissões concedidas por {name}."
+    },
+    "form": {
+      "name": {
+        "label": "Nome",
+        "placeholder": "Editor",
+        "locked_hint": "Papéis do sistema não podem ser renomeados."
+      },
+      "permissions": {
+        "label": "Permissões"
+      }
+    },
+    "toast": {
+      "saved": "Papel salvo"
+    },
+    "delete": {
+      "title": "Excluir papel",
+      "description": "Tem certeza de que deseja excluir o papel <strong>{name}</strong>? Esta ação não pode ser desfeita.",
+      "confirm_button": "Excluir",
+      "toast": "Papel excluído"
+    }
+  },
+  "permission_groups": {
+    "users": "Usuários",
+    "roles": "Papéis",
+    "tokens": "Tokens de API",
+    "network_drives": "Unidades de rede"
+  },
+  "permissions": {
+    "usersViewList": "Ver usuários",
+    "usersCreate": "Criar usuários",
+    "usersUpdate": "Editar usuários",
+    "usersDelete": "Excluir usuários",
+    "usersInvite": "Convidar usuários",
+    "usersImpersonate": "Personificar usuários",
+    "usersManageRoles": "Atribuir papéis a usuários",
+    "rolesManage": "Gerenciar papéis",
+    "tokensViewList": "Ver tokens de API",
+    "tokensCreate": "Criar tokens de API",
+    "tokensDelete": "Excluir tokens de API",
+    "networkDrivesViewList": "Ver unidades de rede",
+    "networkDrivesCreate": "Adicionar unidades de rede",
+    "networkDrivesUpdate": "Editar unidades de rede",
+    "networkDrivesDelete": "Excluir unidades de rede"
   }
 }

@@ -1,7 +1,7 @@
 import AdminLockoutException from '#users/exceptions/admin_lockout'
 import ManageRolesUnauthorizedException from '#users/exceptions/manage_roles_unauthorized'
 import { PERMISSIONS } from '#users/enums/permission'
-import { ROLES, type Role as RoleSlug } from '#users/enums/role'
+import { ROLES } from '#users/enums/role'
 import Role from '#users/models/role'
 import type User from '#users/models/user'
 
@@ -19,7 +19,7 @@ export async function requireManageRolesIfEscalating(executor: User, roles: stri
 
 export interface SyncUserRolesInput {
   target: User
-  desiredRoles: RoleSlug[]
+  desiredRoles: string[]
   executor: User
 }
 

@@ -1,12 +1,11 @@
 import SyncUserRoles from '#users/actions/sync_user_roles'
-import type { Role as RoleSlug } from '#users/enums/role'
 import type User from '#users/models/user'
 
 export interface UpdateUserInput {
   target: User
   fullName: string
   email: string
-  role: RoleSlug
+  role: string
   password?: string
   executor: User
 }

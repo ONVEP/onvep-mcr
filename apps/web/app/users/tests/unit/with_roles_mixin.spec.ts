@@ -3,6 +3,7 @@ import { test } from '@japa/runner'
 
 import Role from '#users/models/role'
 import { ROLES } from '#users/enums/role'
+import { ALL_PERMISSIONS } from '#users/enums/permission'
 import { UserFactory } from '#users/database/factories/user'
 import { ensureBaseRoles, withRole } from '#tests/helpers/rbac'
 
@@ -61,5 +62,17 @@ test.group('WithRoles mixin', (group) => {
     await user.syncRoles([userRole])
 
     assert.isFalse(await user.hasPermission('users.view_list'))
+  })
+
+  test('admin tem todas as permissoes mesmo com coluna desatualizada', async ({ assert }) => {
+    const user = await UserFactory.create()
+    const admin = await Role.findByOrFail('name', ROLES.ADMIN)
+    await admin.syncPermissions([])
+    await user.assignRole(admin)
+
+    for (const permission of ALL_PERMISSIONS) {
+      assert.isTrue(await user.hasPermission(permission))
+    }
+    assert.sameMembers(await user.getPermissions(), ALL_PERMISSIONS)
   })
 })

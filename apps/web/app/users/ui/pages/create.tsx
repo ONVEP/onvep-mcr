@@ -10,8 +10,15 @@ import { urlFor } from '~/app/client'
 import { useTranslation } from '#common/ui/hooks/use_translation'
 import UserFormFields, { type UserFormData } from '#users/ui/components/user_form_fields'
 import { ROLES } from '#users/enums/role'
+import type { RoleOption } from '#users/ui/components/users_types'
 
-export default function CreateUserPage() {
+import type { InertiaProps } from '#core/ui/types'
+
+type PageProps = InertiaProps<{
+  roleOptions: RoleOption[]
+}>
+
+export default function CreateUserPage({ roleOptions }: PageProps) {
   const { t } = useTranslation()
 
   const { data, setData, errors, post, progress, processing, reset } = useForm<UserFormData>({
@@ -51,6 +58,7 @@ export default function CreateUserPage() {
               data={data}
               errors={errors}
               setData={(key, value) => setData(key, value as never)}
+              roleOptions={roleOptions}
             />
 
             {progress && (

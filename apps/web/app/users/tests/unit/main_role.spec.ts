@@ -7,8 +7,8 @@ test.group('mainRole', () => {
     assert.isNull(mainRole([]))
   })
 
-  test('retorna null quando nenhum role e conhecido', ({ assert }) => {
-    assert.isNull(mainRole(['superadmin', 'guest', 'foo']))
+  test('retorna o primeiro role customizado quando nenhum role de sistema', ({ assert }) => {
+    assert.equal(mainRole(['editor', 'guest']), 'editor')
   })
 
   test('retorna o unico role conhecido', ({ assert }) => {
@@ -21,8 +21,8 @@ test.group('mainRole', () => {
     assert.equal(mainRole([ROLES.ADMIN, ROLES.USER]), ROLES.ADMIN)
   })
 
-  test('ignora roles desconhecidos e escolhe entre os conhecidos', ({ assert }) => {
-    assert.equal(mainRole(['guest', ROLES.USER, 'superadmin']), ROLES.USER)
-    assert.equal(mainRole(['guest', ROLES.USER, ROLES.ADMIN, 'x']), ROLES.ADMIN)
+  test('role customizado fica entre user e admin', ({ assert }) => {
+    assert.equal(mainRole([ROLES.USER, 'editor']), 'editor')
+    assert.equal(mainRole(['editor', ROLES.ADMIN]), ROLES.ADMIN)
   })
 })

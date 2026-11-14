@@ -214,5 +214,80 @@
       "name": "Administrateur",
       "description": "Super Utilisateur"
     }
+  },
+  "roles_page": {
+    "page": {
+      "title": "Rôles",
+      "description": "Gérez les rôles et les permissions qu'ils accordent"
+    },
+    "table": {
+      "columns": {
+        "name": "Nom",
+        "permissions": "Permissions",
+        "users": "Utilisateurs"
+      },
+      "system": "Système",
+      "permissions_count": "{count} / {total}"
+    },
+    "row_actions": {
+      "open_menu": "Ouvrir menu",
+      "edit": "Modifier",
+      "delete": "Supprimer"
+    },
+    "actions": {
+      "add": "Ajouter",
+      "save": "Enregistrer",
+      "cancel": "Annuler"
+    },
+    "create": {
+      "title": "Ajouter un rôle",
+      "description": "Nommez le rôle et choisissez les permissions qu'il accorde."
+    },
+    "edit": {
+      "title": "Modifier le rôle",
+      "description": "Mettez à jour les permissions accordées par {name}."
+    },
+    "form": {
+      "name": {
+        "label": "Nom",
+        "placeholder": "Éditeur",
+        "locked_hint": "Les rôles système ne peuvent pas être renommés."
+      },
+      "permissions": {
+        "label": "Permissions"
+      }
+    },
+    "toast": {
+      "saved": "Rôle enregistré"
+    },
+    "delete": {
+      "title": "Supprimer le rôle",
+      "description": "Voulez-vous vraiment supprimer le rôle <strong>{name}</strong> ? Cette action est irréversible.",
+      "confirm_button": "Supprimer",
+      "toast": "Rôle supprimé"
+    }
+  },
+  "permission_groups": {
+    "users": "Utilisateurs",
+    "roles": "Rôles",
+    "tokens": "Jetons API",
+    "network_drives": "Lecteurs réseau"
+  },
+  "permissions": {
+    "usersViewList": "Voir les utilisateurs",
+    "usersCreate": "Créer des utilisateurs",
+    "usersUpdate": "Modifier les utilisateurs",
+    "usersDelete": "Supprimer des utilisateurs",
+    "usersInvite": "Inviter des utilisateurs",
+    "usersImpersonate": "Imiter des utilisateurs",
+    "usersManageRoles": "Attribuer des rôles aux utilisateurs",
+    "rolesManage": "Gérer les rôles",
+    "tokensViewList": "Voir les jetons API",
+    "tokensCreate": "Créer des jetons API",
+    "tokensDelete": "Supprimer des jetons API",
+    "networkDrivesViewList": "Voir les lecteurs réseau",
+    "networkDrivesCreate": "Ajouter des lecteurs réseau",
+    "networkDrivesUpdate": "Modifier les lecteurs réseau",
+    "networkDrivesDelete": "Supprimer des lecteurs réseau"
   }
 }

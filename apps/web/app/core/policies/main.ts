@@ -17,6 +17,7 @@ export const policies = {
   UserPolicy: () => import('#users/policies/user_policy'),
   ImpersonatePolicy: () => import('#users/policies/impersonate_policy'),
   TokenPolicy: () => import('#users/policies/token_policy'),
+  RolePolicy: () => import('#users/policies/role_policy'),
 
   // Media policies
   NetworkDrivePolicy: () => import('#media/policies/network_drive_policy'),

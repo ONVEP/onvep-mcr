@@ -1,6 +1,6 @@
 import type { SimpleTFunction } from '#common/ui/hooks/use_translation'
 
-import { HardDrive, LayoutDashboard, LogOut, Settings, Shield, Users } from 'lucide-react'
+import { HardDrive, KeyRound, LayoutDashboard, LogOut, Settings, Shield, Users } from 'lucide-react'
 
 import type { NavMainItem, NavUserOptionsGroup } from '#common/ui/types/navigation'
 
@@ -54,6 +54,12 @@ export function getAdminNav(t: SimpleTFunction): NavMainItem[] {
           url: '/users',
           icon: Users,
           can: 'manageUsers',
+        },
+        {
+          title: t('common.layout.navMain.roles'),
+          url: '/roles',
+          icon: KeyRound,
+          can: 'manageRoles',
         },
       ],
     },

@@ -6,6 +6,7 @@ export const PERMISSIONS = {
   usersInvite: 'users.invite',
   usersImpersonate: 'users.impersonate',
   usersManageRoles: 'users.manage_roles',
+  rolesManage: 'roles.manage',
   tokensViewList: 'tokens.view_list',
   tokensCreate: 'tokens.create',
   tokensDelete: 'tokens.delete',

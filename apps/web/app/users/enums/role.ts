@@ -10,14 +10,20 @@ const ROLE_WEIGHTS: Record<Role, number> = {
   user: 10,
 }
 
-const KNOWN_ROLES = new Set<string>(Object.values(ROLES))
+// Custom roles created from the roles page rank between user and admin.
+const CUSTOM_ROLE_WEIGHT = 15
 
-function isKnownRole(role: string): role is Role {
-  return KNOWN_ROLES.has(role)
+const SYSTEM_ROLES = new Set<string>(Object.values(ROLES))
+
+export function isSystemRole(role: string): role is Role {
+  return SYSTEM_ROLES.has(role)
 }
 
-export function mainRole(roles: string[]): Role | null {
-  const known = roles.filter(isKnownRole)
-  if (known.length === 0) return null
-  return known.reduce((top, role) => (ROLE_WEIGHTS[role] > ROLE_WEIGHTS[top] ? role : top))
+function weight(role: string): number {
+  return isSystemRole(role) ? ROLE_WEIGHTS[role] : CUSTOM_ROLE_WEIGHT
+}
+
+export function mainRole(roles: string[]): string | null {
+  if (roles.length === 0) return null
+  return roles.reduce((top, role) => (weight(role) > weight(top) ? role : top))
 }

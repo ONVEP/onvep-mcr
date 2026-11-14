@@ -255,6 +255,84 @@ export interface Registry {
       rawResponse: ExtractRawResponse<Awaited<ReturnType<import('#app/users/controllers/users_controller').default['destroy']>>>
     }
   }
+  'roles.index': {
+    methods: ["GET","HEAD"]
+    pattern: '/roles'
+    types: {
+      body: {}
+      paramsTuple: []
+      params: {}
+      query: {}
+      response: ExtractResponse<Awaited<ReturnType<import('#app/users/controllers/roles_controller').default['index']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#app/users/controllers/roles_controller').default['index']>>>
+      rawResponse: ExtractRawResponse<Awaited<ReturnType<import('#app/users/controllers/roles_controller').default['index']>>>
+    }
+  }
+  'roles.create': {
+    methods: ["GET","HEAD"]
+    pattern: '/roles/create'
+    types: {
+      body: {}
+      paramsTuple: []
+      params: {}
+      query: {}
+      response: ExtractResponse<Awaited<ReturnType<import('#app/users/controllers/roles_controller').default['create']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#app/users/controllers/roles_controller').default['create']>>>
+      rawResponse: ExtractRawResponse<Awaited<ReturnType<import('#app/users/controllers/roles_controller').default['create']>>>
+    }
+  }
+  'roles.store': {
+    methods: ["POST"]
+    pattern: '/roles'
+    types: {
+      body: ExtractBody<InferInput<(typeof import('#users/validators/roles').createRoleValidator)>>
+      paramsTuple: []
+      params: {}
+      query: ExtractQuery<InferInput<(typeof import('#users/validators/roles').createRoleValidator)>>
+      response: ExtractResponse<Awaited<ReturnType<import('#app/users/controllers/roles_controller').default['store']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#app/users/controllers/roles_controller').default['store']>>> | { status: 422; response: { errors: SimpleError[] } }
+      rawResponse: ExtractRawResponse<Awaited<ReturnType<import('#app/users/controllers/roles_controller').default['store']>>> | { status: 422; response: { errors: SimpleError[] } }
+    }
+  }
+  'roles.edit': {
+    methods: ["GET","HEAD"]
+    pattern: '/roles/:id/edit'
+    types: {
+      body: {}
+      paramsTuple: [ParamValue]
+      params: { id: ParamValue }
+      query: {}
+      response: ExtractResponse<Awaited<ReturnType<import('#app/users/controllers/roles_controller').default['edit']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#app/users/controllers/roles_controller').default['edit']>>>
+      rawResponse: ExtractRawResponse<Awaited<ReturnType<import('#app/users/controllers/roles_controller').default['edit']>>>
+    }
+  }
+  'roles.update': {
+    methods: ["PUT","PATCH"]
+    pattern: '/roles/:id'
+    types: {
+      body: ExtractBody<InferInput<(typeof import('#users/validators/roles').editRoleValidator)>>
+      paramsTuple: [ParamValue]
+      params: { id: ParamValue }
+      query: ExtractQuery<InferInput<(typeof import('#users/validators/roles').editRoleValidator)>>
+      response: ExtractResponse<Awaited<ReturnType<import('#app/users/controllers/roles_controller').default['update']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#app/users/controllers/roles_controller').default['update']>>> | { status: 422; response: { errors: SimpleError[] } }
+      rawResponse: ExtractRawResponse<Awaited<ReturnType<import('#app/users/controllers/roles_controller').default['update']>>> | { status: 422; response: { errors: SimpleError[] } }
+    }
+  }
+  'roles.destroy': {
+    methods: ["DELETE"]
+    pattern: '/roles/:id'
+    types: {
+      body: {}
+      paramsTuple: [ParamValue]
+      params: { id: ParamValue }
+      query: {}
+      response: ExtractResponse<Awaited<ReturnType<import('#app/users/controllers/roles_controller').default['destroy']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#app/users/controllers/roles_controller').default['destroy']>>>
+      rawResponse: ExtractRawResponse<Awaited<ReturnType<import('#app/users/controllers/roles_controller').default['destroy']>>>
+    }
+  }
   'settings.index': {
     methods: ["GET","HEAD"]
     pattern: '/settings'

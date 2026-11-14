@@ -12,13 +12,12 @@ import {
 } from '@workspace/ui/components/select'
 
 import { useTranslation } from '#common/ui/hooks/use_translation'
-import { userRoles } from '#users/ui/components/users_types'
-import type { Role as RoleSlug } from '#users/enums/role'
+import { userRoles, type RoleOption } from '#users/ui/components/users_types'
 
 export type UserFormData = {
   fullName: string
   email: string
-  role: RoleSlug
+  role: string
   password: string
   passwordConfirmation: string
 }
@@ -27,12 +26,13 @@ interface Props {
   data: UserFormData
   errors: Partial<Record<keyof UserFormData, string>>
   setData: (key: keyof UserFormData, value: string) => void
+  roleOptions: RoleOption[]
 }
 
 /** Shared form fields for create and edit modals. */
-export default function UserFormFields({ data, errors, setData }: Props) {
+export default function UserFormFields({ data, errors, setData, roleOptions }: Props) {
   const { t } = useTranslation()
-  const roles = userRoles(t)
+  const roles = userRoles(t, roleOptions)
 
   return (
     <div className="space-y-4">

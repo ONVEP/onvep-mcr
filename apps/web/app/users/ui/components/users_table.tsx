@@ -14,7 +14,7 @@ import { DataTableRowActions } from '#users/ui/components/users_row_actions'
 import UsersTableFilters from '#users/ui/components/users_table_filters'
 import { Role } from '#users/ui/components/users_types'
 
-import { mainRole, ROLES, type Role as RoleSlug } from '#users/enums/role'
+import { mainRole, ROLES } from '#users/enums/role'
 import type { SortDirection, UsersSortBy } from '#users/enums/sort'
 
 import type { Data } from '@generated/data'
@@ -117,7 +117,7 @@ export default function UsersTable({
       enableSorting: true,
       cell: ({ row }) => {
         const user = row.original
-        const slug: RoleSlug = mainRole(user.roles) ?? ROLES.USER
+        const slug = mainRole(user.roles) ?? ROLES.USER
         const userRole = roles.find(({ value }) => value === slug)
         return (
           <div className="min-w-0">
@@ -160,7 +160,7 @@ export default function UsersTable({
       enableSorting: false,
       meta: { columnClasses: 'hidden md:table-cell' },
       cell: ({ row }) => {
-        const slug: RoleSlug = mainRole(row.original.roles) ?? ROLES.USER
+        const slug = mainRole(row.original.roles) ?? ROLES.USER
         const userRole = roles.find(({ value }) => value === slug)
 
         if (!userRole) {

@@ -1,26 +1,33 @@
-import { LucideIcon, Shield, User } from 'lucide-react'
+import { LucideIcon, Shield, User, UserCog } from 'lucide-react'
 
 import { SimpleTFunction } from '#common/ui/hooks/use_translation'
 
-import { ROLES, type Role as RoleSlug } from '#users/enums/role'
+import { ROLES, isSystemRole } from '#users/enums/role'
+
+import type { Data } from '@generated/data'
+
+export type RoleOption = Data.Users.Role.Variants['forOption']
 
 export type Role = {
   label: string
-  value: RoleSlug
+  value: string
   icon?: LucideIcon
 }
 
-export function userRoles(t: SimpleTFunction): Role[] {
-  return [
-    {
-      value: ROLES.ADMIN,
-      label: t(`users.roles.${ROLES.ADMIN}.name`),
-      icon: Shield,
-    },
-    {
-      value: ROLES.USER,
-      label: t(`users.roles.${ROLES.USER}.name`),
-      icon: User,
-    },
-  ]
+const SYSTEM_ROLE_ICONS: Record<string, LucideIcon> = {
+  [ROLES.ADMIN]: Shield,
+  [ROLES.USER]: User,
+}
+
+// System roles are translated; custom roles display the name they were given.
+export function roleLabel(t: SimpleTFunction, name: string): string {
+  return isSystemRole(name) ? t(`users.roles.${name}.name`) : name
+}
+
+export function userRoles(t: SimpleTFunction, options: RoleOption[]): Role[] {
+  return options.map(({ name }) => ({
+    value: name,
+    label: roleLabel(t, name),
+    icon: SYSTEM_ROLE_ICONS[name] ?? UserCog,
+  }))
 }

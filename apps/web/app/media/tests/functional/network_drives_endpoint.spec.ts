@@ -42,8 +42,10 @@ test.group('Endpoint /media/network-drives', (group) => {
       .withInertia()
     response.assertStatus(200)
     response.assertInertiaComponent('media/network_drives/index')
-    const row = response.inertiaProps.networkDrives.data[0]
-    assert.equal(row.name, 'NAS')
+    const row = response.inertiaProps.networkDrives.data.find(
+      (drive: { name: string }) => drive.name === 'NAS'
+    )
+    assert.exists(row)
     assert.notProperty(row, 'password')
   })
 

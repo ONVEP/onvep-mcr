@@ -23,6 +23,12 @@ export type ScannedRoutes = {
     'users.edit': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'users.update': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'users.destroy': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'roles.index': { paramsTuple?: []; params?: {} }
+    'roles.create': { paramsTuple?: []; params?: {} }
+    'roles.store': { paramsTuple?: []; params?: {} }
+    'roles.edit': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'roles.update': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'roles.destroy': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'settings.index': { paramsTuple?: []; params?: {} }
     'profile.update': { paramsTuple?: []; params?: {} }
     'password.update': { paramsTuple?: []; params?: {} }
@@ -50,6 +56,9 @@ export type ScannedRoutes = {
     'users.index': { paramsTuple?: []; params?: {} }
     'users.create': { paramsTuple?: []; params?: {} }
     'users.edit': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'roles.index': { paramsTuple?: []; params?: {} }
+    'roles.create': { paramsTuple?: []; params?: {} }
+    'roles.edit': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'settings.index': { paramsTuple?: []; params?: {} }
     'dashboard.show': { paramsTuple?: []; params?: {} }
     'notifications.index': { paramsTuple?: []; params?: {} }
@@ -67,6 +76,9 @@ export type ScannedRoutes = {
     'users.index': { paramsTuple?: []; params?: {} }
     'users.create': { paramsTuple?: []; params?: {} }
     'users.edit': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'roles.index': { paramsTuple?: []; params?: {} }
+    'roles.create': { paramsTuple?: []; params?: {} }
+    'roles.edit': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'settings.index': { paramsTuple?: []; params?: {} }
     'dashboard.show': { paramsTuple?: []; params?: {} }
     'notifications.index': { paramsTuple?: []; params?: {} }
@@ -83,6 +95,7 @@ export type ScannedRoutes = {
     'users.invite.handle': { paramsTuple?: []; params?: {} }
     'users.impersonate.handle': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'users.store': { paramsTuple?: []; params?: {} }
+    'roles.store': { paramsTuple?: []; params?: {} }
     'tokens.store': { paramsTuple?: []; params?: {} }
     'notifications.markRead': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'notifications.markAllSeen': { paramsTuple?: []; params?: {} }
@@ -91,16 +104,19 @@ export type ScannedRoutes = {
   }
   PUT: {
     'users.update': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'roles.update': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'profile.update': { paramsTuple?: []; params?: {} }
     'password.update': { paramsTuple?: []; params?: {} }
     'network_drives.update': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
   }
   PATCH: {
     'users.update': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'roles.update': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'network_drives.update': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
   }
   DELETE: {
     'users.destroy': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'roles.destroy': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'tokens.destroy': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'network_drives.destroy': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
   }

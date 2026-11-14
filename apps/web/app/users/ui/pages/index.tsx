@@ -6,13 +6,14 @@ import { Main } from '#common/ui/components/main'
 
 import { UsersPrimaryButtons } from '#users/ui/components/users_primary_buttons'
 import UsersTable from '#users/ui/components/users_table'
-import { userRoles } from '#users/ui/components/users_types'
+import { userRoles, type RoleOption } from '#users/ui/components/users_types'
 
 import { useTranslation } from '#common/ui/hooks/use_translation'
 
 import type { Data } from '@generated/data'
 
 type PageProps = InertiaProps<{
+  roleOptions: RoleOption[]
   users: {
     data: Data.Users.User.Variants['forList'][]
     metadata: {
@@ -33,10 +34,10 @@ type PageProps = InertiaProps<{
   order: string | null
 }>
 
-export default function ListUsersPage({ users, q, selectedRoles, sort, order }: PageProps) {
+export default function ListUsersPage({ roleOptions, users, q, selectedRoles, sort, order }: PageProps) {
   const { t } = useTranslation()
 
-  const roles = userRoles(t)
+  const roles = userRoles(t, roleOptions)
 
   return (
     <AdminLayout breadcrumbs={[{ label: t('users.index.page.breadcrumbs.users') }]}>

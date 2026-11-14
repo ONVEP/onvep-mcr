@@ -11,6 +11,7 @@ import { useTranslation } from '#common/ui/hooks/use_translation'
 import { urlFor } from '~/app/client'
 
 import { ROLES, mainRole } from '#users/enums/role'
+import { roleLabel } from '#users/ui/components/users_types'
 
 import type { Data } from '@generated/data'
 
@@ -24,7 +25,7 @@ export function UsersImpersonateDialog({ open, onOpenChange, currentRow }: Props
   const { post, processing } = useForm()
   const { t } = useTranslation()
 
-  const roleName = t(`users.roles.${mainRole(currentRow.roles) ?? ROLES.USER}.name`)
+  const roleName = roleLabel(t, mainRole(currentRow.roles) ?? ROLES.USER)
 
   const handleImpersonate = () => {
     post(urlFor('users.impersonate.handle', { id: currentRow.id }), {

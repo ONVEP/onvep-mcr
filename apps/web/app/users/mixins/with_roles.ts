@@ -40,7 +40,7 @@ export function withRoles({ foreignKey = 'user_id' }: { foreignKey?: string } = 
         const roles = await this.loadedRoles()
         const merged = new Set<Permission>()
         for (const role of roles) {
-          for (const permission of role.permissions) {
+          for (const permission of role.effectivePermissions) {
             merged.add(permission)
           }
         }

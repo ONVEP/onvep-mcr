@@ -45,6 +45,14 @@ export interface ApiDefinition {
     update: typeof routes['users.update']
     destroy: typeof routes['users.destroy']
   }
+  roles: {
+    index: typeof routes['roles.index']
+    create: typeof routes['roles.create']
+    store: typeof routes['roles.store']
+    edit: typeof routes['roles.edit']
+    update: typeof routes['roles.update']
+    destroy: typeof routes['roles.destroy']
+  }
   settings: {
     index: typeof routes['settings.index']
   }

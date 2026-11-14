@@ -214,5 +214,80 @@
       "name": "Administrator",
       "description": "Super User"
     }
+  },
+  "roles_page": {
+    "page": {
+      "title": "Roles",
+      "description": "Manage roles and the permissions they grant"
+    },
+    "table": {
+      "columns": {
+        "name": "Name",
+        "permissions": "Permissions",
+        "users": "Users"
+      },
+      "system": "System",
+      "permissions_count": "{count} / {total}"
+    },
+    "row_actions": {
+      "open_menu": "Open menu",
+      "edit": "Edit",
+      "delete": "Delete"
+    },
+    "actions": {
+      "add": "Add",
+      "save": "Save",
+      "cancel": "Cancel"
+    },
+    "create": {
+      "title": "Add a role",
+      "description": "Name the role and choose the permissions it grants."
+    },
+    "edit": {
+      "title": "Edit role",
+      "description": "Update the permissions granted by {name}."
+    },
+    "form": {
+      "name": {
+        "label": "Name",
+        "placeholder": "Editor",
+        "locked_hint": "System roles cannot be renamed."
+      },
+      "permissions": {
+        "label": "Permissions"
+      }
+    },
+    "toast": {
+      "saved": "Role saved"
+    },
+    "delete": {
+      "title": "Delete role",
+      "description": "Are you sure you want to delete the role <strong>{name}</strong>? This action cannot be undone.",
+      "confirm_button": "Delete",
+      "toast": "Role deleted"
+    }
+  },
+  "permission_groups": {
+    "users": "Users",
+    "roles": "Roles",
+    "tokens": "API tokens",
+    "network_drives": "Network drives"
+  },
+  "permissions": {
+    "usersViewList": "View users",
+    "usersCreate": "Create users",
+    "usersUpdate": "Edit users",
+    "usersDelete": "Delete users",
+    "usersInvite": "Invite users",
+    "usersImpersonate": "Impersonate users",
+    "usersManageRoles": "Assign roles to users",
+    "rolesManage": "Manage roles",
+    "tokensViewList": "View API tokens",
+    "tokensCreate": "Create API tokens",
+    "tokensDelete": "Delete API tokens",
+    "networkDrivesViewList": "View network drives",
+    "networkDrivesCreate": "Add network drives",
+    "networkDrivesUpdate": "Edit network drives",
+    "networkDrivesDelete": "Delete network drives"
   }
 }

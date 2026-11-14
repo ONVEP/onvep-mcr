@@ -3,6 +3,7 @@
     "navMain": {
       "dashboard": "Dashboard",
       "administration": "Administração",
+      "roles": "Papéis",
       "media": "Mídia",
       "networkDrives": "Unidades de rede",
       "users": "Usuários"
