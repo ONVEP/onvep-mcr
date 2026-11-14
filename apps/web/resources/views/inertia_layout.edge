@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('resources/images/favicon-32x32.png')}}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('resources/images/favicon-16x16.png')}}">
+
+    <!-- SEO -->
+    <meta name="description" content="ONVEP MCR" />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="ONVEP MCR" />
+
+    <!-- Twitter -->
+    <meta name="twitter:title" content="ONVEP MCR" />
+
+    <title data-inertia>
+      ONVEP MCR
+    </title>
+
+    @stack('dumper')
+    @viteReactRefresh()
+    @inertiaHead()
+    @vite(['app/core/ui/app/app.tsx'])
+  </head>
+
+  <body class="min-h-screen w-screen font-sans">
+    @inertia()
+  </body>
+
+</html>

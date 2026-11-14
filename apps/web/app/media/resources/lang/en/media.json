@@ -1,0 +1,58 @@
+{
+  "network_drives": {
+    "page": {
+      "title": "Network drives",
+      "description": "Configure network locations used as media sources"
+    },
+    "table": {
+      "columns": {
+        "name": "Name",
+        "url": "URL",
+        "username": "Username"
+      }
+    },
+    "row_actions": {
+      "open_menu": "Open menu",
+      "edit": "Edit",
+      "delete": "Delete"
+    },
+    "actions": {
+      "add": "Add",
+      "save": "Save",
+      "cancel": "Cancel"
+    },
+    "create": {
+      "title": "Add a network drive",
+      "description": "Enter the location and credentials of the network share."
+    },
+    "edit": {
+      "title": "Edit network drive",
+      "description": "Update the location and credentials of the network share."
+    },
+    "form": {
+      "name": {
+        "label": "Name",
+        "placeholder": "NAS Storage"
+      },
+      "url": {
+        "label": "URL"
+      },
+      "username": {
+        "label": "Username"
+      },
+      "password": {
+        "label": "Password",
+        "keep_hint": "Leave blank to keep the current password."
+      }
+    },
+    "toast": {
+      "saved": "Network drive saved"
+    },
+    "delete": {
+      "title": "Delete network drive",
+      "description": "Are you sure you want to delete <strong>{name}</strong>? This action cannot be undone.",
+      "confirm_button": "Delete",
+      "toast": "Network drive deleted"
+    }
+  }
+}

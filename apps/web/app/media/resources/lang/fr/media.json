@@ -1,0 +1,58 @@
+{
+  "network_drives": {
+    "page": {
+      "title": "Lecteurs réseau",
+      "description": "Configurez les emplacements réseau utilisés comme sources de médias"
+    },
+    "table": {
+      "columns": {
+        "name": "Nom",
+        "url": "URL",
+        "username": "Nom d'utilisateur"
+      }
+    },
+    "row_actions": {
+      "open_menu": "Ouvrir menu",
+      "edit": "Modifier",
+      "delete": "Supprimer"
+    },
+    "actions": {
+      "add": "Ajouter",
+      "save": "Enregistrer",
+      "cancel": "Annuler"
+    },
+    "create": {
+      "title": "Ajouter un lecteur réseau",
+      "description": "Renseignez l'emplacement et les identifiants du partage réseau."
+    },
+    "edit": {
+      "title": "Modifier le lecteur réseau",
+      "description": "Mettez à jour l'emplacement et les identifiants du partage réseau."
+    },
+    "form": {
+      "name": {
+        "label": "Nom",
+        "placeholder": "Stockage NAS"
+      },
+      "url": {
+        "label": "URL"
+      },
+      "username": {
+        "label": "Nom d'utilisateur"
+      },
+      "password": {
+        "label": "Mot de passe",
+        "keep_hint": "Laissez vide pour conserver le mot de passe actuel."
+      }
+    },
+    "toast": {
+      "saved": "Lecteur réseau enregistré"
+    },
+    "delete": {
+      "title": "Supprimer le lecteur réseau",
+      "description": "Voulez-vous vraiment supprimer <strong>{name}</strong> ? Cette action est irréversible.",
+      "confirm_button": "Supprimer",
+      "toast": "Lecteur réseau supprimé"
+    }
+  }
+}

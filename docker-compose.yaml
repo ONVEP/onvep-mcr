@@ -1,0 +1,4 @@
+name: onvep-mcr
+
+include:
+  - ./apps/web/docker-compose.yaml

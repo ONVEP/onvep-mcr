@@ -1,0 +1,58 @@
+{
+  "network_drives": {
+    "page": {
+      "title": "Unidades de rede",
+      "description": "Configure os locais de rede usados como fontes de mídia"
+    },
+    "table": {
+      "columns": {
+        "name": "Nome",
+        "url": "URL",
+        "username": "Usuário"
+      }
+    },
+    "row_actions": {
+      "open_menu": "Abrir menu",
+      "edit": "Editar",
+      "delete": "Excluir"
+    },
+    "actions": {
+      "add": "Adicionar",
+      "save": "Salvar",
+      "cancel": "Cancelar"
+    },
+    "create": {
+      "title": "Adicionar unidade de rede",
+      "description": "Informe o local e as credenciais do compartilhamento de rede."
+    },
+    "edit": {
+      "title": "Editar unidade de rede",
+      "description": "Atualize o local e as credenciais do compartilhamento de rede."
+    },
+    "form": {
+      "name": {
+        "label": "Nome",
+        "placeholder": "Armazenamento NAS"
+      },
+      "url": {
+        "label": "URL"
+      },
+      "username": {
+        "label": "Usuário"
+      },
+      "password": {
+        "label": "Senha",
+        "keep_hint": "Deixe em branco para manter a senha atual."
+      }
+    },
+    "toast": {
+      "saved": "Unidade de rede salva"
+    },
+    "delete": {
+      "title": "Excluir unidade de rede",
+      "description": "Tem certeza de que deseja excluir <strong>{name}</strong>? Esta ação não pode ser desfeita.",
+      "confirm_button": "Excluir",
+      "toast": "Unidade de rede excluída"
+    }
+  }
+}
