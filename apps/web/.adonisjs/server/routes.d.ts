@@ -63,6 +63,7 @@ export type ScannedRoutes = {
     'layers.update': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'layers.destroy': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'graphics.tailwind_classes': { paramsTuple?: []; params?: {} }
+    'custom_css.update': { paramsTuple?: []; params?: {} }
     'css_variables.index': { paramsTuple?: []; params?: {} }
     'css_variables.store': { paramsTuple?: []; params?: {} }
     'css_variables.update': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
@@ -218,6 +219,7 @@ export type ScannedRoutes = {
     'steps.update': { paramsTuple: [ParamValue,ParamValue]; params: {'rundown_id': ParamValue,'id': ParamValue} }
     'step_types.update': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'layers.update': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'custom_css.update': { paramsTuple?: []; params?: {} }
     'css_variables.update': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'context.values.update': { paramsTuple?: []; params?: {} }
     'context.mutators.update': { paramsTuple: [ParamValue]; params: {'name': ParamValue} }

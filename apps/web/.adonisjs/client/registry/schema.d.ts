@@ -775,6 +775,19 @@ export interface Registry {
       rawResponse: ExtractRawResponse<Awaited<ReturnType<import('#app/graphics/controllers/tailwind_classes_controller').default['handle']>>>
     }
   }
+  'custom_css.update': {
+    methods: ["PUT"]
+    pattern: '/graphics/css-variables/stylesheet'
+    types: {
+      body: ExtractBody<InferInput<(typeof import('#graphics/validators/custom_css').updateCustomCssValidator)>>
+      paramsTuple: []
+      params: {}
+      query: ExtractQuery<InferInput<(typeof import('#graphics/validators/custom_css').updateCustomCssValidator)>>
+      response: ExtractResponse<Awaited<ReturnType<import('#app/graphics/controllers/custom_css_controller').default['update']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#app/graphics/controllers/custom_css_controller').default['update']>>> | { status: 422; response: { errors: SimpleError[] } }
+      rawResponse: ExtractRawResponse<Awaited<ReturnType<import('#app/graphics/controllers/custom_css_controller').default['update']>>> | { status: 422; response: { errors: SimpleError[] } }
+    }
+  }
   'css_variables.index': {
     methods: ["GET","HEAD"]
     pattern: '/graphics/css-variables'

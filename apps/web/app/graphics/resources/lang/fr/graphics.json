@@ -29,8 +29,8 @@
   },
   "css_variables": {
     "page": {
-      "title": "Variables CSS",
-      "description": "Variables et couleurs ajoutées à la feuille de style de toutes les pages CG. Utilisez-les avec var(--nom) ; les couleurs ont aussi leurs classes Tailwind (bg-nom, text-nom…)."
+      "title": "CSS personnalisé",
+      "description": "Variables et feuille de style ajoutées à toutes les pages CG et à l'aperçu de l'éditeur de calques."
     },
     "kinds": {
       "color": "Couleur",
@@ -58,6 +58,18 @@
     "delete": {
       "title": "Supprimer la variable",
       "description": "Supprimer <strong>{name}</strong> ? Les layers qui l'utilisent perdront sa valeur."
+    },
+    "section": {
+      "title": "Variables",
+      "description": "Utilisez-les avec var(--nom) ; les couleurs ont aussi leurs classes Tailwind (bg-nom, text-nom…)."
     }
+  },
+  "custom_css": {
+    "title": "Feuille de style",
+    "description": "CSS classique ajouté après les variables, il peut donc les utiliser.",
+    "save": "Enregistrer",
+    "saved": "CSS enregistré",
+    "unsaved": "Modifications non enregistrées",
+    "leave_confirm": "Les modifications non enregistrées seront perdues. Quitter quand même ?"
   }
 }

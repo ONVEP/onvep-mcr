@@ -29,8 +29,8 @@
   },
   "css_variables": {
     "page": {
-      "title": "CSS variables",
-      "description": "Variables and colors added to the stylesheet of every CG page. Use them with var(--name); colors also get Tailwind classes (bg-name, text-name…)."
+      "title": "Custom CSS",
+      "description": "Variables and stylesheet added to every CG page and to the layer editor preview."
     },
     "kinds": {
       "color": "Color",
@@ -58,6 +58,18 @@
     "delete": {
       "title": "Delete the variable",
       "description": "Delete <strong>{name}</strong>? Layers using it will lose its value."
+    },
+    "section": {
+      "title": "Variables",
+      "description": "Use them with var(--name); colors also get Tailwind classes (bg-name, text-name…)."
     }
+  },
+  "custom_css": {
+    "title": "Stylesheet",
+    "description": "Plain CSS added after the variables, so it can use them.",
+    "save": "Save",
+    "saved": "CSS saved",
+    "unsaved": "Unsaved changes",
+    "leave_confirm": "Unsaved changes will be lost. Leave anyway?"
   }
 }

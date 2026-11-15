@@ -362,6 +362,12 @@ const routes = {
     tokens: [[0,"graphics"],[0,"tailwind-classes"]],
     types: placeholder as Registry['graphics.tailwind_classes']['types'],
   },
+  'custom_css.update': {
+    methods: ["PUT"],
+    pattern: '/graphics/css-variables/stylesheet',
+    tokens: [[0,"graphics"],[0,"css-variables"],[0,"stylesheet"]],
+    types: placeholder as Registry['custom_css.update']['types'],
+  },
   'css_variables.index': {
     methods: ["GET","HEAD"],
     pattern: '/graphics/css-variables',

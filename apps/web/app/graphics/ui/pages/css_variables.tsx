@@ -1,6 +1,6 @@
-import { useRef, useState, type KeyboardEvent } from 'react'
+import { useEffect, useRef, useState, type KeyboardEvent } from 'react'
 import { router, useForm } from '@inertiajs/react'
-import { Plus, TrashIcon } from 'lucide-react'
+import { Plus, Save, TrashIcon } from 'lucide-react'
 import { Trans } from 'react-i18next'
 
 import { Button } from '@workspace/ui/components/button'
@@ -27,6 +27,7 @@ import { Main } from '#common/ui/components/main'
 import { useTranslation } from '#common/ui/hooks/use_translation'
 import { urlFor } from '~/app/client'
 
+import { CssEditor } from '#graphics/ui/components/css_editor'
 import { CSS_VARIABLE_KINDS, type CssVariableKind } from '#graphics/enums/css_variable_kind'
 
 import type { Data } from '@generated/data'
@@ -35,6 +36,7 @@ type CssVariableRow = Data.Graphics.CssVariable.Variants['forList']
 
 type PageProps = InertiaProps<{
   cssVariables: CssVariableRow[]
+  customCss: string
 }>
 
 type Payload = Pick<CssVariableRow, 'name' | 'kind' | 'value'>
@@ -227,7 +229,70 @@ function NewCssVariableRow({ columnCount }: { columnCount: number }) {
   )
 }
 
-export default function CssVariablesPage({ cssVariables }: PageProps) {
+function CustomCssSection({ customCss }: { customCss: string }) {
+  const { t } = useTranslation()
+  const [content, setContent] = useState(customCss)
+  const dirty = content !== customCss
+
+  // Unsaved CSS: confirm before leaving the page.
+  useEffect(() => {
+    if (!dirty) return
+    const onBeforeUnload = (e: BeforeUnloadEvent) => e.preventDefault()
+    window.addEventListener('beforeunload', onBeforeUnload)
+    const removeInertiaListener = router.on('before', (event) => {
+      if (event.detail.visit.method !== 'get') return
+      if (!window.confirm(t('graphics.custom_css.leave_confirm'))) event.preventDefault()
+    })
+    return () => {
+      window.removeEventListener('beforeunload', onBeforeUnload)
+      removeInertiaListener()
+    }
+  }, [dirty, t])
+
+  const save = () => {
+    if (!dirty) return
+    router.put(
+      urlFor('custom_css.update'),
+      { content },
+      {
+        preserveScroll: true,
+        preserveState: true,
+        onSuccess: () => toast.success(t('graphics.custom_css.saved')),
+        onError: (errors) => {
+          const first = Object.values(errors)[0]
+          if (first) toast.error(first)
+        },
+      }
+    )
+  }
+
+  return (
+    <section className="grid gap-2">
+      <div className="flex flex-wrap items-center gap-3">
+        <div>
+          <h2 className="text-base font-medium">{t('graphics.custom_css.title')}</h2>
+          <p className="text-sm text-muted-foreground">{t('graphics.custom_css.description')}</p>
+        </div>
+        <div className="ml-auto flex items-center gap-2">
+          {dirty && (
+            <span className="text-xs text-muted-foreground">
+              {t('graphics.custom_css.unsaved')}
+            </span>
+          )}
+          <Button size="sm" onClick={save} disabled={!dirty} title="Ctrl+S">
+            <Save size={16} />
+            {t('graphics.custom_css.save')}
+          </Button>
+        </div>
+      </div>
+      <div className="h-96 overflow-hidden rounded-md border">
+        <CssEditor value={content} onChange={setContent} onSave={save} />
+      </div>
+    </section>
+  )
+}
+
+export default function CssVariablesPage({ cssVariables, customCss }: PageProps) {
   const { t } = useTranslation()
 
   const columns: ColumnDef<CssVariableRow>[] = [
@@ -322,14 +387,24 @@ export default function CssVariablesPage({ cssVariables }: PageProps) {
           description={t('graphics.css_variables.page.description')}
         />
 
-        <div className="flex-1 overflow-auto px-1 py-1">
-          <DataTable
-            columns={columns}
-            data={cssVariables}
-            t={t}
-            footer={<NewCssVariableRow columnCount={columns.length} />}
-          />
-        </div>
+        <section className="grid gap-2">
+          <div>
+            <h2 className="text-base font-medium">{t('graphics.css_variables.section.title')}</h2>
+            <p className="text-sm text-muted-foreground">
+              {t('graphics.css_variables.section.description')}
+            </p>
+          </div>
+          <div className="overflow-auto px-1 py-1">
+            <DataTable
+              columns={columns}
+              data={cssVariables}
+              t={t}
+              footer={<NewCssVariableRow columnCount={columns.length} />}
+            />
+          </div>
+        </section>
+
+        <CustomCssSection customCss={customCss} />
       </Main>
     </AdminLayout>
   )

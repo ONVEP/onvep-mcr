@@ -5,6 +5,7 @@ import DeleteCssVariable from '#graphics/actions/delete_css_variable'
 import UpdateCssVariable from '#graphics/actions/update_css_variable'
 import CssVariable from '#graphics/models/css_variable'
 import LayerPolicy from '#graphics/policies/layer_policy'
+import GetCustomCss from '#graphics/queries/get_custom_css'
 import ListCssVariables from '#graphics/queries/list_css_variables'
 import CssVariableTransformer from '#graphics/transformers/css_variable_transformer'
 import {
@@ -20,6 +21,7 @@ export default class CssVariablesController {
 
     return inertia.render('graphics/css_variables', {
       cssVariables: CssVariableTransformer.transform(cssVariables).useVariant('forList'),
+      customCss: await new GetCustomCss().handle(),
     })
   }
 

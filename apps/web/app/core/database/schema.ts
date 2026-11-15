@@ -49,6 +49,19 @@ export class CssVariableSchema extends BaseModel {
   declare value: string
 }
 
+export class CustomCssSchema extends BaseModel {
+  static $columns = ['content', 'createdAt', 'id', 'updatedAt'] as const
+  $columns = CustomCssSchema.$columns
+  @column()
+  declare content: string
+  @column.dateTime({ autoCreate: true })
+  declare createdAt: DateTime | null
+  @column({ isPrimary: true })
+  declare id: number
+  @column.dateTime({ autoCreate: true, autoUpdate: true })
+  declare updatedAt: DateTime | null
+}
+
 export class LayerSchema extends BaseModel {
   static $columns = ['content', 'createdAt', 'enabled', 'id', 'name', 'slug', 'updatedAt'] as const
   $columns = LayerSchema.$columns

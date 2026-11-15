@@ -26,11 +26,13 @@
       <style>
 
 
-                        :root {
-                          @each(variable in cssVariables)
-                            {{ variable.property }}: {{{ variable.value }}};
-                          @end
-                        }
+
+                                :root {
+                                  @each(variable in cssVariables)
+                                    {{ variable.property }}: {{{ variable.value }}};
+                                  @end
+                                }
+
 
 
       </style>
@@ -38,14 +40,24 @@
       <style type="text/tailwindcss">
 
 
-                        @theme {
-                          @each(variable in cssVariables)
-                            @if(variable.kind === 'color')
-                              {{ variable.property }}: {{{ variable.value }}};
-                            @end
-                          @end
-                        }
 
+                                @theme {
+                                  @each(variable in cssVariables)
+                                    @if(variable.kind === 'color')
+                                      {{ variable.property }}: {{{ variable.value }}};
+                                    @end
+                                  @end
+                                }
+
+
+
+      </style>
+    @end
+    @if(customCss)
+      {{-- After the variables so it can use them. Can't contain </style>: rejected on save. --}}
+      <style>
+
+                {{{ customCss }}}
 
       </style>
     @end

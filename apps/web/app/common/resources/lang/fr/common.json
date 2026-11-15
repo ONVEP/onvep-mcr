@@ -17,7 +17,7 @@
       "validators": "Validators",
       "contextVersions": "Historique",
       "layers": "Calques",
-      "cssVariables": "Variables CSS"
+      "cssVariables": "CSS personnalisé"
     },
     "navUser": {
       "settings": "Paramètres",

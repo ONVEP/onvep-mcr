@@ -3,7 +3,7 @@ import router from '@adonisjs/core/services/router'
 import { controllers } from '#generated/controllers'
 import { middleware } from '#start/kernel'
 
-const { Cg, CssVariables, Layers, TailwindClasses } = controllers.graphics
+const { Cg, CssVariables, CustomCss, Layers, TailwindClasses } = controllers.graphics
 
 router
   .group(() => {
@@ -17,6 +17,11 @@ router
   .prefix('/graphics')
   .where('id', router.matchers.number())
   .middleware(middleware.auth())
+
+router
+  .put('/graphics/css-variables/stylesheet', [CustomCss, 'update'])
+  .use(middleware.auth())
+  .as('custom_css.update')
 
 router
   .resource('/graphics/css-variables', CssVariables)

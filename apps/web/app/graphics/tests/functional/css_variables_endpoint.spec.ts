@@ -6,6 +6,7 @@ import { UserFactory } from '#users/database/factories/user'
 import { CssVariableFactory } from '#graphics/database/factories/css_variables'
 import { LayerFactory } from '#graphics/database/factories/layers'
 import CssVariable from '#graphics/models/css_variable'
+import GetCustomCss from '#graphics/queries/get_custom_css'
 import { assertForbiddenRedirect } from '#tests/helpers/http'
 import { ensureBaseRoles, withRole } from '#tests/helpers/rbac'
 
@@ -132,5 +133,56 @@ test.group('Endpoint /graphics/css-variables', (group) => {
       html,
       /<style type="text\/tailwindcss">\s*@theme \{\s*--color-brand: #ff0000;\s*\}/
     )
+  })
+})
+
+test.group('Endpoint /graphics/css-variables/stylesheet', (group) => {
+  group.each.setup(() => testUtils.db().wrapInGlobalTransaction())
+  group.each.setup(() => ensureBaseRoles())
+
+  test('PUT enregistre le CSS, injecté dans les pages CG et la page admin', async ({
+    client,
+    assert,
+  }) => {
+    const user = await admin()
+    const css = '.title { color: var(--color-brand); }'
+
+    const response = await client
+      .put('/graphics/css-variables/stylesheet')
+      .withCsrfToken()
+      .json({ content: css })
+      .loginAs(user)
+      .redirects(0)
+    response.assertStatus(302)
+
+    await LayerFactory.merge({ slug: 'styled' }).create()
+    const page = await client.get('/cg/layer/styled')
+    assert.include(page.text(), css)
+
+    const adminPage = await client.get('/graphics/css-variables').loginAs(user).withInertia()
+    assert.equal(adminPage.inertiaProps.customCss, css)
+  })
+
+  test('PUT refuse un CSS qui fermerait la balise style', async ({ client, assert }) => {
+    await client
+      .put('/graphics/css-variables/stylesheet')
+      .withCsrfToken()
+      .json({ content: 'a{}</STYLE><script>alert(1)</script>' })
+      .loginAs(await admin())
+      .redirects(0)
+
+    assert.equal(await new GetCustomCss().handle(), '')
+  })
+
+  test('PUT accepte un CSS vide', async ({ client, assert }) => {
+    const response = await client
+      .put('/graphics/css-variables/stylesheet')
+      .withCsrfToken()
+      .json({ content: '' })
+      .loginAs(await admin())
+      .redirects(0)
+
+    response.assertStatus(302)
+    assert.equal(await new GetCustomCss().handle(), '')
   })
 })

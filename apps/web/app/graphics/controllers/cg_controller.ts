@@ -3,6 +3,7 @@ import { createRequire } from 'node:module'
 import type { HttpContext } from '@adonisjs/core/http'
 
 import Layer from '#graphics/models/layer'
+import GetCustomCss from '#graphics/queries/get_custom_css'
 import ListCssVariables from '#graphics/queries/list_css_variables'
 import ListLayers from '#graphics/queries/list_layers'
 
@@ -23,6 +24,7 @@ export default class CgController {
       title: layer.name,
       layers: [layer],
       cssVariables,
+      customCss: await new GetCustomCss().handle(),
       liveReload: { slug: layer.slug },
     })
   }
@@ -35,6 +37,7 @@ export default class CgController {
       title: 'CG',
       layers,
       cssVariables,
+      customCss: await new GetCustomCss().handle(),
       liveReload: { slug: null },
     })
   }
