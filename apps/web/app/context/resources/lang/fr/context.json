@@ -63,7 +63,7 @@
     "add": "Créer le validator",
     "root": "(racine)",
     "path": "Chemin",
-    "path_hint": "« * » correspond à n'importe quelle clé ou index, ex. layers.* valide chaque layer.",
+    "path_hint": "« * » correspond à n'importe quelle clé ou index, ex. layers.* valide chaque calque.",
     "schema": "Schéma",
     "json_preview": "JSON Schema généré",
     "save": "Enregistrer",

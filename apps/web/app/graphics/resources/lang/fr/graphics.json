@@ -1,16 +1,16 @@
 {
   "layers": {
-    "title": "Layers",
-    "new_placeholder": "Nouveau layer…",
-    "add": "Ajouter un layer",
-    "empty": "Aucun layer pour l'instant. Créez-en un dans la colonne de gauche pour commencer."
+    "title": "Calques",
+    "new_placeholder": "Nouveau calque…",
+    "add": "Ajouter un calque",
+    "empty": "Aucun calque pour l'instant. Créez-en un dans la colonne de gauche pour commencer."
   },
   "editor": {
     "name": "Nom",
     "enabled": "Activé",
     "disabled": "Désactivé",
     "save": "Enregistrer",
-    "saved": "Layer enregistré",
+    "saved": "Calque enregistré",
     "unsaved": "Modifications non enregistrées",
     "delete": "Supprimer",
     "copy_url": "Copier l'URL",
@@ -24,8 +24,8 @@
     "height": "Hauteur"
   },
   "delete": {
-    "title": "Supprimer le layer",
-    "description": "Supprimer le layer <strong>{name}</strong> ? Son URL cessera de fonctionner."
+    "title": "Supprimer le calque",
+    "description": "Supprimer le calque <strong>{name}</strong> ? Son URL cessera de fonctionner."
   },
   "css_variables": {
     "page": {
@@ -57,7 +57,7 @@
     },
     "delete": {
       "title": "Supprimer la variable",
-      "description": "Supprimer <strong>{name}</strong> ? Les layers qui l'utilisent perdront sa valeur."
+      "description": "Supprimer <strong>{name}</strong> ? Les calques qui l'utilisent perdront sa valeur."
     },
     "section": {
       "title": "Variables",
