@@ -120,12 +120,13 @@ export default function ContextMutatorsPage({ mutators, mutator }: PageProps) {
 
   return (
     <AdminLayout
+      flush
       breadcrumbs={[
         { label: t('common.layout.navMain.context') },
         { label: t('context.mutators.title') },
       ]}
     >
-      <div className="flex min-h-[32rem] flex-1 overflow-hidden rounded-md border">
+      <div className="flex min-h-0 flex-1 overflow-hidden">
         <AdminListSidebar
           title={t('context.mutators.title')}
           items={mutators.map(({ name, subscriptions }) => ({

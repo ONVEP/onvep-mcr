@@ -119,12 +119,13 @@ export default function ContextVersionsPage({ versions, version, latestId }: Pag
 
   return (
     <AdminLayout
+      flush
       breadcrumbs={[
         { label: t('common.layout.navMain.context') },
         { label: t('context.versions.title') },
       ]}
     >
-      <div className="flex min-h-[32rem] flex-1 overflow-hidden rounded-md border">
+      <div className="flex min-h-0 flex-1 overflow-hidden">
         <AdminListSidebar
           title={t('context.versions.title')}
           items={versions.data.map(({ id, createdAt }) => ({

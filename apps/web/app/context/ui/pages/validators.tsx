@@ -127,12 +127,13 @@ export default function ContextValidatorsPage({ validators, validator }: PagePro
 
   return (
     <AdminLayout
+      flush
       breadcrumbs={[
         { label: t('common.layout.navMain.context') },
         { label: t('context.validators.title') },
       ]}
     >
-      <div className="flex min-h-[32rem] flex-1 overflow-hidden rounded-md border">
+      <div className="flex min-h-0 flex-1 overflow-hidden">
         <AdminListSidebar
           title={t('context.validators.title')}
           items={validators.map(({ id, path }) => ({
