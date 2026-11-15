@@ -892,6 +892,19 @@ export interface Registry {
       rawResponse: ExtractRawResponse<Awaited<ReturnType<import('#app/graphics/controllers/cg_controller').default['transmit']>>>
     }
   }
+  'cg.ctx': {
+    methods: ["GET","HEAD"]
+    pattern: '/cg/assets/ctx.js'
+    types: {
+      body: {}
+      paramsTuple: []
+      params: {}
+      query: {}
+      response: ExtractResponse<Awaited<ReturnType<import('#app/graphics/controllers/cg_controller').default['ctx']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#app/graphics/controllers/cg_controller').default['ctx']>>>
+      rawResponse: ExtractRawResponse<Awaited<ReturnType<import('#app/graphics/controllers/cg_controller').default['ctx']>>>
+    }
+  }
   'context.index': {
     methods: ["GET","HEAD"]
     pattern: '/context'

@@ -1,15 +1,18 @@
 import { createRequire } from 'node:module'
 
 import type { HttpContext } from '@adonisjs/core/http'
+import app from '@adonisjs/core/services/app'
 
 import Layer from '#graphics/models/layer'
 import GetCustomCss from '#graphics/queries/get_custom_css'
 import ListCssVariables from '#graphics/queries/list_css_variables'
 import ListLayers from '#graphics/queries/list_layers'
+import { contextEngineUrl } from '#graphics/services/context_engine_url'
 
 const require = createRequire(import.meta.url)
 const TAILWIND_BROWSER = require.resolve('@tailwindcss/browser')
 const TRANSMIT_CLIENT = require.resolve('@adonisjs/transmit-client')
+const CTX_RUNTIME = app.makePath('app/graphics/resources/cg/ctx.js')
 
 /**
  * Public pages loaded by playout software (CasparCG, OBS browser source…), which can't log in.
@@ -25,6 +28,7 @@ export default class CgController {
       layers: [layer],
       cssVariables,
       customCss: await new GetCustomCss().handle(),
+      contextEngineUrl: contextEngineUrl(),
       liveReload: { slug: layer.slug },
     })
   }
@@ -38,6 +42,7 @@ export default class CgController {
       layers,
       cssVariables,
       customCss: await new GetCustomCss().handle(),
+      contextEngineUrl: contextEngineUrl(),
       liveReload: { slug: null },
     })
   }
@@ -48,8 +53,18 @@ export default class CgController {
   }
 
   public async transmit({ response }: HttpContext) {
-    response.header('Cache-Control', 'public, max-age=86400')
+    return this.#serveModule(response, TRANSMIT_CLIENT)
+  }
+
+  public async ctx({ response }: HttpContext) {
+    return this.#serveModule(response, CTX_RUNTIME)
+  }
+
+  // ES modules are fetched in CORS mode, and the editor preview is a sandboxed (opaque origin) iframe.
+  #serveModule(response: HttpContext['response'], path: string) {
+    response.header('Cache-Control', 'no-cache')
     response.header('Content-Type', 'text/javascript; charset=utf-8')
-    return response.download(TRANSMIT_CLIENT)
+    response.header('Access-Control-Allow-Origin', '*')
+    return response.download(path)
   }
 }

@@ -194,6 +194,36 @@ test.group('Rechargement des pages CG', (group) => {
     assert.notInclude(editor.inertiaProps.previewShell, 'data-slug')
   })
 
+  test('GET /cg/assets/ctx.js sert le runtime ctx-*, chargeable depuis la preview', async ({
+    client,
+    assert,
+  }) => {
+    const response = await client.get('/cg/assets/ctx.js')
+
+    response.assertStatus(200)
+    assert.include(response.header('content-type'), 'javascript')
+    // The editor preview is a sandboxed iframe: its module imports are cross-origin.
+    assert.equal(response.header('access-control-allow-origin'), '*')
+    assert.include(response.text(), 'ctx-source')
+  })
+
+  test('les pages CG et la preview chargent le runtime ctx-* avec l’URL du context engine', async ({
+    client,
+    assert,
+  }) => {
+    const layer = await LayerFactory.merge({ slug: 'bound' }).create()
+
+    const page = await client.get('/cg/layer/bound')
+    assert.match(page.text(), /<meta name="ctx-engine" content="http[^"]+"/)
+    assert.include(page.text(), '<script type="module" src="/cg/assets/ctx.js"></script>')
+
+    const editor = await client
+      .get(`/graphics/${layer.id}`)
+      .loginAs(await admin())
+      .withInertia()
+    assert.include(editor.inertiaProps.previewShell, '/cg/assets/ctx.js')
+  })
+
   test('GET /cg/assets/transmit.js sert le client Transmit', async ({ client, assert }) => {
     const response = await client.get('/cg/assets/transmit.js')
 

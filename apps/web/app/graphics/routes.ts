@@ -37,6 +37,7 @@ router
     router.get('/layer/:slug', [Cg, 'layer']).as('layer')
     router.get('/assets/tailwind.js', [Cg, 'tailwind']).as('tailwind')
     router.get('/assets/transmit.js', [Cg, 'transmit']).as('transmit')
+    router.get('/assets/ctx.js', [Cg, 'ctx']).as('ctx')
   })
   .prefix('/cg')
   .as('cg')

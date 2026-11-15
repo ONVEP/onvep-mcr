@@ -8,6 +8,7 @@ import LayerPolicy from '#graphics/policies/layer_policy'
 import GetCustomCss from '#graphics/queries/get_custom_css'
 import ListCssVariables from '#graphics/queries/list_css_variables'
 import ListLayers from '#graphics/queries/list_layers'
+import { contextEngineUrl } from '#graphics/services/context_engine_url'
 import LayerTransformer from '#graphics/transformers/layer_transformer'
 import { createLayerValidator, updateLayerValidator } from '#graphics/validators/layers'
 
@@ -50,6 +51,7 @@ export default class LayersController {
       layers: [{ slug: layer.slug, content: PREVIEW_PLACEHOLDER }],
       cssVariables: await new ListCssVariables().handle(),
       customCss: await new GetCustomCss().handle(),
+      contextEngineUrl: contextEngineUrl(),
     })
 
     return inertia.render('graphics/editor', {

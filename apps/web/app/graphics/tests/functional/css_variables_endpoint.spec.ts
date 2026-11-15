@@ -6,6 +6,7 @@ import { UserFactory } from '#users/database/factories/user'
 import { CssVariableFactory } from '#graphics/database/factories/css_variables'
 import { LayerFactory } from '#graphics/database/factories/layers'
 import CssVariable from '#graphics/models/css_variable'
+import CustomCss from '#graphics/models/custom_css'
 import GetCustomCss from '#graphics/queries/get_custom_css'
 import { assertForbiddenRedirect } from '#tests/helpers/http'
 import { ensureBaseRoles, withRole } from '#tests/helpers/rbac'
@@ -47,6 +48,8 @@ test.group('Endpoint /graphics/css-variables', (group) => {
   })
 
   test('POST crée une variable', async ({ client, assert }) => {
+    await CssVariable.query().delete()
+
     const response = await client
       .post('/graphics/css-variables')
       .withCsrfToken()
@@ -164,6 +167,8 @@ test.group('Endpoint /graphics/css-variables/stylesheet', (group) => {
   })
 
   test('PUT refuse un CSS qui fermerait la balise style', async ({ client, assert }) => {
+    await CustomCss.query().delete()
+
     await client
       .put('/graphics/css-variables/stylesheet')
       .withCsrfToken()

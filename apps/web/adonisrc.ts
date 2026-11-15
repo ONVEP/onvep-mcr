@@ -159,6 +159,10 @@ export default defineConfig({
       reloadServer: false,
     },
     {
+      pattern: 'app/**/resources/cg/**',
+      reloadServer: false,
+    },
+    {
       pattern: 'app/**/resources/lang/**/*.{json,yaml,yml}',
       reloadServer: false,
     },

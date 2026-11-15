@@ -6,40 +6,49 @@
     <title>{{ title }}</title>
     {{-- Served locally: playout machines are often offline. Compiles Tailwind classes at runtime. --}}
     <script src="/cg/assets/tailwind.js"></script>
+    {{-- ctx-* attributes: binds layer markup to the context engine. --}}
+    <meta name="ctx-engine" content="{{ contextEngineUrl }}" />
+    <script type="module" src="/cg/assets/ctx.js"></script>
     <style>
-      html,
-      body {
-        margin: 0;
-        width: 100%;
-        height: 100%;
-        overflow: hidden;
-        background: transparent;
-      }
-      .cg-layer {
-        position: absolute;
-        inset: 0;
-        overflow: hidden;
-      }
-      {{{ customCss }}}
+
+            html,
+            body {
+              margin: 0;
+              width: 100%;
+              height: 100%;
+              overflow: hidden;
+              background: transparent;
+            }
+            .cg-layer {
+              position: absolute;
+              inset: 0;
+              overflow: hidden;
+            }
+            {{{ customCss }}}
+
     </style>
     @if(cssVariables.length)
       {{-- Values are validated on save so they can't break out of the declaration. --}}
       <style>
-        :root {
-          @each(variable in cssVariables)
-            {{ variable.property }}: {{{ variable.value }}};
-          @end
-        }
+
+                :root {
+                  @each(variable in cssVariables)
+                    {{ variable.property }}: {{{ variable.value }}};
+                  @end
+                }
+
       </style>
       {{-- Also declared to Tailwind so colors get their utilities (bg-<name>, text-<name>…). --}}
       <style type="text/tailwindcss">
-        @theme {
-          @each(variable in cssVariables)
-            @if(variable.kind === 'color')
-              {{ variable.property }}: {{{ variable.value }}};
-            @end
-          @end
-        }
+
+                @theme {
+                  @each(variable in cssVariables)
+                    @if(variable.kind === 'color')
+                      {{ variable.property }}: {{{ variable.value }}};
+                    @end
+                  @end
+                }
+
       </style>
     @end
   </head>

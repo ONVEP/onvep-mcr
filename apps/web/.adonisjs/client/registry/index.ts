@@ -416,6 +416,12 @@ const routes = {
     tokens: [[0,"cg"],[0,"assets"],[0,"transmit.js"]],
     types: placeholder as Registry['cg.transmit']['types'],
   },
+  'cg.ctx': {
+    methods: ["GET","HEAD"],
+    pattern: '/cg/assets/ctx.js',
+    tokens: [[0,"cg"],[0,"assets"],[0,"ctx.js"]],
+    types: placeholder as Registry['cg.ctx']['types'],
+  },
   'context.index': {
     methods: ["GET","HEAD"],
     pattern: '/context',
