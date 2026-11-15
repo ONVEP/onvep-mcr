@@ -274,7 +274,8 @@
     "network_drives": "Network drives",
     "live": "Live",
     "rundowns": "Rundowns",
-    "graphics": "Graphics"
+    "graphics": "Graphics",
+    "context": "Context"
   },
   "permissions": {
     "usersViewList": "View users",
@@ -296,6 +297,9 @@
     "rundownsViewList": "View rundowns",
     "rundownsManage": "Manage rundowns and steps",
     "rundownsManageStepTypes": "Manage step types",
-    "graphicsManage": "Manage graphics layers"
+    "graphicsManage": "Manage graphics layers",
+    "contextView": "View the context",
+    "contextEdit": "Edit context values",
+    "contextManage": "Manage context mutators and validators"
   }
 }

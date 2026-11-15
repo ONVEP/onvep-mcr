@@ -11,7 +11,11 @@
       "users": "Users",
       "rundowns": "Rundowns",
       "stepTypes": "Step types",
-      "graphics": "Graphics"
+      "graphics": "Graphics",
+      "context": "Context",
+      "mutators": "Mutators",
+      "validators": "Validators",
+      "contextVersions": "History"
     },
     "navUser": {
       "settings": "Settings",

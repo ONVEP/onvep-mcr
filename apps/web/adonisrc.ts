@@ -110,6 +110,9 @@ export default defineConfig({
     //graphics
     () => import('#graphics/routes'),
     () => import('#graphics/start/view'),
+
+    //context
+    () => import('#context/routes'),
   ],
 
   /*

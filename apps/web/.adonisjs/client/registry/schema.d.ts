@@ -411,58 +411,6 @@ export interface Registry {
       rawResponse: ExtractRawResponse<Awaited<ReturnType<import('#app/analytics/controllers/dashboard_controller').default['handle']>>> | { status: 422; response: { errors: SimpleError[] } }
     }
   }
-  'notifications.index': {
-    methods: ["GET","HEAD"]
-    pattern: '/notifications'
-    types: {
-      body: {}
-      paramsTuple: []
-      params: {}
-      query: {}
-      response: ExtractResponse<Awaited<ReturnType<import('#app/notifications/controllers/notifications_controller').default['index']>>>
-      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#app/notifications/controllers/notifications_controller').default['index']>>>
-      rawResponse: ExtractRawResponse<Awaited<ReturnType<import('#app/notifications/controllers/notifications_controller').default['index']>>>
-    }
-  }
-  'notifications.markRead': {
-    methods: ["POST"]
-    pattern: '/notifications/:id/read'
-    types: {
-      body: {}
-      paramsTuple: [ParamValue]
-      params: { id: ParamValue }
-      query: {}
-      response: ExtractResponse<Awaited<ReturnType<import('#app/notifications/controllers/notifications_controller').default['markRead']>>>
-      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#app/notifications/controllers/notifications_controller').default['markRead']>>>
-      rawResponse: ExtractRawResponse<Awaited<ReturnType<import('#app/notifications/controllers/notifications_controller').default['markRead']>>>
-    }
-  }
-  'notifications.markAllSeen': {
-    methods: ["POST"]
-    pattern: '/notifications/seen'
-    types: {
-      body: {}
-      paramsTuple: []
-      params: {}
-      query: {}
-      response: ExtractResponse<Awaited<ReturnType<import('#app/notifications/controllers/notifications_controller').default['markAllSeen']>>>
-      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#app/notifications/controllers/notifications_controller').default['markAllSeen']>>>
-      rawResponse: ExtractRawResponse<Awaited<ReturnType<import('#app/notifications/controllers/notifications_controller').default['markAllSeen']>>>
-    }
-  }
-  'notifications.markAllRead': {
-    methods: ["POST"]
-    pattern: '/notifications/read'
-    types: {
-      body: {}
-      paramsTuple: []
-      params: {}
-      query: {}
-      response: ExtractResponse<Awaited<ReturnType<import('#app/notifications/controllers/notifications_controller').default['markAllRead']>>>
-      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#app/notifications/controllers/notifications_controller').default['markAllRead']>>>
-      rawResponse: ExtractRawResponse<Awaited<ReturnType<import('#app/notifications/controllers/notifications_controller').default['markAllRead']>>>
-    }
-  }
   'network_drives.index': {
     methods: ["GET","HEAD"]
     pattern: '/media/network-drives'
@@ -864,6 +812,318 @@ export interface Registry {
       response: ExtractResponse<Awaited<ReturnType<import('#app/graphics/controllers/cg_controller').default['tailwind']>>>
       errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#app/graphics/controllers/cg_controller').default['tailwind']>>>
       rawResponse: ExtractRawResponse<Awaited<ReturnType<import('#app/graphics/controllers/cg_controller').default['tailwind']>>>
+    }
+  }
+  'context.index': {
+    methods: ["GET","HEAD"]
+    pattern: '/context'
+    types: {
+      body: {}
+      paramsTuple: []
+      params: {}
+      query: {}
+      response: ExtractResponse<Awaited<ReturnType<import('#app/context/controllers/context_controller').default['index']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#app/context/controllers/context_controller').default['index']>>>
+      rawResponse: ExtractRawResponse<Awaited<ReturnType<import('#app/context/controllers/context_controller').default['index']>>>
+    }
+  }
+  'context.values.update': {
+    methods: ["PUT"]
+    pattern: '/context/values'
+    types: {
+      body: ExtractBody<InferInput<(typeof import('#context/validators/values').contextValueValidator)>>
+      paramsTuple: []
+      params: {}
+      query: ExtractQuery<InferInput<(typeof import('#context/validators/values').contextValueValidator)>>
+      response: ExtractResponse<Awaited<ReturnType<import('#app/context/controllers/context_values_controller').default['update']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#app/context/controllers/context_values_controller').default['update']>>> | { status: 422; response: { errors: SimpleError[] } }
+      rawResponse: ExtractRawResponse<Awaited<ReturnType<import('#app/context/controllers/context_values_controller').default['update']>>> | { status: 422; response: { errors: SimpleError[] } }
+    }
+  }
+  'context.values.store': {
+    methods: ["POST"]
+    pattern: '/context/values'
+    types: {
+      body: ExtractBody<InferInput<(typeof import('#context/validators/values').contextValueValidator)>>
+      paramsTuple: []
+      params: {}
+      query: ExtractQuery<InferInput<(typeof import('#context/validators/values').contextValueValidator)>>
+      response: ExtractResponse<Awaited<ReturnType<import('#app/context/controllers/context_values_controller').default['store']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#app/context/controllers/context_values_controller').default['store']>>> | { status: 422; response: { errors: SimpleError[] } }
+      rawResponse: ExtractRawResponse<Awaited<ReturnType<import('#app/context/controllers/context_values_controller').default['store']>>> | { status: 422; response: { errors: SimpleError[] } }
+    }
+  }
+  'context.values.destroy': {
+    methods: ["DELETE"]
+    pattern: '/context/values'
+    types: {
+      body: ExtractBody<InferInput<(typeof import('#context/validators/values').contextPathValidator)>>
+      paramsTuple: []
+      params: {}
+      query: ExtractQuery<InferInput<(typeof import('#context/validators/values').contextPathValidator)>>
+      response: ExtractResponse<Awaited<ReturnType<import('#app/context/controllers/context_values_controller').default['destroy']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#app/context/controllers/context_values_controller').default['destroy']>>> | { status: 422; response: { errors: SimpleError[] } }
+      rawResponse: ExtractRawResponse<Awaited<ReturnType<import('#app/context/controllers/context_values_controller').default['destroy']>>> | { status: 422; response: { errors: SimpleError[] } }
+    }
+  }
+  'context.mutators.index': {
+    methods: ["GET","HEAD"]
+    pattern: '/context/mutators'
+    types: {
+      body: {}
+      paramsTuple: []
+      params: {}
+      query: {}
+      response: ExtractResponse<Awaited<ReturnType<import('#app/context/controllers/mutators_controller').default['index']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#app/context/controllers/mutators_controller').default['index']>>>
+      rawResponse: ExtractRawResponse<Awaited<ReturnType<import('#app/context/controllers/mutators_controller').default['index']>>>
+    }
+  }
+  'context.mutators.store': {
+    methods: ["POST"]
+    pattern: '/context/mutators'
+    types: {
+      body: ExtractBody<InferInput<(typeof import('#context/validators/mutators').createMutatorValidator)>>
+      paramsTuple: []
+      params: {}
+      query: ExtractQuery<InferInput<(typeof import('#context/validators/mutators').createMutatorValidator)>>
+      response: ExtractResponse<Awaited<ReturnType<import('#app/context/controllers/mutators_controller').default['store']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#app/context/controllers/mutators_controller').default['store']>>> | { status: 422; response: { errors: SimpleError[] } }
+      rawResponse: ExtractRawResponse<Awaited<ReturnType<import('#app/context/controllers/mutators_controller').default['store']>>> | { status: 422; response: { errors: SimpleError[] } }
+    }
+  }
+  'context.mutators.show': {
+    methods: ["GET","HEAD"]
+    pattern: '/context/mutators/:name'
+    types: {
+      body: {}
+      paramsTuple: [ParamValue]
+      params: { name: ParamValue }
+      query: {}
+      response: ExtractResponse<Awaited<ReturnType<import('#app/context/controllers/mutators_controller').default['show']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#app/context/controllers/mutators_controller').default['show']>>>
+      rawResponse: ExtractRawResponse<Awaited<ReturnType<import('#app/context/controllers/mutators_controller').default['show']>>>
+    }
+  }
+  'context.mutators.update': {
+    methods: ["PUT"]
+    pattern: '/context/mutators/:name'
+    types: {
+      body: ExtractBody<InferInput<(typeof import('#context/validators/mutators').updateMutatorValidator)>>
+      paramsTuple: [ParamValue]
+      params: { name: ParamValue }
+      query: ExtractQuery<InferInput<(typeof import('#context/validators/mutators').updateMutatorValidator)>>
+      response: ExtractResponse<Awaited<ReturnType<import('#app/context/controllers/mutators_controller').default['update']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#app/context/controllers/mutators_controller').default['update']>>> | { status: 422; response: { errors: SimpleError[] } }
+      rawResponse: ExtractRawResponse<Awaited<ReturnType<import('#app/context/controllers/mutators_controller').default['update']>>> | { status: 422; response: { errors: SimpleError[] } }
+    }
+  }
+  'context.mutators.destroy': {
+    methods: ["DELETE"]
+    pattern: '/context/mutators/:name'
+    types: {
+      body: {}
+      paramsTuple: [ParamValue]
+      params: { name: ParamValue }
+      query: {}
+      response: ExtractResponse<Awaited<ReturnType<import('#app/context/controllers/mutators_controller').default['destroy']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#app/context/controllers/mutators_controller').default['destroy']>>>
+      rawResponse: ExtractRawResponse<Awaited<ReturnType<import('#app/context/controllers/mutators_controller').default['destroy']>>>
+    }
+  }
+  'context.validators.index': {
+    methods: ["GET","HEAD"]
+    pattern: '/context/validators'
+    types: {
+      body: {}
+      paramsTuple: []
+      params: {}
+      query: {}
+      response: ExtractResponse<Awaited<ReturnType<import('#app/context/controllers/validators_controller').default['index']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#app/context/controllers/validators_controller').default['index']>>>
+      rawResponse: ExtractRawResponse<Awaited<ReturnType<import('#app/context/controllers/validators_controller').default['index']>>>
+    }
+  }
+  'context.validators.store': {
+    methods: ["POST"]
+    pattern: '/context/validators'
+    types: {
+      body: ExtractBody<InferInput<(typeof import('#context/validators/context_validators').createContextValidatorValidator)>>
+      paramsTuple: []
+      params: {}
+      query: ExtractQuery<InferInput<(typeof import('#context/validators/context_validators').createContextValidatorValidator)>>
+      response: ExtractResponse<Awaited<ReturnType<import('#app/context/controllers/validators_controller').default['store']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#app/context/controllers/validators_controller').default['store']>>> | { status: 422; response: { errors: SimpleError[] } }
+      rawResponse: ExtractRawResponse<Awaited<ReturnType<import('#app/context/controllers/validators_controller').default['store']>>> | { status: 422; response: { errors: SimpleError[] } }
+    }
+  }
+  'context.validators.show': {
+    methods: ["GET","HEAD"]
+    pattern: '/context/validators/:id'
+    types: {
+      body: {}
+      paramsTuple: [ParamValue]
+      params: { id: ParamValue }
+      query: {}
+      response: ExtractResponse<Awaited<ReturnType<import('#app/context/controllers/validators_controller').default['show']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#app/context/controllers/validators_controller').default['show']>>>
+      rawResponse: ExtractRawResponse<Awaited<ReturnType<import('#app/context/controllers/validators_controller').default['show']>>>
+    }
+  }
+  'context.validators.update': {
+    methods: ["PUT"]
+    pattern: '/context/validators/:id'
+    types: {
+      body: ExtractBody<InferInput<(typeof import('#context/validators/context_validators').updateContextValidatorValidator)>>
+      paramsTuple: [ParamValue]
+      params: { id: ParamValue }
+      query: ExtractQuery<InferInput<(typeof import('#context/validators/context_validators').updateContextValidatorValidator)>>
+      response: ExtractResponse<Awaited<ReturnType<import('#app/context/controllers/validators_controller').default['update']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#app/context/controllers/validators_controller').default['update']>>> | { status: 422; response: { errors: SimpleError[] } }
+      rawResponse: ExtractRawResponse<Awaited<ReturnType<import('#app/context/controllers/validators_controller').default['update']>>> | { status: 422; response: { errors: SimpleError[] } }
+    }
+  }
+  'context.validators.destroy': {
+    methods: ["DELETE"]
+    pattern: '/context/validators/:id'
+    types: {
+      body: {}
+      paramsTuple: [ParamValue]
+      params: { id: ParamValue }
+      query: {}
+      response: ExtractResponse<Awaited<ReturnType<import('#app/context/controllers/validators_controller').default['destroy']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#app/context/controllers/validators_controller').default['destroy']>>>
+      rawResponse: ExtractRawResponse<Awaited<ReturnType<import('#app/context/controllers/validators_controller').default['destroy']>>>
+    }
+  }
+  'context.versions.index': {
+    methods: ["GET","HEAD"]
+    pattern: '/context/versions'
+    types: {
+      body: {}
+      paramsTuple: []
+      params: {}
+      query: {}
+      response: ExtractResponse<Awaited<ReturnType<import('#app/context/controllers/versions_controller').default['index']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#app/context/controllers/versions_controller').default['index']>>>
+      rawResponse: ExtractRawResponse<Awaited<ReturnType<import('#app/context/controllers/versions_controller').default['index']>>>
+    }
+  }
+  'context.versions.show': {
+    methods: ["GET","HEAD"]
+    pattern: '/context/versions/:id'
+    types: {
+      body: {}
+      paramsTuple: [ParamValue]
+      params: { id: ParamValue }
+      query: ExtractQueryForGet<InferInput<(typeof import('#context/validators/versions').listContextVersionsValidator)>>
+      response: ExtractResponse<Awaited<ReturnType<import('#app/context/controllers/versions_controller').default['show']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#app/context/controllers/versions_controller').default['show']>>> | { status: 422; response: { errors: SimpleError[] } }
+      rawResponse: ExtractRawResponse<Awaited<ReturnType<import('#app/context/controllers/versions_controller').default['show']>>> | { status: 422; response: { errors: SimpleError[] } }
+    }
+  }
+  'context.versions.restore': {
+    methods: ["POST"]
+    pattern: '/context/versions/:id/restore'
+    types: {
+      body: ExtractBody<InferInput<(typeof import('#context/validators/versions').restoreContextVersionValidator)>>
+      paramsTuple: [ParamValue]
+      params: { id: ParamValue }
+      query: ExtractQuery<InferInput<(typeof import('#context/validators/versions').restoreContextVersionValidator)>>
+      response: ExtractResponse<Awaited<ReturnType<import('#app/context/controllers/versions_controller').default['restore']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#app/context/controllers/versions_controller').default['restore']>>> | { status: 422; response: { errors: SimpleError[] } }
+      rawResponse: ExtractRawResponse<Awaited<ReturnType<import('#app/context/controllers/versions_controller').default['restore']>>> | { status: 422; response: { errors: SimpleError[] } }
+    }
+  }
+  'notifications.index': {
+    methods: ["GET","HEAD"]
+    pattern: '/notifications'
+    types: {
+      body: {}
+      paramsTuple: []
+      params: {}
+      query: {}
+      response: ExtractResponse<Awaited<ReturnType<import('#app/notifications/controllers/notifications_controller').default['index']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#app/notifications/controllers/notifications_controller').default['index']>>>
+      rawResponse: ExtractRawResponse<Awaited<ReturnType<import('#app/notifications/controllers/notifications_controller').default['index']>>>
+    }
+  }
+  'notifications.markRead': {
+    methods: ["POST"]
+    pattern: '/notifications/:id/read'
+    types: {
+      body: {}
+      paramsTuple: [ParamValue]
+      params: { id: ParamValue }
+      query: {}
+      response: ExtractResponse<Awaited<ReturnType<import('#app/notifications/controllers/notifications_controller').default['markRead']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#app/notifications/controllers/notifications_controller').default['markRead']>>>
+      rawResponse: ExtractRawResponse<Awaited<ReturnType<import('#app/notifications/controllers/notifications_controller').default['markRead']>>>
+    }
+  }
+  'notifications.markAllSeen': {
+    methods: ["POST"]
+    pattern: '/notifications/seen'
+    types: {
+      body: {}
+      paramsTuple: []
+      params: {}
+      query: {}
+      response: ExtractResponse<Awaited<ReturnType<import('#app/notifications/controllers/notifications_controller').default['markAllSeen']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#app/notifications/controllers/notifications_controller').default['markAllSeen']>>>
+      rawResponse: ExtractRawResponse<Awaited<ReturnType<import('#app/notifications/controllers/notifications_controller').default['markAllSeen']>>>
+    }
+  }
+  'notifications.markAllRead': {
+    methods: ["POST"]
+    pattern: '/notifications/read'
+    types: {
+      body: {}
+      paramsTuple: []
+      params: {}
+      query: {}
+      response: ExtractResponse<Awaited<ReturnType<import('#app/notifications/controllers/notifications_controller').default['markAllRead']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#app/notifications/controllers/notifications_controller').default['markAllRead']>>>
+      rawResponse: ExtractRawResponse<Awaited<ReturnType<import('#app/notifications/controllers/notifications_controller').default['markAllRead']>>>
+    }
+  }
+  'event_stream': {
+    methods: ["GET","HEAD"]
+    pattern: '/__transmit/events'
+    types: {
+      body: {}
+      paramsTuple: []
+      params: {}
+      query: {}
+      response: unknown
+      errorResponse: unknown
+      rawResponse: ExtractRawResponse<unknown>
+    }
+  }
+  'subscribe': {
+    methods: ["POST"]
+    pattern: '/__transmit/subscribe'
+    types: {
+      body: {}
+      paramsTuple: []
+      params: {}
+      query: {}
+      response: unknown
+      errorResponse: unknown
+      rawResponse: ExtractRawResponse<unknown>
+    }
+  }
+  'unsubscribe': {
+    methods: ["POST"]
+    pattern: '/__transmit/unsubscribe'
+    types: {
+      body: {}
+      paramsTuple: []
+      params: {}
+      query: {}
+      response: unknown
+      errorResponse: unknown
+      rawResponse: ExtractRawResponse<unknown>
     }
   }
 }

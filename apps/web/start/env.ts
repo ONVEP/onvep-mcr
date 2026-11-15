@@ -24,6 +24,15 @@ export default await Env.create(new URL('../', import.meta.url), {
 
   /*
   |----------------------------------------------------------
+  | Context engine: called server-side for reads/writes, while
+  | browsers subscribe to its SSE stream on the public URL.
+  |----------------------------------------------------------
+  */
+  CONTEXT_ENGINE_URL: Env.schema.string({ format: 'url', tld: false }),
+  CONTEXT_ENGINE_PUBLIC_URL: Env.schema.string.optional({ format: 'url', tld: false }),
+
+  /*
+  |----------------------------------------------------------
   | Variables for configuring session package
   |----------------------------------------------------------
   */

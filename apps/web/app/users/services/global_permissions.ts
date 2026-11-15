@@ -11,6 +11,9 @@ export type GlobalPermissions = {
   manageRundowns: boolean
   manageStepTypes: boolean
   manageGraphics: boolean
+  viewContext: boolean
+  editContext: boolean
+  manageContext: boolean
 }
 
 export const EMPTY_GLOBAL_PERMISSIONS: GlobalPermissions = {
@@ -23,6 +26,9 @@ export const EMPTY_GLOBAL_PERMISSIONS: GlobalPermissions = {
   manageRundowns: false,
   manageStepTypes: false,
   manageGraphics: false,
+  viewContext: false,
+  editContext: false,
+  manageContext: false,
 }
 
 export async function globalPermissions(user: User | undefined): Promise<GlobalPermissions> {
@@ -37,5 +43,8 @@ export async function globalPermissions(user: User | undefined): Promise<GlobalP
     manageGraphics: await user.hasPermission(PERMISSIONS.graphicsManage),
     manageRoles: await user.hasPermission(PERMISSIONS.rolesManage),
     manageNetworkDrives: await user.hasPermission(PERMISSIONS.networkDrivesViewList),
+    viewContext: await user.hasPermission(PERMISSIONS.contextView),
+    editContext: await user.hasPermission(PERMISSIONS.contextEdit),
+    manageContext: await user.hasPermission(PERMISSIONS.contextManage),
   }
 }

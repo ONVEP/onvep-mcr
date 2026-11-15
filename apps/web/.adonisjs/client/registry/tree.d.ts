@@ -69,12 +69,6 @@ export interface ApiDefinition {
   dashboard: {
     show: typeof routes['dashboard.show']
   }
-  notifications: {
-    index: typeof routes['notifications.index']
-    markRead: typeof routes['notifications.markRead']
-    markAllSeen: typeof routes['notifications.markAllSeen']
-    markAllRead: typeof routes['notifications.markAllRead']
-  }
   networkDrives: {
     index: typeof routes['network_drives.index']
     create: typeof routes['network_drives.create']
@@ -122,4 +116,40 @@ export interface ApiDefinition {
     layer: typeof routes['cg.layer']
     tailwind: typeof routes['cg.tailwind']
   }
+  context: {
+    index: typeof routes['context.index']
+    values: {
+      update: typeof routes['context.values.update']
+      store: typeof routes['context.values.store']
+      destroy: typeof routes['context.values.destroy']
+    }
+    mutators: {
+      index: typeof routes['context.mutators.index']
+      store: typeof routes['context.mutators.store']
+      show: typeof routes['context.mutators.show']
+      update: typeof routes['context.mutators.update']
+      destroy: typeof routes['context.mutators.destroy']
+    }
+    validators: {
+      index: typeof routes['context.validators.index']
+      store: typeof routes['context.validators.store']
+      show: typeof routes['context.validators.show']
+      update: typeof routes['context.validators.update']
+      destroy: typeof routes['context.validators.destroy']
+    }
+    versions: {
+      index: typeof routes['context.versions.index']
+      show: typeof routes['context.versions.show']
+      restore: typeof routes['context.versions.restore']
+    }
+  }
+  notifications: {
+    index: typeof routes['notifications.index']
+    markRead: typeof routes['notifications.markRead']
+    markAllSeen: typeof routes['notifications.markAllSeen']
+    markAllRead: typeof routes['notifications.markAllRead']
+  }
+  eventStream: typeof routes['event_stream']
+  subscribe: typeof routes['subscribe']
+  unsubscribe: typeof routes['unsubscribe']
 }

@@ -30,6 +30,9 @@
     "../../rundowns/ui/**/*.tsx",
     "../../graphics/ui/**/*.ts",
     "../../graphics/ui/**/*.tsx",
+    "../../context/ui/**/*.ts",
+    "../../context/ui/**/*.tsx",
+    "../../context/types/**/*.ts",
     "../../../config/auth.ts",
     "../../../.adonisjs/client/**/*.ts",
     "../../../.adonisjs/server/**/*.d.ts"

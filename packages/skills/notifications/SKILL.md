@@ -37,7 +37,7 @@ In-app notifications persist as rows in the `notifications` table and stream to 
 - **Shared prop `unseenNotifications`** (count) is computed in the Inertia middleware when a user is authenticated. It powers the bell badge on first render — the SSE stream keeps it in sync afterward.
 - **Bell UI** subscribes to the per-user channel via `useNotificationsChannel(user.id, onIncoming)`, hits the endpoint to fetch the list when opened, marks-all-seen on open, marks-read on click.
 - **Frontend SSE client** is a lazy singleton: one `EventSource` on `/__transmit/events`, all channels multiplex through it.
-- **SSE transport** — `apps/web/config/transmit.ts` defaults to `transport: null` (in-memory, single-node). The `@adonisjs/transmit` provider auto-registers the `/__transmit/*` routes, so the bell works out of the box. Swap `transport` for a distributed driver (Redis) when horizontally scaling.
+- **SSE transport** — `apps/web/config/transmit.ts` defaults to `transport: null` (in-memory, single-node). `@adonisjs/transmit` 3.x does **not** register the `/__transmit/*` routes on its own: `apps/web/app/notifications/routes.ts` calls `transmit.registerRoutes((route) => route.use(middleware.auth()))`. Without it the EventSource gets a 404 and the bell never updates live. Swap `transport` for a distributed driver (Redis) when horizontally scaling.
 
 ## Doc refs
 

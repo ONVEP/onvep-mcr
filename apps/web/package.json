@@ -29,6 +29,7 @@
     "#media/*": "./app/media/*.js",
     "#rundowns/*": "./app/rundowns/*.js",
     "#graphics/*": "./app/graphics/*.js",
+    "#context/*": "./app/context/*.js",
     "#providers/*": "./providers/*.js",
     "#tests/*": "./tests/*.js",
     "#generated/*": "./.adonisjs/server/*.js"
@@ -83,6 +84,7 @@
     "@adonisjs/vite": "^6.0.0",
     "@codemirror/autocomplete": "6.20.4",
     "@codemirror/lang-html": "6.4.12",
+    "@codemirror/lang-javascript": "6.2.5",
     "@emmetio/codemirror6-plugin": "0.4.2",
     "@facteurjs/adonisjs": "2.0.0-beta.8",
     "@inertiajs/core": "^3.6.1",

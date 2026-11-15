@@ -11,7 +11,11 @@
       "users": "Utilisateurs",
       "rundowns": "Conduites",
       "stepTypes": "Types de pas",
-      "graphics": "Habillage"
+      "graphics": "Habillage",
+      "context": "Contexte",
+      "mutators": "Mutators",
+      "validators": "Validators",
+      "contextVersions": "Historique"
     },
     "navUser": {
       "settings": "Paramètres",

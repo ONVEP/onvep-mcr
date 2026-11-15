@@ -19,6 +19,9 @@ export const PERMISSIONS = {
   networkDrivesCreate: 'network_drives.create',
   networkDrivesUpdate: 'network_drives.update',
   networkDrivesDelete: 'network_drives.delete',
+  contextView: 'context.view',
+  contextEdit: 'context.edit',
+  contextManage: 'context.manage',
 } as const
 
 export type Permission = (typeof PERMISSIONS)[keyof typeof PERMISSIONS]

@@ -1,6 +1,6 @@
 # Custom SSE channel (not a Facteur notification)
 
-When a background task needs to push resource-scoped state (job progress, live status), skip Facteur and broadcast directly on a per-resource channel. Requires opting into a `start/transmit.ts` preload (the default provider only auto-registers the `/__transmit/*` routes). Two rules:
+When a background task needs to push resource-scoped state (job progress, live status), skip Facteur and broadcast directly on a per-resource channel. Requires opting into a `start/transmit.ts` preload (the `/__transmit/*` routes themselves are registered in `app/notifications/routes.ts`). Two rules:
 
 1. **Channel name is the URL of the resource's route.** The backend generates it with `urlFor(...)` from `@adonisjs/core/services/url_builder`; the frontend generates it with the typed URL client. Same string, single source of truth (the route registry).
 2. **Every private channel needs `transmit.authorize(pattern, callback)`** in `start/transmit.ts`. Without it any authenticated user can subscribe to any other resource's channel.

@@ -1,4 +1,5 @@
 import router from '@adonisjs/core/services/router'
+import transmit from '@adonisjs/transmit/services/main'
 
 import { controllers } from '#generated/controllers'
 import { middleware } from '#start/kernel'
@@ -20,3 +21,6 @@ router
       .as('notifications.markAllRead')
   })
   .use([middleware.auth()])
+
+// Transmit 3 no longer registers its SSE endpoints on its own.
+transmit.registerRoutes((route) => route.use(middleware.auth()))

@@ -16,6 +16,10 @@ declare module '@adonisjs/inertia/types' {
     'auth/forgot_password': ExtractProps<(typeof import('../../app/auth/ui/pages/forgot_password.tsx'))['default']>
     'auth/reset_password': ExtractProps<(typeof import('../../app/auth/ui/pages/reset_password.tsx'))['default']>
     'auth/sign_in': ExtractProps<(typeof import('../../app/auth/ui/pages/sign_in.tsx'))['default']>
+    'context/explorer': ExtractProps<(typeof import('../../app/context/ui/pages/explorer.tsx'))['default']>
+    'context/mutators': ExtractProps<(typeof import('../../app/context/ui/pages/mutators.tsx'))['default']>
+    'context/validators': ExtractProps<(typeof import('../../app/context/ui/pages/validators.tsx'))['default']>
+    'context/versions': ExtractProps<(typeof import('../../app/context/ui/pages/versions.tsx'))['default']>
     'core/errors/not_found': ExtractProps<(typeof import('../../app/core/ui/pages/errors/not_found.tsx'))['default']>
     'core/errors/server_error': ExtractProps<(typeof import('../../app/core/ui/pages/errors/server_error.tsx'))['default']>
     'graphics/editor': ExtractProps<(typeof import('../../app/graphics/ui/pages/editor.tsx'))['default']>

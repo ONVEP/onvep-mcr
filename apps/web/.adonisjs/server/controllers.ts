@@ -13,6 +13,13 @@ export const controllers = {
     SignIn: () => import('#app/auth/controllers/sign_in_controller'),
     SignOut: () => import('#app/auth/controllers/sign_out_controller'),
   },
+  context: {
+    Context: () => import('#app/context/controllers/context_controller'),
+    ContextValues: () => import('#app/context/controllers/context_values_controller'),
+    Mutators: () => import('#app/context/controllers/mutators_controller'),
+    Validators: () => import('#app/context/controllers/validators_controller'),
+    Versions: () => import('#app/context/controllers/versions_controller'),
+  },
   graphics: {
     Cg: () => import('#app/graphics/controllers/cg_controller'),
     Layers: () => import('#app/graphics/controllers/layers_controller'),

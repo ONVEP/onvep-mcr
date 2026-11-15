@@ -1,7 +1,10 @@
 import type { SimpleTFunction } from '#common/ui/hooks/use_translation'
 
 import {
+  Braces,
   ClipboardList,
+  FileCode,
+  History,
   HardDrive,
   KeyRound,
   Layers,
@@ -11,6 +14,7 @@ import {
   List,
   Settings,
   Shield,
+  ShieldCheck,
   Users,
 } from 'lucide-react'
 
@@ -66,6 +70,12 @@ export function getMainNav(t: SimpleTFunction): NavMainItem[] {
       icon: Layers,
       can: 'manageGraphics',
     },
+    {
+      title: t('common.layout.navMain.context'),
+      url: '/context',
+      icon: Braces,
+      can: 'viewContext',
+    },
   ]
 }
 
@@ -112,6 +122,29 @@ export function getAdminNav(t: SimpleTFunction): NavMainItem[] {
           url: '/media/network-drives',
           icon: HardDrive,
           can: 'manageNetworkDrives',
+        },
+      ],
+    },
+    {
+      title: t('common.layout.navMain.context'),
+      items: [
+        {
+          title: t('common.layout.navMain.mutators'),
+          url: '/context/mutators',
+          icon: FileCode,
+          can: 'manageContext',
+        },
+        {
+          title: t('common.layout.navMain.validators'),
+          url: '/context/validators',
+          icon: ShieldCheck,
+          can: 'manageContext',
+        },
+        {
+          title: t('common.layout.navMain.contextVersions'),
+          url: '/context/versions',
+          icon: History,
+          can: 'manageContext',
         },
       ],
     },

@@ -274,7 +274,8 @@
     "network_drives": "Lecteurs réseau",
     "live": "Live",
     "rundowns": "Conduites",
-    "graphics": "Habillage"
+    "graphics": "Habillage",
+    "context": "Contexte"
   },
   "permissions": {
     "usersViewList": "Voir les utilisateurs",
@@ -296,6 +297,9 @@
     "rundownsViewList": "Voir les conduites",
     "rundownsManage": "Gérer les conduites et les pas",
     "rundownsManageStepTypes": "Gérer les types de pas",
-    "graphicsManage": "Gérer les layers d'habillage"
+    "graphicsManage": "Gérer les layers d'habillage",
+    "contextView": "Voir le contexte",
+    "contextEdit": "Modifier les valeurs du contexte",
+    "contextManage": "Gérer les mutators et validators du contexte"
   }
 }

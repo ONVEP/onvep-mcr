@@ -35,10 +35,6 @@ export type ScannedRoutes = {
     'tokens.destroy': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'tokens.store': { paramsTuple?: []; params?: {} }
     'dashboard.show': { paramsTuple?: []; params?: {} }
-    'notifications.index': { paramsTuple?: []; params?: {} }
-    'notifications.markRead': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
-    'notifications.markAllSeen': { paramsTuple?: []; params?: {} }
-    'notifications.markAllRead': { paramsTuple?: []; params?: {} }
     'network_drives.index': { paramsTuple?: []; params?: {} }
     'network_drives.create': { paramsTuple?: []; params?: {} }
     'network_drives.store': { paramsTuple?: []; params?: {} }
@@ -70,6 +66,30 @@ export type ScannedRoutes = {
     'cg.all': { paramsTuple?: []; params?: {} }
     'cg.layer': { paramsTuple: [ParamValue]; params: {'slug': ParamValue} }
     'cg.tailwind': { paramsTuple?: []; params?: {} }
+    'context.index': { paramsTuple?: []; params?: {} }
+    'context.values.update': { paramsTuple?: []; params?: {} }
+    'context.values.store': { paramsTuple?: []; params?: {} }
+    'context.values.destroy': { paramsTuple?: []; params?: {} }
+    'context.mutators.index': { paramsTuple?: []; params?: {} }
+    'context.mutators.store': { paramsTuple?: []; params?: {} }
+    'context.mutators.show': { paramsTuple: [ParamValue]; params: {'name': ParamValue} }
+    'context.mutators.update': { paramsTuple: [ParamValue]; params: {'name': ParamValue} }
+    'context.mutators.destroy': { paramsTuple: [ParamValue]; params: {'name': ParamValue} }
+    'context.validators.index': { paramsTuple?: []; params?: {} }
+    'context.validators.store': { paramsTuple?: []; params?: {} }
+    'context.validators.show': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'context.validators.update': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'context.validators.destroy': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'context.versions.index': { paramsTuple?: []; params?: {} }
+    'context.versions.show': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'context.versions.restore': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'notifications.index': { paramsTuple?: []; params?: {} }
+    'notifications.markRead': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'notifications.markAllSeen': { paramsTuple?: []; params?: {} }
+    'notifications.markAllRead': { paramsTuple?: []; params?: {} }
+    'event_stream': { paramsTuple?: []; params?: {} }
+    'subscribe': { paramsTuple?: []; params?: {} }
+    'unsubscribe': { paramsTuple?: []; params?: {} }
   }
   GET: {
     'drive.fs.serve': { paramsTuple: [...ParamValue[]]; params: {'*': ParamValue[]} }
@@ -86,7 +106,6 @@ export type ScannedRoutes = {
     'roles.edit': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'settings.index': { paramsTuple?: []; params?: {} }
     'dashboard.show': { paramsTuple?: []; params?: {} }
-    'notifications.index': { paramsTuple?: []; params?: {} }
     'network_drives.index': { paramsTuple?: []; params?: {} }
     'network_drives.create': { paramsTuple?: []; params?: {} }
     'network_drives.edit': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
@@ -102,6 +121,15 @@ export type ScannedRoutes = {
     'cg.all': { paramsTuple?: []; params?: {} }
     'cg.layer': { paramsTuple: [ParamValue]; params: {'slug': ParamValue} }
     'cg.tailwind': { paramsTuple?: []; params?: {} }
+    'context.index': { paramsTuple?: []; params?: {} }
+    'context.mutators.index': { paramsTuple?: []; params?: {} }
+    'context.mutators.show': { paramsTuple: [ParamValue]; params: {'name': ParamValue} }
+    'context.validators.index': { paramsTuple?: []; params?: {} }
+    'context.validators.show': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'context.versions.index': { paramsTuple?: []; params?: {} }
+    'context.versions.show': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'notifications.index': { paramsTuple?: []; params?: {} }
+    'event_stream': { paramsTuple?: []; params?: {} }
   }
   HEAD: {
     'drive.fs.serve': { paramsTuple: [...ParamValue[]]; params: {'*': ParamValue[]} }
@@ -118,7 +146,6 @@ export type ScannedRoutes = {
     'roles.edit': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'settings.index': { paramsTuple?: []; params?: {} }
     'dashboard.show': { paramsTuple?: []; params?: {} }
-    'notifications.index': { paramsTuple?: []; params?: {} }
     'network_drives.index': { paramsTuple?: []; params?: {} }
     'network_drives.create': { paramsTuple?: []; params?: {} }
     'network_drives.edit': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
@@ -134,6 +161,15 @@ export type ScannedRoutes = {
     'cg.all': { paramsTuple?: []; params?: {} }
     'cg.layer': { paramsTuple: [ParamValue]; params: {'slug': ParamValue} }
     'cg.tailwind': { paramsTuple?: []; params?: {} }
+    'context.index': { paramsTuple?: []; params?: {} }
+    'context.mutators.index': { paramsTuple?: []; params?: {} }
+    'context.mutators.show': { paramsTuple: [ParamValue]; params: {'name': ParamValue} }
+    'context.validators.index': { paramsTuple?: []; params?: {} }
+    'context.validators.show': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'context.versions.index': { paramsTuple?: []; params?: {} }
+    'context.versions.show': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'notifications.index': { paramsTuple?: []; params?: {} }
+    'event_stream': { paramsTuple?: []; params?: {} }
   }
   POST: {
     'auth.sign_in.handle': { paramsTuple?: []; params?: {} }
@@ -146,15 +182,21 @@ export type ScannedRoutes = {
     'users.store': { paramsTuple?: []; params?: {} }
     'roles.store': { paramsTuple?: []; params?: {} }
     'tokens.store': { paramsTuple?: []; params?: {} }
-    'notifications.markRead': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
-    'notifications.markAllSeen': { paramsTuple?: []; params?: {} }
-    'notifications.markAllRead': { paramsTuple?: []; params?: {} }
     'network_drives.store': { paramsTuple?: []; params?: {} }
     'rundowns.store': { paramsTuple?: []; params?: {} }
     'steps.store': { paramsTuple: [ParamValue]; params: {'rundown_id': ParamValue} }
     'steps.move': { paramsTuple: [ParamValue,ParamValue]; params: {'rundown_id': ParamValue,'id': ParamValue} }
     'step_types.store': { paramsTuple?: []; params?: {} }
     'layers.store': { paramsTuple?: []; params?: {} }
+    'context.values.store': { paramsTuple?: []; params?: {} }
+    'context.mutators.store': { paramsTuple?: []; params?: {} }
+    'context.validators.store': { paramsTuple?: []; params?: {} }
+    'context.versions.restore': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'notifications.markRead': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'notifications.markAllSeen': { paramsTuple?: []; params?: {} }
+    'notifications.markAllRead': { paramsTuple?: []; params?: {} }
+    'subscribe': { paramsTuple?: []; params?: {} }
+    'unsubscribe': { paramsTuple?: []; params?: {} }
   }
   PUT: {
     'users.update': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
@@ -166,6 +208,9 @@ export type ScannedRoutes = {
     'steps.update': { paramsTuple: [ParamValue,ParamValue]; params: {'rundown_id': ParamValue,'id': ParamValue} }
     'step_types.update': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'layers.update': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'context.values.update': { paramsTuple?: []; params?: {} }
+    'context.mutators.update': { paramsTuple: [ParamValue]; params: {'name': ParamValue} }
+    'context.validators.update': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
   }
   PATCH: {
     'users.update': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
@@ -183,6 +228,9 @@ export type ScannedRoutes = {
     'steps.destroy': { paramsTuple: [ParamValue,ParamValue]; params: {'rundown_id': ParamValue,'id': ParamValue} }
     'step_types.destroy': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'layers.destroy': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'context.values.destroy': { paramsTuple?: []; params?: {} }
+    'context.mutators.destroy': { paramsTuple: [ParamValue]; params: {'name': ParamValue} }
+    'context.validators.destroy': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
   }
 }
 declare module '@adonisjs/core/types/http' {
