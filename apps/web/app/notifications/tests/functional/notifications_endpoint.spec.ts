@@ -1,4 +1,6 @@
+import type { HttpContext } from '@adonisjs/core/http'
 import testUtils from '@adonisjs/core/services/test_utils'
+import transmit from '@adonisjs/transmit/services/main'
 import { test } from '@japa/runner'
 import { DateTime } from 'luxon'
 
@@ -155,5 +157,23 @@ test.group('Endpoint /notifications', (group) => {
     assert.isTrue(rows.every((n) => n.status === 'read'))
     assert.isTrue(rows.every((n) => n.readAt !== null))
     assert.isTrue(rows.every((n) => n.seenAt !== null))
+  })
+})
+
+test.group('Canal SSE /notifications', (group) => {
+  group.each.setup(() => testUtils.db().wrapInGlobalTransaction())
+
+  test('le canal de notifications est réservé à son destinataire', async ({ assert }) => {
+    const user = await UserFactory.create()
+    const other = await UserFactory.create()
+    const channel = `notifications/user-${user.id}`
+    const contextOf = (current: typeof user | null) =>
+      ({ auth: { check: async () => {}, user: current } }) as unknown as HttpContext
+    const manager = transmit.getManager()
+
+    assert.isFalse(await manager.verifyAccess(channel, contextOf(null)))
+    assert.isFalse(await manager.verifyAccess(channel, contextOf(other)))
+    assert.isTrue(await manager.verifyAccess(channel, contextOf(user)))
+    assert.isTrue(await manager.verifyAccess('cg', contextOf(null)))
   })
 })

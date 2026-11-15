@@ -404,6 +404,12 @@ const routes = {
     tokens: [[0,"cg"],[0,"assets"],[0,"tailwind.js"]],
     types: placeholder as Registry['cg.tailwind']['types'],
   },
+  'cg.transmit': {
+    methods: ["GET","HEAD"],
+    pattern: '/cg/assets/transmit.js',
+    tokens: [[0,"cg"],[0,"assets"],[0,"transmit.js"]],
+    types: placeholder as Registry['cg.transmit']['types'],
+  },
   'context.index': {
     methods: ["GET","HEAD"],
     pattern: '/context',

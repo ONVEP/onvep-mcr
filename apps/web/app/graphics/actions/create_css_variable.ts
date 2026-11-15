@@ -1,5 +1,6 @@
 import type { CssVariableKind } from '#graphics/enums/css_variable_kind'
 import CssVariable from '#graphics/models/css_variable'
+import { reloadCgPages } from '#graphics/services/cg_live_reload'
 
 export interface CreateCssVariableInput {
   name: string
@@ -9,6 +10,9 @@ export interface CreateCssVariableInput {
 
 export default class CreateCssVariable {
   async handle(input: CreateCssVariableInput): Promise<CssVariable> {
-    return CssVariable.create(input)
+    const variable = await CssVariable.create(input)
+    reloadCgPages()
+
+    return variable
   }
 }

@@ -25,23 +25,27 @@
       {{-- Values are validated on save so they can't break out of the declaration. --}}
       <style>
 
-                :root {
-                  @each(variable in cssVariables)
-                    {{ variable.property }}: {{{ variable.value }}};
-                  @end
-                }
+
+                        :root {
+                          @each(variable in cssVariables)
+                            {{ variable.property }}: {{{ variable.value }}};
+                          @end
+                        }
+
 
       </style>
       {{-- Also declared to Tailwind so colors get their utilities (bg-<name>, text-<name>…). --}}
       <style type="text/tailwindcss">
 
-                @theme {
-                  @each(variable in cssVariables)
-                    @if(variable.kind === 'color')
-                      {{ variable.property }}: {{{ variable.value }}};
-                    @end
-                  @end
-                }
+
+                        @theme {
+                          @each(variable in cssVariables)
+                            @if(variable.kind === 'color')
+                              {{ variable.property }}: {{{ variable.value }}};
+                            @end
+                          @end
+                        }
+
 
       </style>
     @end
@@ -49,6 +53,20 @@
   <body>
     @each(layer in layers)
       <div class="cg-layer" data-layer="{{ layer.slug }}">{{{ layer.content }}}</div>
+    @end
+    {{-- Absent from the editor preview, which renders this shell in an iframe. --}}
+    @if(liveReload)
+      <script type="module" data-slug="{{ liveReload.slug ?? '' }}">
+        import { Transmit } from '/cg/assets/transmit.js';
+
+        // Empty on /cg/all, which reloads on every change.
+        const slug = document.querySelector('script[data-slug]').dataset.slug;
+        const subscription = new Transmit({ baseUrl: location.origin }).subscription('cg');
+        subscription.onMessage(({ slugs }) => {
+          if (!slug || !slugs || slugs.includes(slug)) location.reload();
+        });
+        subscription.create();
+      </script>
     @end
   </body>
 </html>

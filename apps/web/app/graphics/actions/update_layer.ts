@@ -1,4 +1,5 @@
 import type Layer from '#graphics/models/layer'
+import { reloadCgPages } from '#graphics/services/cg_live_reload'
 
 export interface UpdateLayerInput {
   target: Layer
@@ -14,6 +15,7 @@ export default class UpdateLayer {
     if (input.enabled !== undefined) input.target.enabled = input.enabled
     if (input.content !== undefined) input.target.content = input.content ?? ''
     await input.target.save()
+    reloadCgPages([input.target.slug])
 
     return input.target
   }

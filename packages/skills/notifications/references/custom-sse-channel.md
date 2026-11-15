@@ -39,7 +39,7 @@ const sub = transmit.subscription(channel)
 sub.onMessage(handler)
 ```
 
-The bell's `notifications/user-<id>` channel is the exception — per-user, Facteur enforces the target internally. Any new custom channel gets its own `transmit.authorize`.
+The bell's `notifications/user-<id>` channel is guarded by `transmit.authorize('notifications/:target', …)` in `app/notifications/routes.ts` (Facteur doesn't check subscribers). Any new custom channel gets its own `transmit.authorize`.
 
 ## Anti-patterns
 

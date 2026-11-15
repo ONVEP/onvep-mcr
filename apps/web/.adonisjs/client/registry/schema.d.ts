@@ -866,6 +866,19 @@ export interface Registry {
       rawResponse: ExtractRawResponse<Awaited<ReturnType<import('#app/graphics/controllers/cg_controller').default['tailwind']>>>
     }
   }
+  'cg.transmit': {
+    methods: ["GET","HEAD"]
+    pattern: '/cg/assets/transmit.js'
+    types: {
+      body: {}
+      paramsTuple: []
+      params: {}
+      query: {}
+      response: ExtractResponse<Awaited<ReturnType<import('#app/graphics/controllers/cg_controller').default['transmit']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#app/graphics/controllers/cg_controller').default['transmit']>>>
+      rawResponse: ExtractRawResponse<Awaited<ReturnType<import('#app/graphics/controllers/cg_controller').default['transmit']>>>
+    }
+  }
   'context.index': {
     methods: ["GET","HEAD"]
     pattern: '/context'

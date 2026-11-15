@@ -1,5 +1,6 @@
 import type { CssVariableKind } from '#graphics/enums/css_variable_kind'
 import type CssVariable from '#graphics/models/css_variable'
+import { reloadCgPages } from '#graphics/services/cg_live_reload'
 
 export interface UpdateCssVariableInput {
   target: CssVariable
@@ -12,6 +13,7 @@ export default class UpdateCssVariable {
   async handle({ target, ...input }: UpdateCssVariableInput): Promise<CssVariable> {
     target.merge(input)
     await target.save()
+    reloadCgPages()
 
     return target
   }

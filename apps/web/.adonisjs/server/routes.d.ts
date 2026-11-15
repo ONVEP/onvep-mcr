@@ -70,6 +70,7 @@ export type ScannedRoutes = {
     'cg.all': { paramsTuple?: []; params?: {} }
     'cg.layer': { paramsTuple: [ParamValue]; params: {'slug': ParamValue} }
     'cg.tailwind': { paramsTuple?: []; params?: {} }
+    'cg.transmit': { paramsTuple?: []; params?: {} }
     'context.index': { paramsTuple?: []; params?: {} }
     'context.values.update': { paramsTuple?: []; params?: {} }
     'context.values.store': { paramsTuple?: []; params?: {} }
@@ -126,6 +127,7 @@ export type ScannedRoutes = {
     'cg.all': { paramsTuple?: []; params?: {} }
     'cg.layer': { paramsTuple: [ParamValue]; params: {'slug': ParamValue} }
     'cg.tailwind': { paramsTuple?: []; params?: {} }
+    'cg.transmit': { paramsTuple?: []; params?: {} }
     'context.index': { paramsTuple?: []; params?: {} }
     'context.mutators.index': { paramsTuple?: []; params?: {} }
     'context.mutators.show': { paramsTuple: [ParamValue]; params: {'name': ParamValue} }
@@ -167,6 +169,7 @@ export type ScannedRoutes = {
     'cg.all': { paramsTuple?: []; params?: {} }
     'cg.layer': { paramsTuple: [ParamValue]; params: {'slug': ParamValue} }
     'cg.tailwind': { paramsTuple?: []; params?: {} }
+    'cg.transmit': { paramsTuple?: []; params?: {} }
     'context.index': { paramsTuple?: []; params?: {} }
     'context.mutators.index': { paramsTuple?: []; params?: {} }
     'context.mutators.show': { paramsTuple: [ParamValue]; params: {'name': ParamValue} }

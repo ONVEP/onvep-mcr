@@ -1,5 +1,7 @@
 import testUtils from '@adonisjs/core/services/test_utils'
+import transmit from '@adonisjs/transmit/services/main'
 import { test } from '@japa/runner'
+import sinon from 'sinon'
 
 import { ROLES } from '#users/enums/role'
 import { UserFactory } from '#users/database/factories/user'
@@ -167,5 +169,50 @@ test.group('Endpoint /cg', (group) => {
     const response = await client.get('/cg/assets/tailwind.js')
     response.assertStatus(200)
     assert.include(response.header('content-type'), 'javascript')
+  })
+})
+
+test.group('Rechargement des pages CG', (group) => {
+  group.each.setup(() => testUtils.db().wrapInGlobalTransaction())
+  group.each.setup(() => ensureBaseRoles())
+  group.each.teardown(() => sinon.restore())
+
+  test('les pages /cg embarquent le rechargement, pas le shell de preview', async ({
+    client,
+    assert,
+  }) => {
+    const layer = await LayerFactory.merge({ slug: 'lower-third' }).create()
+
+    const page = await client.get('/cg/layer/lower-third')
+    assert.include(page.text(), 'data-slug="lower-third"')
+    assert.include(page.text(), "import { Transmit } from '/cg/assets/transmit.js'")
+
+    const editor = await client
+      .get(`/graphics/${layer.id}`)
+      .loginAs(await admin())
+      .withInertia()
+    assert.notInclude(editor.inertiaProps.previewShell, 'data-slug')
+  })
+
+  test('GET /cg/assets/transmit.js sert le client Transmit', async ({ client, assert }) => {
+    const response = await client.get('/cg/assets/transmit.js')
+
+    response.assertStatus(200)
+    assert.include(response.header('content-type'), 'javascript')
+    assert.include(response.text(), 'var Transmit = class')
+  })
+
+  test('enregistrer un layer prévient ses pages CG', async ({ client, assert }) => {
+    const broadcast = sinon.stub(transmit, 'broadcast')
+    const layer = await LayerFactory.merge({ slug: 'bug' }).create()
+
+    await client
+      .put(`/graphics/${layer.id}`)
+      .withCsrfToken()
+      .json({ content: '<b>Live</b>' })
+      .loginAs(await admin())
+      .redirects(0)
+
+    assert.isTrue(broadcast.calledWith('cg', { slugs: ['bug'] }))
   })
 })

@@ -121,6 +121,7 @@ export interface ApiDefinition {
     all: typeof routes['cg.all']
     layer: typeof routes['cg.layer']
     tailwind: typeof routes['cg.tailwind']
+    transmit: typeof routes['cg.transmit']
   }
   context: {
     index: typeof routes['context.index']

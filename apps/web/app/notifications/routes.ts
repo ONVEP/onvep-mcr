@@ -22,5 +22,12 @@ router
   })
   .use([middleware.auth()])
 
-// Transmit 3 no longer registers its SSE endpoints on its own.
-transmit.registerRoutes((route) => route.use(middleware.auth()))
+// Transmit 3 no longer registers its SSE endpoints on its own. They stay public: CG pages
+// (playout software, no login) subscribe too, so each private channel needs an authorize().
+transmit.registerRoutes()
+
+// Matches Facteur's per-user channel `notifications/user-<id>`.
+transmit.authorize<{ target: string }>('notifications/:target', async (ctx, { target }) => {
+  await ctx.auth.check()
+  return !!ctx.auth.user && target === `user-${ctx.auth.user.id}`
+})

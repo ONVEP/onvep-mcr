@@ -1,4 +1,5 @@
 import Layer from '#graphics/models/layer'
+import { reloadCgPages } from '#graphics/services/cg_live_reload'
 import { uniqueLayerSlug } from '#graphics/services/unique_layer_slug'
 
 export interface CreateLayerInput {
@@ -7,11 +8,14 @@ export interface CreateLayerInput {
 
 export default class CreateLayer {
   async handle(input: CreateLayerInput): Promise<Layer> {
-    return Layer.create({
+    const layer = await Layer.create({
       name: input.name,
       slug: await uniqueLayerSlug(input.name),
       enabled: true,
       content: '',
     })
+    reloadCgPages([layer.slug])
+
+    return layer
   }
 }
