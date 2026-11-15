@@ -18,6 +18,7 @@ import type { ContextValidator, JsonSchema } from '#context/types/engine'
 import { AdminListSidebar } from '#context/ui/components/admin_list_sidebar'
 import { SchemaBuilder } from '#context/ui/components/schema_builder'
 import { useUnsavedGuard } from '#context/ui/hooks/use_unsaved_guard'
+import { sameJson } from '#context/ui/utils/json_tree'
 
 type PageProps = InertiaProps<{
   validators: ContextValidator[]
@@ -29,8 +30,8 @@ function ValidatorWorkspace({ validator }: { validator: ContextValidator }) {
   const [path, setPath] = useState(validator.path)
   const [schema, setSchema] = useState<JsonSchema>(validator.schema)
   const [openDelete, setOpenDelete] = useState(false)
-  const dirty =
-    path !== validator.path || JSON.stringify(schema) !== JSON.stringify(validator.schema)
+  // The server trims the path and reorders the schema keys (jsonb): compare what it would store.
+  const dirty = path.trim() !== validator.path || !sameJson(schema, validator.schema)
 
   useUnsavedGuard(dirty, t('context.validators.leave_confirm'))
 

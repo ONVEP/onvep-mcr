@@ -44,6 +44,21 @@ export function children(value: JsonObject | JsonValue[]): [string, JsonValue][]
   return Array.isArray(value) ? value.map((item, i) => [String(i), item]) : Object.entries(value)
 }
 
-export function sameJson(a: JsonValue | undefined, b: JsonValue | undefined) {
-  return JSON.stringify(a) === JSON.stringify(b)
+/** Deep equality, ignoring key order: Postgres jsonb doesn't keep it, so values read back differ. */
+export function sameJson(a: JsonValue | undefined, b: JsonValue | undefined): boolean {
+  if (a === b) return true
+  if (a === null || b === null || typeof a !== 'object' || typeof b !== 'object') return false
+  if (Array.isArray(a) || Array.isArray(b)) {
+    return (
+      Array.isArray(a) &&
+      Array.isArray(b) &&
+      a.length === b.length &&
+      a.every((item, index) => sameJson(item, b[index]))
+    )
+  }
+  const keys = Object.keys(a)
+  return (
+    keys.length === Object.keys(b).length &&
+    keys.every((key) => Object.hasOwn(b, key) && sameJson(a[key], b[key]))
+  )
 }
