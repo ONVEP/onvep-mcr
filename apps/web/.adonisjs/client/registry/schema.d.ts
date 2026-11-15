@@ -775,6 +775,58 @@ export interface Registry {
       rawResponse: ExtractRawResponse<Awaited<ReturnType<import('#app/graphics/controllers/tailwind_classes_controller').default['handle']>>>
     }
   }
+  'css_variables.index': {
+    methods: ["GET","HEAD"]
+    pattern: '/graphics/css-variables'
+    types: {
+      body: {}
+      paramsTuple: []
+      params: {}
+      query: {}
+      response: ExtractResponse<Awaited<ReturnType<import('#app/graphics/controllers/css_variables_controller').default['index']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#app/graphics/controllers/css_variables_controller').default['index']>>>
+      rawResponse: ExtractRawResponse<Awaited<ReturnType<import('#app/graphics/controllers/css_variables_controller').default['index']>>>
+    }
+  }
+  'css_variables.store': {
+    methods: ["POST"]
+    pattern: '/graphics/css-variables'
+    types: {
+      body: ExtractBody<InferInput<(typeof import('#graphics/validators/css_variables').createCssVariableValidator)>>
+      paramsTuple: []
+      params: {}
+      query: ExtractQuery<InferInput<(typeof import('#graphics/validators/css_variables').createCssVariableValidator)>>
+      response: ExtractResponse<Awaited<ReturnType<import('#app/graphics/controllers/css_variables_controller').default['store']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#app/graphics/controllers/css_variables_controller').default['store']>>> | { status: 422; response: { errors: SimpleError[] } }
+      rawResponse: ExtractRawResponse<Awaited<ReturnType<import('#app/graphics/controllers/css_variables_controller').default['store']>>> | { status: 422; response: { errors: SimpleError[] } }
+    }
+  }
+  'css_variables.update': {
+    methods: ["PUT","PATCH"]
+    pattern: '/graphics/css-variables/:id'
+    types: {
+      body: ExtractBody<InferInput<(typeof import('#graphics/validators/css_variables').editCssVariableValidator)>>
+      paramsTuple: [ParamValue]
+      params: { id: ParamValue }
+      query: ExtractQuery<InferInput<(typeof import('#graphics/validators/css_variables').editCssVariableValidator)>>
+      response: ExtractResponse<Awaited<ReturnType<import('#app/graphics/controllers/css_variables_controller').default['update']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#app/graphics/controllers/css_variables_controller').default['update']>>> | { status: 422; response: { errors: SimpleError[] } }
+      rawResponse: ExtractRawResponse<Awaited<ReturnType<import('#app/graphics/controllers/css_variables_controller').default['update']>>> | { status: 422; response: { errors: SimpleError[] } }
+    }
+  }
+  'css_variables.destroy': {
+    methods: ["DELETE"]
+    pattern: '/graphics/css-variables/:id'
+    types: {
+      body: {}
+      paramsTuple: [ParamValue]
+      params: { id: ParamValue }
+      query: {}
+      response: ExtractResponse<Awaited<ReturnType<import('#app/graphics/controllers/css_variables_controller').default['destroy']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#app/graphics/controllers/css_variables_controller').default['destroy']>>>
+      rawResponse: ExtractRawResponse<Awaited<ReturnType<import('#app/graphics/controllers/css_variables_controller').default['destroy']>>>
+    }
+  }
   'cg.all': {
     methods: ["GET","HEAD"]
     pattern: '/cg/all'

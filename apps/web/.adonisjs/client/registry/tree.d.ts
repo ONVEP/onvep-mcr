@@ -111,6 +111,12 @@ export interface ApiDefinition {
   graphics: {
     tailwindClasses: typeof routes['graphics.tailwind_classes']
   }
+  cssVariables: {
+    index: typeof routes['css_variables.index']
+    store: typeof routes['css_variables.store']
+    update: typeof routes['css_variables.update']
+    destroy: typeof routes['css_variables.destroy']
+  }
   cg: {
     all: typeof routes['cg.all']
     layer: typeof routes['cg.layer']

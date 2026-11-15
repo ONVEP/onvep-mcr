@@ -63,6 +63,10 @@ export type ScannedRoutes = {
     'layers.update': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'layers.destroy': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'graphics.tailwind_classes': { paramsTuple?: []; params?: {} }
+    'css_variables.index': { paramsTuple?: []; params?: {} }
+    'css_variables.store': { paramsTuple?: []; params?: {} }
+    'css_variables.update': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'css_variables.destroy': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'cg.all': { paramsTuple?: []; params?: {} }
     'cg.layer': { paramsTuple: [ParamValue]; params: {'slug': ParamValue} }
     'cg.tailwind': { paramsTuple?: []; params?: {} }
@@ -118,6 +122,7 @@ export type ScannedRoutes = {
     'layers.index': { paramsTuple?: []; params?: {} }
     'layers.show': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'graphics.tailwind_classes': { paramsTuple?: []; params?: {} }
+    'css_variables.index': { paramsTuple?: []; params?: {} }
     'cg.all': { paramsTuple?: []; params?: {} }
     'cg.layer': { paramsTuple: [ParamValue]; params: {'slug': ParamValue} }
     'cg.tailwind': { paramsTuple?: []; params?: {} }
@@ -158,6 +163,7 @@ export type ScannedRoutes = {
     'layers.index': { paramsTuple?: []; params?: {} }
     'layers.show': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'graphics.tailwind_classes': { paramsTuple?: []; params?: {} }
+    'css_variables.index': { paramsTuple?: []; params?: {} }
     'cg.all': { paramsTuple?: []; params?: {} }
     'cg.layer': { paramsTuple: [ParamValue]; params: {'slug': ParamValue} }
     'cg.tailwind': { paramsTuple?: []; params?: {} }
@@ -188,6 +194,7 @@ export type ScannedRoutes = {
     'steps.move': { paramsTuple: [ParamValue,ParamValue]; params: {'rundown_id': ParamValue,'id': ParamValue} }
     'step_types.store': { paramsTuple?: []; params?: {} }
     'layers.store': { paramsTuple?: []; params?: {} }
+    'css_variables.store': { paramsTuple?: []; params?: {} }
     'context.values.store': { paramsTuple?: []; params?: {} }
     'context.mutators.store': { paramsTuple?: []; params?: {} }
     'context.validators.store': { paramsTuple?: []; params?: {} }
@@ -208,6 +215,7 @@ export type ScannedRoutes = {
     'steps.update': { paramsTuple: [ParamValue,ParamValue]; params: {'rundown_id': ParamValue,'id': ParamValue} }
     'step_types.update': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'layers.update': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'css_variables.update': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'context.values.update': { paramsTuple?: []; params?: {} }
     'context.mutators.update': { paramsTuple: [ParamValue]; params: {'name': ParamValue} }
     'context.validators.update': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
@@ -218,6 +226,7 @@ export type ScannedRoutes = {
     'network_drives.update': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'rundowns.update': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'step_types.update': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'css_variables.update': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
   }
   DELETE: {
     'users.destroy': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
@@ -228,6 +237,7 @@ export type ScannedRoutes = {
     'steps.destroy': { paramsTuple: [ParamValue,ParamValue]; params: {'rundown_id': ParamValue,'id': ParamValue} }
     'step_types.destroy': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'layers.destroy': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'css_variables.destroy': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'context.values.destroy': { paramsTuple?: []; params?: {} }
     'context.mutators.destroy': { paramsTuple: [ParamValue]; params: {'name': ParamValue} }
     'context.validators.destroy': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }

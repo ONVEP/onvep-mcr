@@ -8,7 +8,8 @@ interface Props {
 }
 
 const CHECKERBOARD = {
-  backgroundImage: 'conic-gradient(#0000001a 25%, transparent 0 50%, #0000001a 0 75%, transparent 0)',
+  backgroundImage:
+    'conic-gradient(#0000001a 25%, transparent 0 50%, #0000001a 0 75%, transparent 0)',
   backgroundSize: '20px 20px',
 }
 

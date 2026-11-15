@@ -2,6 +2,7 @@ import React from 'react'
 
 import { ModalRoot } from 'adonis-inertia-modal/react'
 import { Toaster } from '@workspace/ui/components/sonner'
+import { cn } from '@workspace/ui/lib/utils'
 import { SidebarInset, SidebarProvider, SidebarTrigger } from '@workspace/ui/components/sidebar'
 
 import { AppSidebar } from '#common/ui/components/app_sidebar'
@@ -25,6 +26,8 @@ interface BreadcrumbItemProps {
 
 interface AdminLayoutProps extends React.PropsWithChildren {
   breadcrumbs?: BreadcrumbItemProps[]
+  // Full-bleed main area for workspace pages (sidebar + editor) that draw their own borders.
+  flush?: boolean
 }
 
 const EMPTY_BREADCRUMBS: BreadcrumbItemProps[] = []
@@ -32,6 +35,7 @@ const EMPTY_BREADCRUMBS: BreadcrumbItemProps[] = []
 export default function AdminLayout({
   children,
   breadcrumbs = EMPTY_BREADCRUMBS,
+  flush = false,
 }: AdminLayoutProps) {
   const user = useUser()
   const { t } = useTranslation()
@@ -65,7 +69,14 @@ export default function AdminLayout({
               <NavUser user={user} options={navUser} />
             </div>
           </header>
-          <main className="flex flex-1 flex-col gap-4 py-4 px-6 overflow-y-auto">{children}</main>
+          <main
+            className={cn(
+              'flex flex-1 flex-col',
+              flush ? 'min-h-0 overflow-hidden' : 'gap-4 py-4 px-6 overflow-y-auto'
+            )}
+          >
+            {children}
+          </main>
         </SidebarInset>
       </SidebarProvider>
       <ModalRoot />

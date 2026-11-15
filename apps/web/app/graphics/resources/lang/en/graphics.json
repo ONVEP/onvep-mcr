@@ -26,5 +26,38 @@
   "delete": {
     "title": "Delete layer",
     "description": "Delete the layer <strong>{name}</strong>? Its URL will stop working."
+  },
+  "css_variables": {
+    "page": {
+      "title": "CSS variables",
+      "description": "Variables and colors added to the stylesheet of every CG page. Use them with var(--name); colors also get Tailwind classes (bg-name, text-name…)."
+    },
+    "kinds": {
+      "color": "Color",
+      "value": "Value"
+    },
+    "table": {
+      "kind": "Type",
+      "name": "Name",
+      "value": "Value",
+      "color": "Color",
+      "usage": "Usage"
+    },
+    "new": {
+      "name_placeholder": "name",
+      "value_placeholder": {
+        "color": "#ffffff, rgb(0 0 0 / 50%)…",
+        "value": "12px, 'Inter', sans-serif…"
+      }
+    },
+    "actions": {
+      "add": "Add the variable",
+      "delete": "Delete",
+      "copy": "Copy"
+    },
+    "delete": {
+      "title": "Delete the variable",
+      "description": "Delete <strong>{name}</strong>? Layers using it will lose its value."
+    }
   }
 }

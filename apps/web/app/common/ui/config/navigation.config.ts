@@ -11,6 +11,7 @@ import {
   LayoutDashboard,
   Radio,
   LogOut,
+  Palette,
   List,
   Settings,
   Shield,
@@ -65,12 +66,6 @@ export function getMainNav(t: SimpleTFunction): NavMainItem[] {
       can: 'viewRundowns',
     },
     {
-      title: t('common.layout.navMain.graphics'),
-      url: '/graphics',
-      icon: Layers,
-      can: 'manageGraphics',
-    },
-    {
       title: t('common.layout.navMain.context'),
       url: '/context',
       icon: Braces,
@@ -122,6 +117,23 @@ export function getAdminNav(t: SimpleTFunction): NavMainItem[] {
           url: '/media/network-drives',
           icon: HardDrive,
           can: 'manageNetworkDrives',
+        },
+      ],
+    },
+    {
+      title: t('common.layout.navMain.graphics'),
+      items: [
+        {
+          title: t('common.layout.navMain.layers'),
+          url: '/graphics',
+          icon: Layers,
+          can: 'manageGraphics',
+        },
+        {
+          title: t('common.layout.navMain.cssVariables'),
+          url: '/graphics/css-variables',
+          icon: Palette,
+          can: 'manageGraphics',
         },
       ],
     },

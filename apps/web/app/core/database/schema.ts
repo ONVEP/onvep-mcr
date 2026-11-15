@@ -32,6 +32,23 @@ export class AuthAccessTokenSchema extends BaseModel {
   declare updatedAt: DateTime | null
 }
 
+export class CssVariableSchema extends BaseModel {
+  static $columns = ['createdAt', 'id', 'kind', 'name', 'updatedAt', 'value'] as const
+  $columns = CssVariableSchema.$columns
+  @column.dateTime({ autoCreate: true })
+  declare createdAt: DateTime | null
+  @column({ isPrimary: true })
+  declare id: number
+  @column()
+  declare kind: string
+  @column()
+  declare name: string
+  @column.dateTime({ autoCreate: true, autoUpdate: true })
+  declare updatedAt: DateTime | null
+  @column()
+  declare value: string
+}
+
 export class LayerSchema extends BaseModel {
   static $columns = ['content', 'createdAt', 'enabled', 'id', 'name', 'slug', 'updatedAt'] as const
   $columns = LayerSchema.$columns

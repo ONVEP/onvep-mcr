@@ -5,6 +5,7 @@ import DeleteLayer from '#graphics/actions/delete_layer'
 import UpdateLayer from '#graphics/actions/update_layer'
 import Layer from '#graphics/models/layer'
 import LayerPolicy from '#graphics/policies/layer_policy'
+import ListCssVariables from '#graphics/queries/list_css_variables'
 import ListLayers from '#graphics/queries/list_layers'
 import LayerTransformer from '#graphics/transformers/layer_transformer'
 import { createLayerValidator, updateLayerValidator } from '#graphics/validators/layers'
@@ -46,6 +47,7 @@ export default class LayersController {
     const previewShell = await view.render('graphics::views/cg', {
       title: layer.name,
       layers: [{ slug: layer.slug, content: PREVIEW_PLACEHOLDER }],
+      cssVariables: await new ListCssVariables().handle(),
     })
 
     return inertia.render('graphics/editor', {

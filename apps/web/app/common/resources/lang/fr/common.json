@@ -15,7 +15,9 @@
       "context": "Contexte",
       "mutators": "Mutators",
       "validators": "Validators",
-      "contextVersions": "Historique"
+      "contextVersions": "Historique",
+      "layers": "Calques",
+      "cssVariables": "Variables CSS"
     },
     "navUser": {
       "settings": "Paramètres",

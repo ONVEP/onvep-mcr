@@ -22,6 +22,7 @@ export const controllers = {
   },
   graphics: {
     Cg: () => import('#app/graphics/controllers/cg_controller'),
+    CssVariables: () => import('#app/graphics/controllers/css_variables_controller'),
     Layers: () => import('#app/graphics/controllers/layers_controller'),
     TailwindClasses: () => import('#app/graphics/controllers/tailwind_classes_controller'),
   },

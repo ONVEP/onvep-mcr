@@ -362,6 +362,30 @@ const routes = {
     tokens: [[0,"graphics"],[0,"tailwind-classes"]],
     types: placeholder as Registry['graphics.tailwind_classes']['types'],
   },
+  'css_variables.index': {
+    methods: ["GET","HEAD"],
+    pattern: '/graphics/css-variables',
+    tokens: [[0,"graphics"],[0,"css-variables"]],
+    types: placeholder as Registry['css_variables.index']['types'],
+  },
+  'css_variables.store': {
+    methods: ["POST"],
+    pattern: '/graphics/css-variables',
+    tokens: [[0,"graphics"],[0,"css-variables"]],
+    types: placeholder as Registry['css_variables.store']['types'],
+  },
+  'css_variables.update': {
+    methods: ["PUT","PATCH"],
+    pattern: '/graphics/css-variables/:id',
+    tokens: [[0,"graphics"],[0,"css-variables"],[1,"id"]],
+    types: placeholder as Registry['css_variables.update']['types'],
+  },
+  'css_variables.destroy': {
+    methods: ["DELETE"],
+    pattern: '/graphics/css-variables/:id',
+    tokens: [[0,"graphics"],[0,"css-variables"],[1,"id"]],
+    types: placeholder as Registry['css_variables.destroy']['types'],
+  },
   'cg.all': {
     methods: ["GET","HEAD"],
     pattern: '/cg/all',

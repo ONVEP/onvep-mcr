@@ -33,6 +33,7 @@ import type { InertiaProps } from '#core/ui/types'
 import AuthenticatedLayout from '#common/ui/components/authenticated_layout'
 import Heading from '#common/ui/components/heading'
 import { Main } from '#common/ui/components/main'
+import { InlineInput } from '#common/ui/components/inline_fields'
 import useCan from '#common/ui/hooks/use_can'
 import { useTranslation } from '#common/ui/hooks/use_translation'
 import { urlFor } from '~/app/client'
@@ -41,7 +42,6 @@ import { DeleteDialog } from '#rundowns/ui/components/delete_dialog'
 import { addSeconds, formatDuration, parseDuration } from '#rundowns/ui/components/duration'
 import {
   InlineCheckbox,
-  InlineInput,
   InlineStepTypeSelect,
   NewStepRow,
   saveStep,

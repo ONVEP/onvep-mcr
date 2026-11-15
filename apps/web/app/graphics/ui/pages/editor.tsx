@@ -12,7 +12,7 @@ import { Trans } from 'react-i18next'
 import type { InertiaProps } from '#core/ui/types'
 
 import { ConfirmDialog } from '#common/ui/components/confirm_dialog'
-import WorkspaceLayout from '#common/ui/components/workspace_layout'
+import AdminLayout from '#common/ui/components/admin_layout'
 import { useTranslation } from '#common/ui/hooks/use_translation'
 import { urlFor } from '~/app/client'
 
@@ -153,10 +153,20 @@ function LayerWorkspace({
         </label>
 
         <div className="flex min-w-0 items-center gap-1 text-sm text-muted-foreground">
-          <a href={cgUrl} target="_blank" rel="noreferrer" className="truncate font-mono hover:underline">
+          <a
+            href={cgUrl}
+            target="_blank"
+            rel="noreferrer"
+            className="truncate font-mono hover:underline"
+          >
             {cgUrl}
           </a>
-          <CopyButton content={cgUrl} variant="ghost" size="sm" aria-label={t('graphics.editor.copy_url')} />
+          <CopyButton
+            content={cgUrl}
+            variant="ghost"
+            size="sm"
+            aria-label={t('graphics.editor.copy_url')}
+          />
         </div>
 
         <div className="ml-auto flex items-center gap-2">
@@ -227,20 +237,28 @@ export default function GraphicsEditorPage({
   const { t } = useTranslation()
 
   return (
-    <WorkspaceLayout>
-      <LayersSidebar layers={layers} currentId={layer?.id ?? null} />
-      {layer ? (
-        <LayerWorkspace
-          key={layer.id}
-          layer={layer}
-          previewShell={previewShell}
-          previewPlaceholder={previewPlaceholder}
-        />
-      ) : (
-        <div className="flex flex-1 items-center justify-center p-6 text-sm text-muted-foreground">
-          {t('graphics.layers.empty')}
-        </div>
-      )}
-    </WorkspaceLayout>
+    <AdminLayout
+      flush
+      breadcrumbs={[
+        { label: t('common.layout.navMain.graphics') },
+        { label: t('graphics.layers.title') },
+      ]}
+    >
+      <div className="flex min-h-0 flex-1 overflow-hidden">
+        <LayersSidebar layers={layers} currentId={layer?.id ?? null} />
+        {layer ? (
+          <LayerWorkspace
+            key={layer.id}
+            layer={layer}
+            previewShell={previewShell}
+            previewPlaceholder={previewPlaceholder}
+          />
+        ) : (
+          <div className="flex flex-1 items-center justify-center p-6 text-sm text-muted-foreground">
+            {t('graphics.layers.empty')}
+          </div>
+        )}
+      </div>
+    </AdminLayout>
   )
 }

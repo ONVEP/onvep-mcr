@@ -12,12 +12,12 @@ import type { InertiaProps } from '#core/ui/types'
 
 import AdminLayout from '#common/ui/components/admin_layout'
 import Heading from '#common/ui/components/heading'
+import { InlineColorInput, InlineInput } from '#common/ui/components/inline_fields'
 import { Main } from '#common/ui/components/main'
 import { useTranslation } from '#common/ui/hooks/use_translation'
 import { urlFor } from '~/app/client'
 
 import { DeleteDialog } from '#rundowns/ui/components/delete_dialog'
-import { InlineColorInput, InlineInput } from '#rundowns/ui/components/step_inline_fields'
 
 import type { Data } from '@generated/data'
 
