@@ -1,0 +1,19 @@
+{
+  "name": "node-red-contrib-context-engine",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Node-RED nodes to read, write and watch the context engine",
+  "keywords": [
+    "node-red"
+  ],
+  "license": "MIT",
+  "node-red": {
+    "version": ">=4.0.0",
+    "nodes": {
+      "context-engine": "context-engine.js"
+    }
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

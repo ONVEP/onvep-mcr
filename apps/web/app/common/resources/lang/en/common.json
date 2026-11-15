@@ -22,7 +22,8 @@
     "navUser": {
       "settings": "Settings",
       "adminPanel": "Admin panel",
-      "logout": "Log out"
+      "logout": "Log out",
+      "nodeRed": "Node-RED"
     }
   },
   "table": {

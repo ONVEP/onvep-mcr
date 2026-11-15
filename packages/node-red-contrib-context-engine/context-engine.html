@@ -1,0 +1,225 @@
+<!-- context-engine: shared connection -------------------------------------------------------- -->
+<script type="text/javascript">
+  RED.nodes.registerType('context-engine', {
+    category: 'config',
+    defaults: {
+      name: { value: '' },
+      url: { value: '' },
+    },
+    label: function () {
+      return this.name || this.url || 'context engine'
+    },
+  })
+</script>
+
+<script type="text/html" data-template-name="context-engine">
+  <div class="form-row">
+    <label for="node-config-input-name"><i class="fa fa-tag"></i> Name</label>
+    <input type="text" id="node-config-input-name" />
+  </div>
+  <div class="form-row">
+    <label for="node-config-input-url"><i class="fa fa-globe"></i> URL</label>
+    <input type="text" id="node-config-input-url" placeholder="$CONTEXT_ENGINE_URL or http://localhost:3334" />
+  </div>
+</script>
+
+<script type="text/html" data-help-name="context-engine">
+  <p>Connection to the context engine, shared by every context node using it.</p>
+  <h3>Properties</h3>
+  <dl class="message-properties">
+    <dt class="optional">URL <span class="property-type">string</span></dt>
+    <dd>
+      Base URL of the engine. Empty: the <code>CONTEXT_ENGINE_URL</code> environment variable,
+      else <code>http://localhost:3334</code>.
+    </dd>
+  </dl>
+  <p>
+    Changes are received over a single SSE connection, re-established automatically. Context nodes
+    read the current value again after a reconnection, since changes made meanwhile are lost.
+  </p>
+</script>
+
+<!-- context in ------------------------------------------------------------------------------- -->
+<script type="text/javascript">
+  RED.nodes.registerType('context in', {
+    category: 'context engine',
+    color: '#7dd3fc',
+    defaults: {
+      name: { value: '' },
+      engine: { value: '', type: 'context-engine', required: true },
+      path: { value: '' },
+      initial: { value: true },
+    },
+    inputs: 0,
+    outputs: 1,
+    icon: 'subflow.svg',
+    paletteLabel: 'context in',
+    label: function () {
+      return this.name || 'context: ' + (this.path || '(root)')
+    },
+  })
+</script>
+
+<script type="text/html" data-template-name="context in">
+  <div class="form-row">
+    <label for="node-input-engine"><i class="fa fa-server"></i> Engine</label>
+    <input type="text" id="node-input-engine" />
+  </div>
+  <div class="form-row">
+    <label for="node-input-path"><i class="fa fa-sitemap"></i> Path</label>
+    <input type="text" id="node-input-path" placeholder="layers.0 (empty: whole context)" />
+  </div>
+  <div class="form-row">
+    <label>&nbsp;</label>
+    <label for="node-input-initial" style="width: auto">
+      <input type="checkbox" id="node-input-initial" style="display: inline-block; width: auto; vertical-align: top" />
+      Send the current value on start and after a reconnection
+    </label>
+  </div>
+  <div class="form-row">
+    <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
+    <input type="text" id="node-input-name" />
+  </div>
+</script>
+
+<script type="text/html" data-help-name="context in">
+  <p>Sends a message every time the value at a context path changes, including changes deeper in it.</p>
+  <h3>Outputs</h3>
+  <dl class="message-properties">
+    <dt>payload <span class="property-type">any</span></dt>
+    <dd>The new value at the path (<code>undefined</code> when it was removed).</dd>
+    <dt>topic <span class="property-type">string</span></dt>
+    <dd>The watched path.</dd>
+    <dt>changes <span class="property-type">string[]</span></dt>
+    <dd>The paths that changed, e.g. <code>layers.0.name</code> for a node watching <code>layers</code>.</dd>
+    <dt>exists <span class="property-type">boolean</span></dt>
+    <dd>False when the path doesn't exist (anymore).</dd>
+  </dl>
+</script>
+
+<!-- context get ------------------------------------------------------------------------------ -->
+<script type="text/javascript">
+  RED.nodes.registerType('context get', {
+    category: 'context engine',
+    color: '#7dd3fc',
+    defaults: {
+      name: { value: '' },
+      engine: { value: '', type: 'context-engine', required: true },
+      path: { value: '' },
+    },
+    inputs: 1,
+    outputs: 1,
+    icon: 'db.svg',
+    paletteLabel: 'context get',
+    label: function () {
+      return this.name || 'get ' + (this.path || 'msg.path')
+    },
+  })
+</script>
+
+<script type="text/html" data-template-name="context get">
+  <div class="form-row">
+    <label for="node-input-engine"><i class="fa fa-server"></i> Engine</label>
+    <input type="text" id="node-input-engine" />
+  </div>
+  <div class="form-row">
+    <label for="node-input-path"><i class="fa fa-sitemap"></i> Path</label>
+    <input type="text" id="node-input-path" placeholder="empty: msg.path, else msg.topic" />
+  </div>
+  <div class="form-row">
+    <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
+    <input type="text" id="node-input-name" />
+  </div>
+</script>
+
+<script type="text/html" data-help-name="context get">
+  <p>Reads the value at a context path.</p>
+  <h3>Inputs</h3>
+  <dl class="message-properties">
+    <dt class="optional">path <span class="property-type">string</span></dt>
+    <dd>Used when the node has no path (then <code>msg.topic</code>; empty: the whole context).</dd>
+  </dl>
+  <h3>Outputs</h3>
+  <dl class="message-properties">
+    <dt>payload <span class="property-type">any</span></dt>
+    <dd>The value.</dd>
+  </dl>
+  <p>
+    A missing path raises an error a catch node can handle, with <code>msg.error.code</code> set to
+    <code>E_PATH_NOT_FOUND</code>.
+  </p>
+</script>
+
+<!-- context set ------------------------------------------------------------------------------ -->
+<script type="text/javascript">
+  RED.nodes.registerType('context set', {
+    category: 'context engine',
+    color: '#7dd3fc',
+    defaults: {
+      name: { value: '' },
+      engine: { value: '', type: 'context-engine', required: true },
+      path: { value: '' },
+      action: { value: 'set' },
+    },
+    inputs: 1,
+    outputs: 1,
+    icon: 'db.svg',
+    align: 'right',
+    paletteLabel: 'context set',
+    label: function () {
+      return this.name || (this.action === 'msg' ? 'msg.action' : this.action) + ' ' + (this.path || 'msg.path')
+    },
+  })
+</script>
+
+<script type="text/html" data-template-name="context set">
+  <div class="form-row">
+    <label for="node-input-engine"><i class="fa fa-server"></i> Engine</label>
+    <input type="text" id="node-input-engine" />
+  </div>
+  <div class="form-row">
+    <label for="node-input-action"><i class="fa fa-wrench"></i> Action</label>
+    <select id="node-input-action">
+      <option value="set">set: replace the value</option>
+      <option value="merge">merge: JSON merge patch into an object</option>
+      <option value="append">append: push to an array</option>
+      <option value="delete">delete: remove the path</option>
+      <option value="msg">from msg.action</option>
+    </select>
+  </div>
+  <div class="form-row">
+    <label for="node-input-path"><i class="fa fa-sitemap"></i> Path</label>
+    <input type="text" id="node-input-path" placeholder="empty: msg.path, else msg.topic" />
+  </div>
+  <div class="form-row">
+    <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
+    <input type="text" id="node-input-name" />
+  </div>
+</script>
+
+<script type="text/html" data-help-name="context set">
+  <p>Writes <code>msg.payload</code> at a context path. Mutators and validators run as for any write.</p>
+  <h3>Inputs</h3>
+  <dl class="message-properties">
+    <dt>payload <span class="property-type">any</span></dt>
+    <dd>The value to write (ignored by <i>delete</i>).</dd>
+    <dt class="optional">path <span class="property-type">string</span></dt>
+    <dd>Used when the node has no path (then <code>msg.topic</code>; empty: the whole context).</dd>
+    <dt class="optional">action <span class="property-type">string</span></dt>
+    <dd><code>set</code>, <code>merge</code>, <code>append</code> or <code>delete</code>, when the node is set to "from msg.action".</dd>
+  </dl>
+  <h3>Outputs</h3>
+  <dl class="message-properties">
+    <dt>payload <span class="property-type">any</span></dt>
+    <dd>The value at the path after the write, mutators included.</dd>
+    <dt>changes <span class="property-type">string[]</span></dt>
+    <dd>The paths that changed.</dd>
+    <dt>version <span class="property-type">number</span></dt>
+    <dd>The new context version (absent when nothing changed).</dd>
+  </dl>
+  <p>
+    A refused write (validator, mutator error…) raises an error a catch node can handle, with the
+    engine code in <code>msg.error.code</code> (<code>E_CONTEXT_VALIDATION</code>, <code>E_MUTATOR</code>…)
+    and its message in <code>msg.error.message</code>.
+  </p>
+</script>

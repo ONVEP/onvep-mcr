@@ -15,6 +15,7 @@ import { getCookie } from '#common/ui/utils/cookie_helper'
 
 import useUser from '#auth/ui/hooks/use_user'
 import useFlashToasts from '#common/ui/hooks/use_flash_toasts'
+import usePageProps from '#common/ui/hooks/use_page_props'
 import { useTranslation } from '#common/ui/hooks/use_translation'
 
 import { getAdminNav, getNavUser } from '#common/ui/config/navigation.config'
@@ -40,7 +41,8 @@ export default function AdminLayout({
   const user = useUser()
   const { t } = useTranslation()
   const navMain = getAdminNav(t)
-  const navUser = getNavUser(t)
+  const { nodeRedUrl } = usePageProps<{ nodeRedUrl: string | null }>()
+  const navUser = getNavUser(t, nodeRedUrl)
   const defaultOpen = getCookie('sidebar_state') !== 'false'
 
   useFlashToasts()

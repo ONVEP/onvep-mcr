@@ -35,6 +35,8 @@ export type NavUserOptionsGroup = {
   icon: LucideIcon
   shortcut?: string
   method?: 'get' | 'post'
+  // Plain link opened in a new tab, outside Inertia.
+  external?: boolean
   can?: CanKey
 }[]
 

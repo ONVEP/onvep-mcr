@@ -17,11 +17,12 @@ import {
   Shield,
   ShieldCheck,
   Users,
+  Workflow,
 } from 'lucide-react'
 
 import type { NavMainItem, NavUserOptionsGroup } from '#common/ui/types/navigation'
 
-export function getNavUser(t: SimpleTFunction): NavUserOptionsGroup[] {
+export function getNavUser(t: SimpleTFunction, nodeRedUrl: string | null): NavUserOptionsGroup[] {
   return [
     [
       {
@@ -35,6 +36,17 @@ export function getNavUser(t: SimpleTFunction): NavUserOptionsGroup[] {
         icon: Shield,
         can: 'manageUsers',
       },
+      ...(nodeRedUrl
+        ? [
+            {
+              title: t('common.layout.navUser.nodeRed'),
+              url: nodeRedUrl,
+              icon: Workflow,
+              external: true,
+              can: 'manageContext' as const,
+            },
+          ]
+        : []),
     ],
     [
       {

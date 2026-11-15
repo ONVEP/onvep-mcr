@@ -30,6 +30,7 @@ export default await Env.create(new URL('../', import.meta.url), {
   */
   CONTEXT_ENGINE_URL: Env.schema.string({ format: 'url', tld: false }),
   CONTEXT_ENGINE_PUBLIC_URL: Env.schema.string.optional({ format: 'url', tld: false }),
+  NODE_RED_URL: Env.schema.string.optional({ format: 'url', tld: false }),
 
   /*
   |----------------------------------------------------------

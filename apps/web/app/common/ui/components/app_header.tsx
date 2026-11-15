@@ -7,6 +7,7 @@ import { NotificationBell } from '#common/ui/components/notification_bell'
 import { ToggleTheme } from '#common/ui/components/toggle_theme'
 
 import useUser from '#auth/ui/hooks/use_user'
+import usePageProps from '#common/ui/hooks/use_page_props'
 import { useTranslation } from '#common/ui/hooks/use_translation'
 
 import { getMainNav, getNavUser } from '#common/ui/config/navigation.config'
@@ -16,7 +17,8 @@ export function AppHeader() {
   const user = useUser()
   const { t } = useTranslation()
   const navMain = getMainNav(t)
-  const navUser = getNavUser(t)
+  const { nodeRedUrl } = usePageProps<{ nodeRedUrl: string | null }>()
+  const navUser = getNavUser(t, nodeRedUrl)
 
   if (!user) return null
 

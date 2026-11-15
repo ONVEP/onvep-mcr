@@ -7,6 +7,7 @@ import Notification from '#notifications/models/notification'
 import User from '#users/models/user'
 import { EMPTY_GLOBAL_PERMISSIONS, globalPermissions } from '#users/services/global_permissions'
 import UserTransformer from '#users/transformers/user_transformer'
+import env from '#start/env'
 
 export default class InertiaMiddleware extends BaseInertiaMiddleware {
   async share(ctx: HttpContext) {
@@ -48,6 +49,7 @@ export default class InertiaMiddleware extends BaseInertiaMiddleware {
       csrf: ctx.inertia.always(ctx.request.csrfToken),
       can: ctx.inertia.always(can),
       unseenNotifications: ctx.inertia.always(unseenNotifications),
+      nodeRedUrl: ctx.inertia.always(env.get('NODE_RED_URL') ?? null),
     }
   }
 

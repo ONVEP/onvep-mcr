@@ -51,6 +51,26 @@ services:
       MP_DATABASE: /data/mailpit.db
       MP_SMTP_AUTH_ACCEPT_ANY: 1
       MP_SMTP_AUTH_ALLOW_INSECURE: 1
+  node-red:
+    container_name: '${COMPOSE_PROJECT_NAME}_node-red'
+    image: nodered/node-red:5.0.9
+    restart: unless-stopped
+    ports:
+      - '${NODE_RED_PORT:-1880}:1880'
+    # The context engine runs on the host (`pnpm dev`) and must listen beyond the loopback
+    # (HOST=0.0.0.0 in apps/context-engine/.env). With rootless Docker, host.docker.internal
+    # doesn't reach the host: set NODE_RED_CONTEXT_ENGINE_URL to the host's LAN IP instead.
+    extra_hosts:
+      - 'host.docker.internal:host-gateway'
+    environment:
+      CONTEXT_ENGINE_URL: '${NODE_RED_CONTEXT_ENGINE_URL:-http://host.docker.internal:3334}'
+    volumes:
+      - node-red:/data
+      # Loaded as local nodes: edits only need a container restart.
+      - ./../../packages/node-red-contrib-context-engine:/data/nodes/context-engine:ro
+    networks:
+      - sail
+
 networks:
   sail:
     driver: bridge
@@ -58,3 +78,4 @@ networks:
 volumes:
   pgsql:
   pgadmin:
+  node-red:

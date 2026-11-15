@@ -1,5 +1,6 @@
 import React from 'react'
 import { Link } from '@inertiajs/react'
+import { ExternalLink } from 'lucide-react'
 
 import { UserAvatar } from '#common/ui/components/user_avatar'
 import useCan from '#common/ui/hooks/use_can'
@@ -45,18 +46,26 @@ export function NavUser({ user, options }: NavUserProps) {
 
             {group.map((option) => (
               <DropdownMenuItem key={option.title} asChild className="cursor-pointer">
-                <Link
-                  href={option.url}
-                  method={option.method ?? 'get'}
-                  as={option.method === 'post' ? 'button' : 'a'}
-                  className="w-full"
-                >
-                  <option.icon />
-                  <span>{option.title}</span>
-                  {option.shortcut && (
-                    <DropdownMenuShortcut>{option.shortcut}</DropdownMenuShortcut>
-                  )}
-                </Link>
+                {option.external ? (
+                  <a href={option.url} target="_blank" rel="noreferrer" className="w-full">
+                    <option.icon />
+                    <span>{option.title}</span>
+                    <ExternalLink className="ml-auto size-3 text-muted-foreground" />
+                  </a>
+                ) : (
+                  <Link
+                    href={option.url}
+                    method={option.method ?? 'get'}
+                    as={option.method === 'post' ? 'button' : 'a'}
+                    className="w-full"
+                  >
+                    <option.icon />
+                    <span>{option.title}</span>
+                    {option.shortcut && (
+                      <DropdownMenuShortcut>{option.shortcut}</DropdownMenuShortcut>
+                    )}
+                  </Link>
+                )}
               </DropdownMenuItem>
             ))}
           </React.Fragment>
