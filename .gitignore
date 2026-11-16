@@ -45,3 +45,5 @@ agent/skills/
 .cursor/skills/
 .opencode/skills/
 skills-lock.json
+# Deployment settings (scripts/deploy.sh)
+.env.deploy

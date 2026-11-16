@@ -1,0 +1,13 @@
+# Images get pushed to a registry: no local secrets in the build context.
+**/.env
+**/.env.*
+!**/.env.example
+.env.deploy
+
+.git
+**/node_modules
+**/build
+**/tmp
+**/.turbo
+packages/companion-module-context-engine/pkg
+**/*.tgz

@@ -7,6 +7,8 @@ x-traefik: &traefik
 services:
   web:
     container_name: '${COMPOSE_PROJECT_NAME}_web'
+    # Pushed by scripts/deploy.sh; built on the spot when absent.
+    image: '${REGISTRY:-onvep-mcr}/web:${TAG:-latest}'
     restart: always
     build:
       context: .
@@ -38,6 +40,7 @@ services:
 
   context-engine:
     container_name: '${COMPOSE_PROJECT_NAME}_context-engine'
+    image: '${REGISTRY:-onvep-mcr}/context-engine:${TAG:-latest}'
     restart: always
     build:
       context: .
