@@ -26,6 +26,27 @@ async function* readEvents(body) {
   }
 }
 
+/** Accepts `host:port` too: fetch rejects a URL without scheme ("unknown scheme"). */
+function normalizeUrl(raw) {
+  const url = raw.trim().replace(/\/+$/, '')
+  return /^[a-z][a-z\d+.-]*:\/\//i.test(url) ? url : `http://${url}`
+}
+
+/** fetch only says "fetch failed": surface the URL and the underlying cause. */
+async function fetchFrom(baseUrl, path, init) {
+  try {
+    return await fetch(`${baseUrl}${path}`, init)
+  } catch (error) {
+    if (error.name === 'AbortError') throw error
+    // Connection errors often come with an empty message and only a code (ECONNREFUSED…).
+    const cause = error.cause?.code || error.cause?.message || error.message
+    const hint = /^https?:\/\/(localhost|127\.|\[::1\])/.test(baseUrl)
+      ? ' (in Docker, localhost is the Node-RED container itself)'
+      : ''
+    throw new Error(`Cannot reach the context engine at ${baseUrl}: ${cause}${hint}`)
+  }
+}
+
 function channelFor(path) {
   return path === '' ? 'context' : `context/${path}`
 }
@@ -43,10 +64,12 @@ module.exports = function (RED) {
   function ContextEngineNode(config) {
     RED.nodes.createNode(this, config)
     const node = this
-    node.url = (config.url || process.env.CONTEXT_ENGINE_URL || 'http://localhost:3334').replace(
-      /\/+$/,
-      ''
+    node.url = normalizeUrl(
+      config.url || process.env.CONTEXT_ENGINE_URL || 'http://localhost:3334'
     )
+    if (!/^https?:\/\//.test(node.url)) {
+      node.error(`Unsupported context engine URL "${node.url}": expected http:// or https://`)
+    }
 
     /** channel → Set of { onMessage, onConnected } */
     const subscribers = new Map()
@@ -68,7 +91,7 @@ module.exports = function (RED) {
         init.headers['content-type'] = 'application/json'
         init.body = JSON.stringify({ value })
       }
-      const response = await fetch(`${node.url}/context/${encodeURIComponent(path)}`, init)
+      const response = await fetchFrom(node.url, `/context/${encodeURIComponent(path)}`, init)
       const body = await response.json().catch(() => null)
       if (!response.ok) {
         const error = new Error(body?.message ?? `Context engine responded ${response.status}`)
@@ -80,7 +103,7 @@ module.exports = function (RED) {
     }
 
     const sendSubscribe = async (channel) => {
-      const response = await fetch(`${node.url}/__transmit/subscribe`, {
+      const response = await fetchFrom(node.url, '/__transmit/subscribe', {
         method: 'POST',
         headers: { 'content-type': 'application/json' },
         body: JSON.stringify({ uid, channel }),
@@ -98,7 +121,7 @@ module.exports = function (RED) {
       controller = new AbortController()
       uid = randomUUID()
       try {
-        const response = await fetch(`${node.url}/__transmit/events?uid=${uid}`, {
+        const response = await fetchFrom(node.url, `/__transmit/events?uid=${uid}`, {
           headers: { accept: 'text/event-stream' },
           signal: controller.signal,
         })
@@ -123,7 +146,9 @@ module.exports = function (RED) {
         }
         throw new Error('Event stream closed')
       } catch (error) {
-        if (!closing) node.debug(`SSE: ${error.message}`)
+        // Logged once per outage, not on every retry.
+        if (!closing && connected) node.warn(`Event stream lost: ${error.message}`)
+        else if (!closing) node.debug(`SSE: ${error.message}`)
       } finally {
         controller = null
         if (connected) setConnected(false)
