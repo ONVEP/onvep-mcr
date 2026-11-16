@@ -32,6 +32,12 @@ export const http = defineConfig({
   useAsyncLocalStorage: false,
 
   /**
+   * In production the app is only reachable through the Traefik container, on a private
+   * Docker network: trust its X-Forwarded-* headers (client IP, https).
+   */
+  trustProxy: 'uniquelocal',
+
+  /**
    * Manage cookies configuration. The settings for the session id cookie are
    * defined inside the "config/session.ts" file.
    */
