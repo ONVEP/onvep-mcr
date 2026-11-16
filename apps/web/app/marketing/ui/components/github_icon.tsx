@@ -1,3 +1,5 @@
+export const GITHUB_URL = 'https://github.com/ONVEP/onvep-mcr'
+
 export function GithubIcon({ className }: { className?: string }) {
   return (
     <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" className={className}>

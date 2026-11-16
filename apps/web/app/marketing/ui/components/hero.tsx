@@ -3,11 +3,14 @@ import { Link } from '@adonisjs/inertia/react'
 import { Button } from '@workspace/ui/components/button'
 
 import { AppLogoMark } from '#common/ui/components/app_logo'
-import { GithubIcon } from '#marketing/ui/components/github_icon'
+import { useTranslation } from '#common/ui/hooks/use_translation'
+import { GITHUB_URL, GithubIcon } from '#marketing/ui/components/github_icon'
 
 import Container from '#marketing/ui/components/container'
 
 export default function HeroSection() {
+  const { t } = useTranslation()
+
   return (
     <section className="relative overflow-hidden py-20 lg:py-32">
       <Container className="relative z-10">
@@ -24,17 +27,25 @@ export default function HeroSection() {
 
             <AppLogoMark className="size-24 md:size-32" />
 
+            <span className="rounded-full border bg-background/60 px-3 py-1 text-xs font-medium text-muted-foreground backdrop-blur">
+              {t('marketing.hero.eyebrow')}
+            </span>
+
             <h1 className="text-balance text-4xl font-bold tracking-tight md:text-7xl bg-clip-text text-transparent bg-gradient-to-b from-foreground to-foreground/70">
               ONVEP MCR
             </h1>
 
-            <p className="text-lg text-muted-foreground md:text-xl text-balance max-w-2xl">
-              Automate and enpower your live production
+            <p className="text-xl font-medium md:text-2xl text-balance max-w-2xl">
+              {t('marketing.hero.tagline')}
+            </p>
+
+            <p className="text-base text-muted-foreground md:text-lg text-balance max-w-2xl">
+              {t('marketing.hero.description')}
             </p>
 
             <div className="flex flex-col sm:flex-row items-center gap-4 pt-4">
               <Button size="lg" className="h-12 px-8 text-base rounded-full" asChild>
-                <Link route="auth.sign_in.show">Get Started</Link>
+                <Link route="auth.sign_in.show">{t('marketing.nav.get_started')}</Link>
               </Button>
               <Button
                 size="lg"
@@ -42,13 +53,9 @@ export default function HeroSection() {
                 className="h-12 px-8 text-base rounded-full gap-2"
                 asChild
               >
-                <a
-                  href="https://github.com/onvep/onvep-mcr"
-                  target="_blank"
-                  rel="noreferrer"
-                >
+                <a href={GITHUB_URL} target="_blank" rel="noreferrer">
                   <GithubIcon className="size-5" />
-                  Star on GitHub
+                  {t('marketing.hero.github')}
                 </a>
               </Button>
             </div>

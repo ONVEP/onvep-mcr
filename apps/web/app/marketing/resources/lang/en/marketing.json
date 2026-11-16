@@ -1,0 +1,69 @@
+{
+  "nav": {
+    "features": "Features",
+    "how_it_works": "How it works",
+    "get_started": "Get started",
+    "toggle_menu": "Toggle menu"
+  },
+  "hero": {
+    "eyebrow": "Open-source master control room",
+    "tagline": "Automate and enhance your live production",
+    "description": "Prepare rundowns, design HTML graphics and drive your whole show from a single live context, wired to Companion and Node-RED.",
+    "github": "Star on GitHub"
+  },
+  "features": {
+    "title": "Everything the control room needs",
+    "description": "One place to prepare the show, and one source of truth while it's on air.",
+    "rundowns": {
+      "title": "Rundowns",
+      "description": "Plan your shows step by step, then follow them live from a dedicated view."
+    },
+    "graphics": {
+      "title": "HTML graphics",
+      "description": "Build CG layers with HTML and Tailwind, preview them at any resolution and load them as a browser source in your playout software."
+    },
+    "context": {
+      "title": "Live context engine",
+      "description": "A shared JSON state pushed in real time over SSE, with validators, mutators and version history."
+    },
+    "companion": {
+      "title": "Companion module",
+      "description": "Bind Stream Deck buttons and triggers to the context: watch values, set them, react to changes."
+    },
+    "node_red": {
+      "title": "Node-RED flows",
+      "description": "Dedicated nodes to read and write the context, so any device or API can join the automation."
+    },
+    "team": {
+      "title": "Team and media",
+      "description": "Roles and permissions for every operator, and network drives as media sources."
+    }
+  },
+  "how_it_works": {
+    "title": "How it works",
+    "description": "From preparation to air, everything flows through the context.",
+    "prepare": {
+      "title": "Prepare",
+      "description": "Write the rundown, design the graphics layers and plug in your media sources."
+    },
+    "connect": {
+      "title": "Connect",
+      "description": "Point Companion, Node-RED or any HTTP client at the context engine."
+    },
+    "go_live": {
+      "title": "Go live",
+      "description": "Every change to the context updates graphics and devices instantly, on every screen."
+    }
+  },
+  "cta": {
+    "title": "Ready to take control?",
+    "description": "Self-host ONVEP MCR with Docker and run your next show from it.",
+    "get_started": "Get started",
+    "github": "View on GitHub"
+  },
+  "footer": {
+    "license": "Released under the MIT license.",
+    "credit": "Built on",
+    "credit_link": "the AdonisJS starter kit"
+  }
+}

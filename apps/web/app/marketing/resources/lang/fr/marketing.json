@@ -1,0 +1,69 @@
+{
+  "nav": {
+    "features": "Fonctionnalités",
+    "how_it_works": "Fonctionnement",
+    "get_started": "Commencer",
+    "toggle_menu": "Ouvrir le menu"
+  },
+  "hero": {
+    "eyebrow": "Régie finale open source",
+    "tagline": "Automatisez et sublimez votre production live",
+    "description": "Préparez vos conducteurs, concevez vos habillages HTML et pilotez toute l'émission depuis un contexte live unique, relié à Companion et Node-RED.",
+    "github": "Star sur GitHub"
+  },
+  "features": {
+    "title": "Tout ce dont la régie a besoin",
+    "description": "Un seul endroit pour préparer l'émission, une seule source de vérité pendant le direct.",
+    "rundowns": {
+      "title": "Conducteurs",
+      "description": "Planifiez vos émissions étape par étape, puis suivez-les en direct depuis une vue dédiée."
+    },
+    "graphics": {
+      "title": "Habillage HTML",
+      "description": "Créez vos couches d'habillage en HTML et Tailwind, prévisualisez-les à toute résolution et chargez-les comme source navigateur dans votre logiciel de diffusion."
+    },
+    "context": {
+      "title": "Moteur de contexte live",
+      "description": "Un état JSON partagé, diffusé en temps réel via SSE, avec validateurs, mutateurs et historique des versions."
+    },
+    "companion": {
+      "title": "Module Companion",
+      "description": "Liez les boutons et déclencheurs du Stream Deck au contexte : surveillez des valeurs, modifiez-les, réagissez aux changements."
+    },
+    "node_red": {
+      "title": "Flux Node-RED",
+      "description": "Des nœuds dédiés pour lire et écrire le contexte, pour intégrer n'importe quel appareil ou API à l'automatisation."
+    },
+    "team": {
+      "title": "Équipe et médias",
+      "description": "Rôles et permissions pour chaque opérateur, et lecteurs réseau comme sources de médias."
+    }
+  },
+  "how_it_works": {
+    "title": "Fonctionnement",
+    "description": "De la préparation à l'antenne, tout passe par le contexte.",
+    "prepare": {
+      "title": "Préparer",
+      "description": "Rédigez le conducteur, concevez les couches d'habillage et branchez vos sources de médias."
+    },
+    "connect": {
+      "title": "Connecter",
+      "description": "Reliez Companion, Node-RED ou n'importe quel client HTTP au moteur de contexte."
+    },
+    "go_live": {
+      "title": "Passer à l'antenne",
+      "description": "Chaque modification du contexte met à jour l'habillage et les appareils instantanément, sur tous les écrans."
+    }
+  },
+  "cta": {
+    "title": "Prêt à prendre la main ?",
+    "description": "Hébergez ONVEP MCR vous-même avec Docker et réalisez votre prochaine émission avec.",
+    "get_started": "Commencer",
+    "github": "Voir sur GitHub"
+  },
+  "footer": {
+    "license": "Publié sous licence MIT.",
+    "credit": "Construit sur",
+    "credit_link": "le starter kit AdonisJS"
+  }
+}
