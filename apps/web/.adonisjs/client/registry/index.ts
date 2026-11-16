@@ -524,6 +524,24 @@ const routes = {
     tokens: [[0,"context"],[0,"versions"],[1,"id"],[0,"restore"]],
     types: placeholder as Registry['context.versions.restore']['types'],
   },
+  'transfer.index': {
+    methods: ["GET","HEAD"],
+    pattern: '/transfer',
+    tokens: [[0,"transfer"]],
+    types: placeholder as Registry['transfer.index']['types'],
+  },
+  'transfer.export': {
+    methods: ["POST"],
+    pattern: '/transfer/export',
+    tokens: [[0,"transfer"],[0,"export"]],
+    types: placeholder as Registry['transfer.export']['types'],
+  },
+  'transfer.import': {
+    methods: ["POST"],
+    pattern: '/transfer/import',
+    tokens: [[0,"transfer"],[0,"import"]],
+    types: placeholder as Registry['transfer.import']['types'],
+  },
   'notifications.index': {
     methods: ["GET","HEAD"],
     pattern: '/notifications',

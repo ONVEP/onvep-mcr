@@ -14,6 +14,7 @@ export type GlobalPermissions = {
   viewContext: boolean
   editContext: boolean
   manageContext: boolean
+  manageTransfer: boolean
 }
 
 export const EMPTY_GLOBAL_PERMISSIONS: GlobalPermissions = {
@@ -29,6 +30,7 @@ export const EMPTY_GLOBAL_PERMISSIONS: GlobalPermissions = {
   viewContext: false,
   editContext: false,
   manageContext: false,
+  manageTransfer: false,
 }
 
 export async function globalPermissions(user: User | undefined): Promise<GlobalPermissions> {
@@ -46,5 +48,6 @@ export async function globalPermissions(user: User | undefined): Promise<GlobalP
     viewContext: await user.hasPermission(PERMISSIONS.contextView),
     editContext: await user.hasPermission(PERMISSIONS.contextEdit),
     manageContext: await user.hasPermission(PERMISSIONS.contextManage),
+    manageTransfer: await user.hasPermission(PERMISSIONS.transferManage),
   }
 }

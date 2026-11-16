@@ -17,7 +17,8 @@
       "validators": "Validators",
       "contextVersions": "History",
       "layers": "Layers",
-      "cssVariables": "Custom CSS"
+      "cssVariables": "Custom CSS",
+      "transfer": "Import / export"
     },
     "navUser": {
       "settings": "Settings",

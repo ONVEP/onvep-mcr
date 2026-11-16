@@ -22,6 +22,7 @@ export const PERMISSIONS = {
   contextView: 'context.view',
   contextEdit: 'context.edit',
   contextManage: 'context.manage',
+  transferManage: 'transfer.manage',
 } as const
 
 export type Permission = (typeof PERMISSIONS)[keyof typeof PERMISSIONS]

@@ -1,0 +1,75 @@
+{
+  "page": {
+    "title": "Import / export",
+    "description": "Transférer conduites, habillage, médias et contexte d'une instance à l'autre"
+  },
+  "tabs": {
+    "export": "Exporter",
+    "import": "Importer"
+  },
+  "tree": {
+    "sections": {
+      "rundowns": "Conduites",
+      "media": "Médias",
+      "graphics": "Habillage",
+      "context": "Contexte",
+      "users": "Utilisateurs"
+    },
+    "nodes": {
+      "rundowns": {
+        "stepTypes": "Types de pas",
+        "rundowns": "Conduites"
+      },
+      "media": {
+        "networkDrives": "Lecteurs réseau"
+      },
+      "graphics": {
+        "layers": "Calques",
+        "cssVariables": "Variables CSS",
+        "customCss": "Feuille de style"
+      },
+      "context": {
+        "data": "Données de contexte",
+        "mutators": "Mutators",
+        "validators": "Validators"
+      },
+      "users": {
+        "roles": "Rôles"
+      }
+    },
+    "count": "{selected} / {total}",
+    "choose": "Choisir…",
+    "empty": "Rien à transférer",
+    "unavailable": "Le moteur de contexte est injoignable : le contexte ne peut pas être exporté."
+  },
+  "items": {
+    "title": "{node} : choisir les éléments",
+    "filter": "Filtrer…",
+    "select_all": "Tout sélectionner",
+    "select_none": "Tout désélectionner",
+    "no_match": "Aucun résultat",
+    "done": "Valider"
+  },
+  "export": {
+    "submit": "Télécharger l'export",
+    "nothing": "Sélectionnez au moins un élément à exporter.",
+    "secrets": "Le fichier contiendra les mots de passe des lecteurs réseau en clair. Conservez-le en lieu sûr.",
+    "failed": "L'export a échoué."
+  },
+  "import": {
+    "file": "Fichier d'export",
+    "file_hint": "Un fichier .json téléchargé depuis l'onglet Exporter.",
+    "invalid_file": "Ce fichier n'est pas un export ONVEP MCR.",
+    "mode": {
+      "label": "Éléments existants",
+      "overwrite": "Écraser",
+      "overwrite_hint": "Les éléments de même nom, slug ou chemin sont remplacés par la version du fichier.",
+      "skip": "Conserver",
+      "skip_hint": "Les éléments de même nom, slug ou chemin sont laissés tels quels."
+    },
+    "matching": "Les éléments sont rapprochés par nom (slug pour les calques, chemin pour les validators). La feuille de style et les données de contexte comptent comme existants s'ils ne sont pas vides.",
+    "submit": "Importer",
+    "nothing": "Sélectionnez au moins un élément à importer.",
+    "done": "Import terminé : {created} créé(s), {updated} mis à jour, {skipped} conservé(s)."
+  }
+}

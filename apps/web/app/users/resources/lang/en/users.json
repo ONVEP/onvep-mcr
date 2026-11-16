@@ -275,7 +275,8 @@
     "live": "Live",
     "rundowns": "Rundowns",
     "graphics": "Graphics",
-    "context": "Context"
+    "context": "Context",
+    "transfer": "Import / export"
   },
   "permissions": {
     "usersViewList": "View users",
@@ -300,6 +301,7 @@
     "graphicsManage": "Manage graphics layers",
     "contextView": "View the context",
     "contextEdit": "Edit context values",
-    "contextManage": "Manage context mutators and validators"
+    "contextManage": "Manage context mutators and validators",
+    "transferManage": "Import and export data"
   }
 }

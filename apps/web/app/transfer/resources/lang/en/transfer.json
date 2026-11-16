@@ -1,0 +1,75 @@
+{
+  "page": {
+    "title": "Import / export",
+    "description": "Move rundowns, graphics, media and context between instances"
+  },
+  "tabs": {
+    "export": "Export",
+    "import": "Import"
+  },
+  "tree": {
+    "sections": {
+      "rundowns": "Rundowns",
+      "media": "Media",
+      "graphics": "Graphics",
+      "context": "Context",
+      "users": "Users"
+    },
+    "nodes": {
+      "rundowns": {
+        "stepTypes": "Step types",
+        "rundowns": "Rundowns"
+      },
+      "media": {
+        "networkDrives": "Network drives"
+      },
+      "graphics": {
+        "layers": "Layers",
+        "cssVariables": "CSS variables",
+        "customCss": "Custom stylesheet"
+      },
+      "context": {
+        "data": "Context data",
+        "mutators": "Mutators",
+        "validators": "Validators"
+      },
+      "users": {
+        "roles": "Roles"
+      }
+    },
+    "count": "{selected} / {total}",
+    "choose": "Choose…",
+    "empty": "Nothing to transfer",
+    "unavailable": "The context engine is unreachable: context data can't be exported."
+  },
+  "items": {
+    "title": "{node}: choose items",
+    "filter": "Filter…",
+    "select_all": "Select all",
+    "select_none": "Select none",
+    "no_match": "No match",
+    "done": "Done"
+  },
+  "export": {
+    "submit": "Download export",
+    "nothing": "Select at least one item to export.",
+    "secrets": "The file will contain the network drive passwords in clear text. Store it safely.",
+    "failed": "Export failed."
+  },
+  "import": {
+    "file": "Export file",
+    "file_hint": "A .json file downloaded from the Export tab.",
+    "invalid_file": "This file isn't an ONVEP MCR export.",
+    "mode": {
+      "label": "Existing items",
+      "overwrite": "Overwrite",
+      "overwrite_hint": "Items with the same name, slug or path are replaced by the file's version.",
+      "skip": "Keep",
+      "skip_hint": "Items with the same name, slug or path are left untouched."
+    },
+    "matching": "Items are matched by name (slug for layers, path for validators). The custom stylesheet and context data count as existing when they aren't empty.",
+    "submit": "Import",
+    "nothing": "Select at least one item to import.",
+    "done": "Import complete: {created} created, {updated} updated, {skipped} kept."
+  }
+}

@@ -1126,6 +1126,45 @@ export interface Registry {
       rawResponse: ExtractRawResponse<Awaited<ReturnType<import('#app/context/controllers/versions_controller').default['restore']>>> | { status: 422; response: { errors: SimpleError[] } }
     }
   }
+  'transfer.index': {
+    methods: ["GET","HEAD"]
+    pattern: '/transfer'
+    types: {
+      body: {}
+      paramsTuple: []
+      params: {}
+      query: {}
+      response: ExtractResponse<Awaited<ReturnType<import('#app/transfer/controllers/transfer_controller').default['index']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#app/transfer/controllers/transfer_controller').default['index']>>>
+      rawResponse: ExtractRawResponse<Awaited<ReturnType<import('#app/transfer/controllers/transfer_controller').default['index']>>>
+    }
+  }
+  'transfer.export': {
+    methods: ["POST"]
+    pattern: '/transfer/export'
+    types: {
+      body: ExtractBody<InferInput<(typeof import('#transfer/validators/transfer').exportValidator)>>
+      paramsTuple: []
+      params: {}
+      query: ExtractQuery<InferInput<(typeof import('#transfer/validators/transfer').exportValidator)>>
+      response: ExtractResponse<Awaited<ReturnType<import('#app/transfer/controllers/exports_controller').default['handle']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#app/transfer/controllers/exports_controller').default['handle']>>> | { status: 422; response: { errors: SimpleError[] } }
+      rawResponse: ExtractRawResponse<Awaited<ReturnType<import('#app/transfer/controllers/exports_controller').default['handle']>>> | { status: 422; response: { errors: SimpleError[] } }
+    }
+  }
+  'transfer.import': {
+    methods: ["POST"]
+    pattern: '/transfer/import'
+    types: {
+      body: ExtractBody<InferInput<(typeof import('#transfer/validators/transfer').importValidator)>|InferInput<(typeof import('#transfer/validators/transfer').importSelectionValidator)>|InferInput<(typeof import('#transfer/validators/transfer').bundleValidator)>>
+      paramsTuple: []
+      params: {}
+      query: ExtractQuery<InferInput<(typeof import('#transfer/validators/transfer').importValidator)>|InferInput<(typeof import('#transfer/validators/transfer').importSelectionValidator)>|InferInput<(typeof import('#transfer/validators/transfer').bundleValidator)>>
+      response: ExtractResponse<Awaited<ReturnType<import('#app/transfer/controllers/imports_controller').default['handle']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#app/transfer/controllers/imports_controller').default['handle']>>> | { status: 422; response: { errors: SimpleError[] } }
+      rawResponse: ExtractRawResponse<Awaited<ReturnType<import('#app/transfer/controllers/imports_controller').default['handle']>>> | { status: 422; response: { errors: SimpleError[] } }
+    }
+  }
   'notifications.index': {
     methods: ["GET","HEAD"]
     pattern: '/notifications'

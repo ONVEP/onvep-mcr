@@ -113,6 +113,9 @@ export default defineConfig({
 
     //context
     () => import('#context/routes'),
+
+    //transfer
+    () => import('#transfer/routes'),
   ],
 
   /*

@@ -154,6 +154,11 @@ export interface ApiDefinition {
       restore: typeof routes['context.versions.restore']
     }
   }
+  transfer: {
+    index: typeof routes['transfer.index']
+    export: typeof routes['transfer.export']
+    import: typeof routes['transfer.import']
+  }
   notifications: {
     index: typeof routes['notifications.index']
     markRead: typeof routes['notifications.markRead']

@@ -33,6 +33,9 @@
     "../../context/ui/**/*.ts",
     "../../context/ui/**/*.tsx",
     "../../context/types/**/*.ts",
+    "../../transfer/ui/**/*.ts",
+    "../../transfer/ui/**/*.tsx",
+    "../../transfer/types/**/*.ts",
     "../../../config/auth.ts",
     "../../../.adonisjs/client/**/*.ts",
     "../../../.adonisjs/server/**/*.d.ts"

@@ -34,6 +34,7 @@ declare module '@adonisjs/inertia/types' {
     'rundowns/live': ExtractProps<(typeof import('../../app/rundowns/ui/pages/live.tsx'))['default']>
     'rundowns/show': ExtractProps<(typeof import('../../app/rundowns/ui/pages/show.tsx'))['default']>
     'rundowns/step_types/index': ExtractProps<(typeof import('../../app/rundowns/ui/pages/step_types/index.tsx'))['default']>
+    'transfer/index': ExtractProps<(typeof import('../../app/transfer/ui/pages/index.tsx'))['default']>
     'users/create': ExtractProps<(typeof import('../../app/users/ui/pages/create.tsx'))['default']>
     'users/edit': ExtractProps<(typeof import('../../app/users/ui/pages/edit.tsx'))['default']>
     'users/index': ExtractProps<(typeof import('../../app/users/ui/pages/index.tsx'))['default']>

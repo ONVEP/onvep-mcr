@@ -1,6 +1,7 @@
 import type { SimpleTFunction } from '#common/ui/hooks/use_translation'
 
 import {
+  ArrowLeftRight,
   Braces,
   ClipboardList,
   FileCode,
@@ -107,6 +108,12 @@ export function getAdminNav(t: SimpleTFunction): NavMainItem[] {
           url: '/roles',
           icon: KeyRound,
           can: 'manageRoles',
+        },
+        {
+          title: t('common.layout.navMain.transfer'),
+          url: '/transfer',
+          icon: ArrowLeftRight,
+          can: 'manageTransfer',
         },
       ],
     },

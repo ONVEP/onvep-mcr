@@ -43,6 +43,11 @@ export const controllers = {
     StepTypes: () => import('#app/rundowns/controllers/step_types_controller'),
     Steps: () => import('#app/rundowns/controllers/steps_controller'),
   },
+  transfer: {
+    Exports: () => import('#app/transfer/controllers/exports_controller'),
+    Imports: () => import('#app/transfer/controllers/imports_controller'),
+    Transfer: () => import('#app/transfer/controllers/transfer_controller'),
+  },
   users: {
     Impersonates: () => import('#app/users/controllers/impersonates_controller'),
     Invite: () => import('#app/users/controllers/invite_controller'),

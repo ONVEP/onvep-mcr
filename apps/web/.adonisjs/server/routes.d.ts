@@ -90,6 +90,9 @@ export type ScannedRoutes = {
     'context.versions.index': { paramsTuple?: []; params?: {} }
     'context.versions.show': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'context.versions.restore': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'transfer.index': { paramsTuple?: []; params?: {} }
+    'transfer.export': { paramsTuple?: []; params?: {} }
+    'transfer.import': { paramsTuple?: []; params?: {} }
     'notifications.index': { paramsTuple?: []; params?: {} }
     'notifications.markRead': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'notifications.markAllSeen': { paramsTuple?: []; params?: {} }
@@ -138,6 +141,7 @@ export type ScannedRoutes = {
     'context.validators.show': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'context.versions.index': { paramsTuple?: []; params?: {} }
     'context.versions.show': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'transfer.index': { paramsTuple?: []; params?: {} }
     'notifications.index': { paramsTuple?: []; params?: {} }
     'event_stream': { paramsTuple?: []; params?: {} }
   }
@@ -181,6 +185,7 @@ export type ScannedRoutes = {
     'context.validators.show': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'context.versions.index': { paramsTuple?: []; params?: {} }
     'context.versions.show': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'transfer.index': { paramsTuple?: []; params?: {} }
     'notifications.index': { paramsTuple?: []; params?: {} }
     'event_stream': { paramsTuple?: []; params?: {} }
   }
@@ -206,6 +211,8 @@ export type ScannedRoutes = {
     'context.mutators.store': { paramsTuple?: []; params?: {} }
     'context.validators.store': { paramsTuple?: []; params?: {} }
     'context.versions.restore': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'transfer.export': { paramsTuple?: []; params?: {} }
+    'transfer.import': { paramsTuple?: []; params?: {} }
     'notifications.markRead': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'notifications.markAllSeen': { paramsTuple?: []; params?: {} }
     'notifications.markAllRead': { paramsTuple?: []; params?: {} }

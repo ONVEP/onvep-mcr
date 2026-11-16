@@ -17,7 +17,8 @@
       "validators": "Validators",
       "contextVersions": "Historique",
       "layers": "Calques",
-      "cssVariables": "CSS personnalisé"
+      "cssVariables": "CSS personnalisé",
+      "transfer": "Import / export"
     },
     "navUser": {
       "settings": "Paramètres",
