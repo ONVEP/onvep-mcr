@@ -12,7 +12,13 @@
 set -euo pipefail
 
 cd "$(dirname "$0")/.."
-[[ -f .env.deploy ]] && set -a && source .env.deploy && set +a
+# Variables already set (e.g. `REGISTRY=… pnpm deploy:prod`) win over .env.deploy.
+if [[ -f .env.deploy ]]; then
+  while IFS='=' read -r key value; do
+    value="${value%\"}" value="${value#\"}" value="${value%\'}" value="${value#\'}"
+    [[ -z "${!key:-}" ]] && export "$key=$value"
+  done < <(grep -E '^[A-Z_][A-Z0-9_]*=' .env.deploy)
+fi
 
 : "${REGISTRY:?Set REGISTRY (e.g. registry.example.com/onvep), see scripts/deploy.sh}"
 PLATFORM="${PLATFORM:-linux/amd64}"
@@ -23,13 +29,20 @@ if [[ -z "${1:-}" && -n "$(git status --porcelain)" ]]; then
   echo "⚠ Uncommitted changes: the images won't match commit $TAG." >&2
 fi
 
-# Same names as the `image:` entries of docker-compose.prod.yaml.
-for app in web context-engine; do
+# image name → Dockerfile. Same names as the `image:` entries of docker-compose.prod.yaml and
+# deploy/portainer-stack.yaml.
+declare -A DOCKERFILES=(
+  [web]=apps/web/Dockerfile
+  [context-engine]=apps/context-engine/Dockerfile
+  [node-red]=packages/node-red-contrib-context-engine/Dockerfile
+)
+
+for app in web context-engine node-red; do
   image="$REGISTRY/$app"
   echo "▶ Building $image:$TAG ($PLATFORM)"
   docker buildx build \
     --platform "$PLATFORM" \
-    --file "apps/$app/Dockerfile" \
+    --file "${DOCKERFILES[$app]}" \
     --tag "$image:$TAG" \
     --tag "$image:latest" \
     --push \
@@ -37,7 +50,7 @@ for app in web context-engine; do
 done
 
 if [[ -z "${DEPLOY_HOST:-}" ]]; then
-  echo "✔ Pushed $REGISTRY/{web,context-engine}:$TAG (no DEPLOY_HOST: not deployed)"
+  echo "✔ Pushed $REGISTRY/{web,context-engine,node-red}:$TAG (no DEPLOY_HOST: not deployed)"
   exit 0
 fi
 

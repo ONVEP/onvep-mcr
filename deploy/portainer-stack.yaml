@@ -1,0 +1,205 @@
+# ONVEP MCR: the whole production stack, for a Portainer stack (Web editor).
+# Images are pushed by `pnpm deploy:prod`. Runs behind an existing Traefik v3 (Docker provider)
+# and shows up in Homepage (group "ONVEP MCR"). Variables: deploy/portainer.env.example.
+
+x-traefik: &traefik
+  traefik.enable: 'true'
+  traefik.docker.network: '${TRAEFIK_NETWORK:-traefik}'
+
+x-db: &db
+  DB_HOST: pgsql
+  DB_PORT: 5432
+  DB_USER: '${DB_USER:-onvep}'
+  DB_PASSWORD: '${DB_PASSWORD:?DB_PASSWORD is required}'
+
+services:
+  pgsql:
+    image: postgres:18-alpine
+    restart: always
+    environment:
+      POSTGRES_DB: '${DB_DATABASE:-app}'
+      POSTGRES_USER: '${DB_USER:-onvep}'
+      POSTGRES_PASSWORD: '${DB_PASSWORD:?DB_PASSWORD is required}'
+    volumes:
+      - pgsql:/var/lib/postgresql
+    networks:
+      - internal
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -q -d "$$POSTGRES_DB" -U "$$POSTGRES_USER"']
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Creates the app and context engine databases when missing (no-op afterwards). POSTGRES_DB
+  # only applies when the volume is first initialized: DB_DATABASE may have changed since.
+  db-init:
+    image: postgres:18-alpine
+    restart: 'no'
+    depends_on:
+      pgsql:
+        condition: service_healthy
+    environment:
+      PGHOST: pgsql
+      PGUSER: '${DB_USER:-onvep}'
+      PGPASSWORD: '${DB_PASSWORD:?DB_PASSWORD is required}'
+      # Always present, whatever POSTGRES_DB was.
+      PGDATABASE: postgres
+      APP_DB: '${DB_DATABASE:-app}'
+    entrypoint: ['sh', '-ec']
+    command:
+      - |
+        for db in "$$APP_DB" context_engine; do
+          if psql -tAc "SELECT 1 FROM pg_database WHERE datname = '$$db'" | grep -q 1; then
+            echo "Database $$db exists"
+          else
+            psql -c "CREATE DATABASE \"$$db\""
+          fi
+        done
+    networks:
+      - internal
+
+  web:
+    image: '${REGISTRY:?REGISTRY is required}/web:${TAG:-latest}'
+    restart: always
+    depends_on:
+      db-init:
+        condition: service_completed_successfully
+      context-engine:
+        condition: service_started
+    command: ['sh', '-c', 'node ace migration:run --force --no-schema-generate && exec node bin/server.js']
+    environment:
+      <<: *db
+      NODE_ENV: production
+      HOST: 0.0.0.0
+      PORT: 3333
+      APP_NAME: ONVEP MCR
+      APP_KEY: '${APP_KEY:?APP_KEY is required}'
+      APP_URL: 'https://${APP_DOMAIN:?APP_DOMAIN is required}'
+      VITE_API_URL: http://localhost:3333
+      LOG_LEVEL: '${LOG_LEVEL:-info}'
+      DB_DATABASE: '${DB_DATABASE:-app}'
+      SESSION_DRIVER: cookie
+      DRIVE_DISK: fs
+      LIMITER_STORE: database
+      RESEND_API_KEY: '${RESEND_API_KEY:-unused}'
+      EMAIL_FROM: '${EMAIL_FROM:?EMAIL_FROM is required}'
+      SMTP_HOST: '${SMTP_HOST:?SMTP_HOST is required}'
+      SMTP_PORT: '${SMTP_PORT:-587}'
+      SMTP_USERNAME: '${SMTP_USERNAME:-unused}'
+      SMTP_PASSWORD: '${SMTP_PASSWORD:-unused}'
+      SMTP_SECURE: '${SMTP_SECURE:-false}'
+      SMTP_REJECTUNAUTHORIZED: '${SMTP_REJECTUNAUTHORIZED:-true}'
+      CONTEXT_ENGINE_URL: http://context-engine:3334
+      CONTEXT_ENGINE_PUBLIC_URL: 'https://${CONTEXT_ENGINE_DOMAIN:?CONTEXT_ENGINE_DOMAIN is required}'
+      NODE_RED_URL: 'https://${NODE_RED_DOMAIN:?NODE_RED_DOMAIN is required}'
+    volumes:
+      # Uploaded files (drive "fs" disk).
+      - web-uploads:/app/apps/web/build/tmp
+    networks:
+      - internal
+      - traefik
+    labels:
+      <<: *traefik
+      traefik.http.routers.onvep-mcr-web.rule: 'Host(`${APP_DOMAIN}`)'
+      traefik.http.routers.onvep-mcr-web.entrypoints: '${TRAEFIK_ENTRYPOINT:-websecure}'
+      traefik.http.routers.onvep-mcr-web.tls.certresolver: '${TRAEFIK_CERTRESOLVER:-letsencrypt}'
+      traefik.http.services.onvep-mcr-web.loadbalancer.server.port: '3333'
+      homepage.group: ONVEP MCR
+      homepage.weight: '1'
+      homepage.name: MCR
+      homepage.icon: mdi-television-classic
+      homepage.description: Master control room
+      homepage.href: 'https://${APP_DOMAIN}'
+      homepage.siteMonitor: 'https://${APP_DOMAIN}'
+
+  context-engine:
+    image: '${REGISTRY:?REGISTRY is required}/context-engine:${TAG:-latest}'
+    restart: always
+    depends_on:
+      db-init:
+        condition: service_completed_successfully
+    command: ['sh', '-c', 'node ace migration:run --force --no-schema-generate && exec node bin/server.js']
+    environment:
+      <<: *db
+      NODE_ENV: production
+      HOST: 0.0.0.0
+      PORT: 3334
+      APP_NAME: Context Engine
+      APP_KEY: '${CONTEXT_ENGINE_APP_KEY:?CONTEXT_ENGINE_APP_KEY is required}'
+      APP_URL: 'https://${CONTEXT_ENGINE_DOMAIN}'
+      LOG_LEVEL: '${LOG_LEVEL:-info}'
+      DB_DATABASE: context_engine
+      MUTATORS_PATH: storage/mutators
+    volumes:
+      - context-engine-mutators:/app/apps/context-engine/build/storage/mutators
+    networks:
+      - internal
+      - traefik
+    labels:
+      <<: *traefik
+      # The engine has no authentication. Public: what CG pages need in the browser (reading
+      # the context, SSE). Writes: the internal network (web, Node-RED), or the IPs of
+      # CONTEXT_ENGINE_WRITE_ALLOWED_IPS (Companion…).
+      traefik.http.routers.onvep-mcr-engine-read.rule: >-
+        Host(`${CONTEXT_ENGINE_DOMAIN}`) && (PathPrefix(`/__transmit`)
+        || (PathPrefix(`/context`) && (Method(`GET`) || Method(`HEAD`) || Method(`OPTIONS`))))
+      traefik.http.routers.onvep-mcr-engine-read.priority: '20'
+      traefik.http.routers.onvep-mcr-engine-read.entrypoints: '${TRAEFIK_ENTRYPOINT:-websecure}'
+      traefik.http.routers.onvep-mcr-engine-read.tls.certresolver: '${TRAEFIK_CERTRESOLVER:-letsencrypt}'
+      traefik.http.routers.onvep-mcr-engine-read.service: onvep-mcr-engine
+      traefik.http.routers.onvep-mcr-engine.rule: 'Host(`${CONTEXT_ENGINE_DOMAIN}`)'
+      traefik.http.routers.onvep-mcr-engine.priority: '10'
+      traefik.http.routers.onvep-mcr-engine.entrypoints: '${TRAEFIK_ENTRYPOINT:-websecure}'
+      traefik.http.routers.onvep-mcr-engine.tls.certresolver: '${TRAEFIK_CERTRESOLVER:-letsencrypt}'
+      traefik.http.routers.onvep-mcr-engine.service: onvep-mcr-engine
+      traefik.http.routers.onvep-mcr-engine.middlewares: onvep-mcr-engine-writers
+      traefik.http.middlewares.onvep-mcr-engine-writers.ipallowlist.sourcerange: '${CONTEXT_ENGINE_WRITE_ALLOWED_IPS:-127.0.0.1/32}'
+      traefik.http.services.onvep-mcr-engine.loadbalancer.server.port: '3334'
+      homepage.group: ONVEP MCR
+      homepage.weight: '2'
+      homepage.name: Context engine
+      homepage.icon: mdi-database-sync
+      homepage.description: Live context API
+      homepage.href: 'https://${CONTEXT_ENGINE_DOMAIN}/context'
+      homepage.siteMonitor: 'https://${CONTEXT_ENGINE_DOMAIN}/context'
+
+  node-red:
+    image: '${REGISTRY:?REGISTRY is required}/node-red:${TAG:-latest}'
+    restart: always
+    depends_on:
+      - context-engine
+    environment:
+      CONTEXT_ENGINE_URL: http://context-engine:3334
+      TZ: '${TZ:-Europe/Zurich}'
+    volumes:
+      - node-red:/data
+    networks:
+      - internal
+      - traefik
+    labels:
+      <<: *traefik
+      # Node-RED has no authentication of its own here: basic auth at the proxy.
+      traefik.http.routers.onvep-mcr-node-red.rule: 'Host(`${NODE_RED_DOMAIN}`)'
+      traefik.http.routers.onvep-mcr-node-red.entrypoints: '${TRAEFIK_ENTRYPOINT:-websecure}'
+      traefik.http.routers.onvep-mcr-node-red.tls.certresolver: '${TRAEFIK_CERTRESOLVER:-letsencrypt}'
+      traefik.http.routers.onvep-mcr-node-red.middlewares: onvep-mcr-node-red-auth
+      traefik.http.middlewares.onvep-mcr-node-red-auth.basicauth.users: '${NODE_RED_BASIC_AUTH:?NODE_RED_BASIC_AUTH is required}'
+      traefik.http.services.onvep-mcr-node-red.loadbalancer.server.port: '1880'
+      homepage.group: ONVEP MCR
+      homepage.weight: '3'
+      homepage.name: Node-RED
+      homepage.icon: node-red.png
+      homepage.description: Context automations
+      homepage.href: 'https://${NODE_RED_DOMAIN}'
+
+networks:
+  internal:
+  traefik:
+    name: '${TRAEFIK_NETWORK:-traefik}'
+    external: true
+
+volumes:
+  pgsql:
+  web-uploads:
+  context-engine-mutators:
+  node-red:

@@ -31,6 +31,9 @@ services:
       CONTEXT_ENGINE_URL: http://context-engine:3334
       CONTEXT_ENGINE_PUBLIC_URL: 'https://${CONTEXT_ENGINE_DOMAIN?:err}'
       NODE_RED_URL: 'https://${NODE_RED_DOMAIN?:err}'
+    volumes:
+      # Uploaded files (drive "fs" disk).
+      - web-uploads:/app/apps/web/build/tmp
     labels:
       <<: *traefik
       traefik.http.routers.onvep-mcr-web.rule: 'Host(`${APP_DOMAIN}`)'
@@ -120,4 +123,5 @@ networks:
     external: true
 
 volumes:
+  web-uploads:
   context-engine-mutators:
