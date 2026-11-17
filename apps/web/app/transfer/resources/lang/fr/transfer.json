@@ -26,7 +26,8 @@
       "graphics": {
         "layers": "Calques",
         "cssVariables": "Variables CSS",
-        "customCss": "Feuille de style"
+        "customCss": "Feuille de style",
+        "assets": "Ressources"
       },
       "context": {
         "data": "Données de contexte",
@@ -53,12 +54,11 @@
   "export": {
     "submit": "Télécharger l'export",
     "nothing": "Sélectionnez au moins un élément à exporter.",
-    "secrets": "Le fichier contiendra les mots de passe des lecteurs réseau en clair. Conservez-le en lieu sûr.",
-    "failed": "L'export a échoué."
+    "secrets": "Le fichier contiendra les mots de passe des lecteurs réseau en clair. Conservez-le en lieu sûr."
   },
   "import": {
     "file": "Fichier d'export",
-    "file_hint": "Un fichier .json téléchargé depuis l'onglet Exporter.",
+    "file_hint": "Une archive .tar téléchargée depuis l'onglet Exporter.",
     "invalid_file": "Ce fichier n'est pas un export ONVEP MCR.",
     "mode": {
       "label": "Éléments existants",

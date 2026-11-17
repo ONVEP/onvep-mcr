@@ -392,6 +392,30 @@ const routes = {
     tokens: [[0,"graphics"],[0,"css-variables"],[1,"id"]],
     types: placeholder as Registry['css_variables.destroy']['types'],
   },
+  'assets.index': {
+    methods: ["GET","HEAD"],
+    pattern: '/graphics/assets',
+    tokens: [[0,"graphics"],[0,"assets"]],
+    types: placeholder as Registry['assets.index']['types'],
+  },
+  'assets.store': {
+    methods: ["POST"],
+    pattern: '/graphics/assets',
+    tokens: [[0,"graphics"],[0,"assets"]],
+    types: placeholder as Registry['assets.store']['types'],
+  },
+  'assets.update': {
+    methods: ["PUT","PATCH"],
+    pattern: '/graphics/assets/:id',
+    tokens: [[0,"graphics"],[0,"assets"],[1,"id"]],
+    types: placeholder as Registry['assets.update']['types'],
+  },
+  'assets.destroy': {
+    methods: ["DELETE"],
+    pattern: '/graphics/assets/:id',
+    tokens: [[0,"graphics"],[0,"assets"],[1,"id"]],
+    types: placeholder as Registry['assets.destroy']['types'],
+  },
   'cg.all': {
     methods: ["GET","HEAD"],
     pattern: '/cg/all',
@@ -421,6 +445,12 @@ const routes = {
     pattern: '/cg/assets/ctx.js',
     tokens: [[0,"cg"],[0,"assets"],[0,"ctx.js"]],
     types: placeholder as Registry['cg.ctx']['types'],
+  },
+  'cg.file': {
+    methods: ["GET","HEAD"],
+    pattern: '/cg/files/:name',
+    tokens: [[0,"cg"],[0,"files"],[1,"name"]],
+    types: placeholder as Registry['cg.file']['types'],
   },
   'context.index': {
     methods: ["GET","HEAD"],

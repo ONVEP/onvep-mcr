@@ -1,6 +1,12 @@
+import driveService from '@adonisjs/drive/services/main'
 import testUtils from '@adonisjs/core/services/test_utils'
+import type { ApiRequest } from '@japa/api-client'
 import { test } from '@japa/runner'
+import tar from 'tar-stream'
 
+import env from '#start/env'
+import Asset from '#graphics/models/asset'
+import { AssetFactory } from '#graphics/database/factories/assets'
 import CssVariable from '#graphics/models/css_variable'
 import CustomCss from '#graphics/models/custom_css'
 import Layer from '#graphics/models/layer'
@@ -30,13 +36,62 @@ function bundle(content: Partial<TransferBundle>): TransferBundle {
   return { format: BUNDLE_FORMAT, version: BUNDLE_VERSION, exportedAt: '', ...content }
 }
 
-function fileOf(content: unknown) {
-  return Buffer.from(JSON.stringify(content))
+async function collect(source: AsyncIterable<unknown>) {
+  const chunks: Buffer[] = []
+  for await (const chunk of source) chunks.push(chunk as Buffer)
+  return Buffer.concat(chunks)
 }
+
+/** An export archive: the manifest, then `assets/<name>` files. */
+async function fileOf(manifest: unknown, assets: Record<string, string> = {}) {
+  const pack = tar.pack()
+  pack.entry({ name: 'bundle.json' }, JSON.stringify(manifest))
+  for (const [name, content] of Object.entries(assets)) {
+    pack.entry({ name: `assets/${name}` }, content)
+  }
+  pack.finalize()
+  return collect(pack)
+}
+
+async function unpack(archive: Buffer) {
+  const extract = tar.extract()
+  extract.end(archive)
+  const entries: Record<string, string> = {}
+  for await (const entry of extract) {
+    const content = await collect(entry)
+    entries[entry.header.name] = content.toString('utf8')
+  }
+  const { 'bundle.json': manifest, ...files } = entries
+  return { manifest: JSON.parse(manifest) as TransferBundle, files }
+}
+
+/** Sends an export form and buffers the archive it downloads. */
+function exportArchive(request: ApiRequest, selection: object) {
+  request
+    .withCsrfToken()
+    .form({ selection: JSON.stringify(selection) })
+    .request.buffer(true)
+    // Typed as the browser response; on node it is the IncomingMessage stream.
+    .parse((res, callback) => {
+      collect(res as unknown as AsyncIterable<Buffer>).then(
+        (body) => callback(null, body),
+        (error) => callback(error, null)
+      )
+    })
+  return request
+}
+
+const TAR = { filename: 'export.tar', contentType: 'application/x-tar' }
 
 test.group('Endpoint /transfer', (group) => {
   let engine: FakeContextEngine
 
+  const diskName = env.get('DRIVE_DISK') || 'fs'
+
+  group.each.setup(() => {
+    driveService.fake(diskName)
+    return () => driveService.restore(diskName)
+  })
   group.each.setup(() => testUtils.db().wrapInGlobalTransaction())
   group.each.setup(() => ensureBaseRoles())
   group.each.setup(() => {
@@ -75,6 +130,7 @@ test.group('Endpoint /transfer', (group) => {
       'graphics.layers',
       'graphics.cssVariables',
       'graphics.customCss',
+      'graphics.assets',
     ])
     assert.deepInclude(response.inertiaProps.inventory.collections['graphics.layers'], {
       key: String(layer.id),
@@ -106,23 +162,22 @@ test.group('Endpoint /transfer', (group) => {
       { name: 'sync.js', subscriptions: [], enabled: false, source: 'export default 1' },
     ]
 
-    const response = await client
-      .post('/transfer/export')
-      .loginAs(await admin())
-      .withCsrfToken()
-      .accept('json')
-      .json({
-        collections: {
-          'media.networkDrives': [String(kept.id)],
-          'rundowns.rundowns': [String(rundown.id)],
-          'context.mutators': ['sync.js'],
-        },
-        singletons: [],
-      })
+    const response = await exportArchive(client.post('/transfer/export').loginAs(await admin()), {
+      collections: {
+        'media.networkDrives': [String(kept.id)],
+        'rundowns.rundowns': [String(rundown.id)],
+        'context.mutators': ['sync.js'],
+      },
+      singletons: [],
+    })
 
     response.assertStatus(200)
-    assert.match(response.header('content-disposition') ?? '', /attachment; filename="onvep-mcr-/)
-    const body = response.body() as TransferBundle
+    assert.match(
+      response.header('content-disposition') ?? '',
+      /attachment; filename="onvep-mcr-.*\.tar"/
+    )
+    const { manifest: body, files } = await unpack(response.body())
+    assert.deepEqual(files, {})
     assert.equal(body.format, BUNDLE_FORMAT)
     assert.deepEqual(body.media?.networkDrives, [
       { name: 'NAS', url: kept.url, username: kept.username, password: 'secret' },
@@ -145,11 +200,10 @@ test.group('Endpoint /transfer', (group) => {
       .post('/transfer/export')
       .loginAs(user)
       .withCsrfToken()
-      .accept('json')
       .redirects(0)
-      .json({ collections: { 'users.roles': [] }, singletons: [] })
+      .form({ selection: JSON.stringify({ collections: { 'users.roles': [] }, singletons: [] }) })
 
-    response.assertStatus(403)
+    assertForbiddenRedirect(response)
   })
 
   test('POST import crée ce qui manque, avec les types de pas des étapes', async ({
@@ -210,7 +264,7 @@ test.group('Endpoint /transfer', (group) => {
           singletons: ['graphics.customCss', 'context.data'],
         })
       )
-      .file('file', fileOf(file), { filename: 'export.json', contentType: 'application/json' })
+      .file('file', await fileOf(file), TAR)
 
     response.assertStatus(302)
     assert.equal(response.header('location'), '/transfer')
@@ -246,7 +300,7 @@ test.group('Endpoint /transfer', (group) => {
     const user = await admin()
     await LayerFactory.merge({ slug: 'score', content: 'local' }).create()
     const rundown = await RundownFactory.merge({ name: 'Match' }).with('steps', 3).create()
-    const file = fileOf(
+    const file = await fileOf(
       bundle({
         graphics: { layers: [{ name: 'Score', slug: 'score', enabled: false, content: 'file' }] },
         rundowns: { rundowns: [{ name: 'Match', startTime: '21:00:00', steps: [] }] },
@@ -264,7 +318,7 @@ test.group('Endpoint /transfer', (group) => {
         .redirects(0)
         .field('mode', mode)
         .field('selection', selection)
-        .file('file', file, { filename: 'export.json', contentType: 'application/json' })
+        .file('file', file, TAR)
 
     await send('skip')
     const untouched = await Layer.findByOrFail('slug', 'score')
@@ -301,7 +355,7 @@ test.group('Endpoint /transfer', (group) => {
         'selection',
         JSON.stringify({ collections: { 'rundowns.stepTypes': ['1'] }, singletons: [] })
       )
-      .file('file', fileOf(file), { filename: 'export.json', contentType: 'application/json' })
+      .file('file', await fileOf(file), TAR)
 
     assert.isNull(await StepType.findBy('name', 'Pub'))
     assert.isNotNull(await StepType.findBy('name', 'Live'))
@@ -330,7 +384,7 @@ test.group('Endpoint /transfer', (group) => {
         'selection',
         JSON.stringify({ collections: { 'users.roles': ['0', '1'] }, singletons: [] })
       )
-      .file('file', fileOf(file), { filename: 'export.json', contentType: 'application/json' })
+      .file('file', await fileOf(file), TAR)
 
     const adminRole = await Role.findByOrFail('name', ROLES.ADMIN)
     assert.sameMembers(adminRole.permissions, ALL_PERMISSIONS)
@@ -352,10 +406,7 @@ test.group('Endpoint /transfer', (group) => {
       .redirects(0)
       .field('mode', 'overwrite')
       .field('selection', JSON.stringify({ collections: {}, singletons: [] }))
-      .file('file', fileOf({ hello: 'world' }), {
-        filename: 'export.json',
-        contentType: 'application/json',
-      })
+      .file('file', await fileOf({ hello: 'world' }), TAR)
 
     response.assertStatus(302)
     assert.lengthOf(await StepType.all(), existing.length)
@@ -372,10 +423,11 @@ test.group('Endpoint /transfer', (group) => {
       .redirects(0)
       .field('mode', 'overwrite')
       .field('selection', JSON.stringify({ collections: { 'users.roles': ['0'] }, singletons: [] }))
-      .file('file', fileOf(bundle({ users: { roles: [{ name: 'x-role', permissions: [] }] } })), {
-        filename: 'export.json',
-        contentType: 'application/json',
-      })
+      .file(
+        'file',
+        await fileOf(bundle({ users: { roles: [{ name: 'x-role', permissions: [] }] } })),
+        TAR
+      )
 
     assertForbiddenRedirect(response)
     assert.isNull(await Role.findBy('name', 'x-role'))
@@ -385,12 +437,10 @@ test.group('Endpoint /transfer', (group) => {
     const user = await admin()
     const rundown = await RundownFactory.merge({ name: 'Aller-retour' }).with('steps', 2).create()
 
-    const exported = await client
-      .post('/transfer/export')
-      .loginAs(user)
-      .withCsrfToken()
-      .accept('json')
-      .json({ collections: { 'rundowns.rundowns': [String(rundown.id)] }, singletons: [] })
+    const exported = await exportArchive(client.post('/transfer/export').loginAs(user), {
+      collections: { 'rundowns.rundowns': [String(rundown.id)] },
+      singletons: [],
+    })
 
     await Step.query().where('rundown_id', rundown.id).delete()
     await rundown.delete()
@@ -405,15 +455,107 @@ test.group('Endpoint /transfer', (group) => {
         'selection',
         JSON.stringify({ collections: { 'rundowns.rundowns': ['0'] }, singletons: [] })
       )
-      .file('file', fileOf(exported.body()), {
-        filename: 'export.json',
-        contentType: 'application/json',
-      })
+      .file('file', exported.body(), TAR)
 
     const restored = await Rundown.query()
       .where('name', 'Aller-retour')
       .preload('steps')
       .firstOrFail()
     assert.lengthOf(restored.steps, 2)
+  })
+
+  test("un export d'assets les embarque et les restaure à l'import", async ({ client, assert }) => {
+    const user = await admin()
+    const asset = await AssetFactory.merge({ name: 'logo.svg' }).create()
+
+    const exported = await exportArchive(client.post('/transfer/export').loginAs(user), {
+      collections: { 'graphics.assets': [String(asset.id)] },
+      singletons: [],
+    })
+    const { manifest, files } = await unpack(exported.body())
+    assert.deepEqual(manifest.graphics?.assets, [{ name: 'logo.svg' }])
+    assert.deepEqual(files, { 'assets/logo.svg': 'hello' })
+
+    await asset.delete()
+
+    const response = await client
+      .post('/transfer/import')
+      .loginAs(user)
+      .withCsrfToken()
+      .redirects(0)
+      .field('mode', 'overwrite')
+      .field(
+        'selection',
+        JSON.stringify({ collections: { 'graphics.assets': ['0'] }, singletons: [] })
+      )
+      .file('file', exported.body(), TAR)
+
+    response.assertStatus(302)
+    assert.equal(response.header('location'), '/transfer')
+    const restored = await Asset.findByOrFail('name', 'logo.svg')
+    const restoredContent = await restored.file.getBuffer()
+    assert.equal(restoredContent.toString('utf8'), 'hello')
+  })
+
+  test("POST import d'assets : skip garde le fichier local, overwrite le remplace", async ({
+    client,
+    assert,
+  }) => {
+    const user = await admin()
+    await AssetFactory.merge({ name: 'fond.svg' }).create()
+    const file = await fileOf(bundle({ graphics: { assets: [{ name: 'fond.svg' }] } }), {
+      'fond.svg': 'from archive',
+    })
+    const send = (mode: string) =>
+      client
+        .post('/transfer/import')
+        .loginAs(user)
+        .withCsrfToken()
+        .redirects(0)
+        .field('mode', mode)
+        .field(
+          'selection',
+          JSON.stringify({ collections: { 'graphics.assets': ['0'] }, singletons: [] })
+        )
+        .file('file', file, TAR)
+
+    const content = async () => {
+      const asset = await Asset.findByOrFail('name', 'fond.svg')
+      const buffer = await asset.file.getBuffer()
+      return buffer.toString('utf8')
+    }
+
+    await send('skip')
+    assert.equal(await content(), 'hello')
+
+    await send('overwrite')
+    assert.equal(await content(), 'from archive')
+    assert.lengthOf(await Asset.query().where('name', 'fond.svg'), 1)
+  })
+
+  test("POST import refuse un nom d'asset qui n'a pas la forme d'une URL", async ({
+    client,
+    assert,
+  }) => {
+    const response = await client
+      .post('/transfer/import')
+      .loginAs(await admin())
+      .withCsrfToken()
+      .redirects(0)
+      .field('mode', 'overwrite')
+      .field(
+        'selection',
+        JSON.stringify({ collections: { 'graphics.assets': ['0'] }, singletons: [] })
+      )
+      .file(
+        'file',
+        await fileOf(bundle({ graphics: { assets: [{ name: '../../evil.sh' }] } }), {
+          '../../evil.sh': 'x',
+        }),
+        TAR
+      )
+
+    response.assertStatus(302)
+    assert.isNull(await Asset.findBy('name', '../../evil.sh'))
   })
 })

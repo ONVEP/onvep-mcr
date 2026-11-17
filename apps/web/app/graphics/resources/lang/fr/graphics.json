@@ -71,5 +71,27 @@
     "saved": "CSS enregistré",
     "unsaved": "Modifications non enregistrées",
     "leave_confirm": "Les modifications non enregistrées seront perdues. Quitter quand même ?"
+  },
+  "assets": {
+    "page": {
+      "title": "Ressources",
+      "description": "Images, polices, vidéos… servies aux pages CG. Utilisez-les dans les calques via leur URL."
+    },
+    "table": {
+      "name": "Nom",
+      "size": "Taille",
+      "usage": "URL"
+    },
+    "actions": {
+      "upload": "Importer",
+      "replace": "Remplacer le fichier (conserve l'URL)",
+      "delete": "Supprimer",
+      "copy": "Copier"
+    },
+    "replaced": "Fichier remplacé",
+    "delete": {
+      "title": "Supprimer la ressource",
+      "description": "Supprimer <strong>{name}</strong> ? Les calques qui l'utilisent ne la trouveront plus."
+    }
   }
 }

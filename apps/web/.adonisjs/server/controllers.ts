@@ -23,6 +23,7 @@ export const controllers = {
     Versions: () => import('#app/context/controllers/versions_controller'),
   },
   graphics: {
+    Assets: () => import('#app/graphics/controllers/assets_controller'),
     Cg: () => import('#app/graphics/controllers/cg_controller'),
     CssVariables: () => import('#app/graphics/controllers/css_variables_controller'),
     CustomCss: () => import('#app/graphics/controllers/custom_css_controller'),

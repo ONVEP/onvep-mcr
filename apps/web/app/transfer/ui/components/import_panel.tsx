@@ -26,6 +26,7 @@ import {
   type TransferSingletonId,
 } from '#transfer/types/bundle'
 import { SelectionTree } from '#transfer/ui/components/selection_tree'
+import { readArchiveManifest } from '#transfer/ui/utils/archive'
 import { compactSelection, defaultSelection, isEmptySelection } from '#transfer/ui/utils/selection'
 
 /**
@@ -52,9 +53,9 @@ function fileInventory(bundle: TransferBundle, nodes: TransferNodeId[]): Transfe
   return inventory
 }
 
-function parseBundle(text: string): TransferBundle | null {
+async function readBundle(file: File): Promise<TransferBundle | null> {
   try {
-    const data = JSON.parse(text)
+    const data = (await readArchiveManifest(file)) as TransferBundle | null
     return data?.format === BUNDLE_FORMAT && data?.version === BUNDLE_VERSION ? data : null
   } catch {
     return null
@@ -77,7 +78,7 @@ export function ImportPanel({ nodes }: { nodes: TransferNodeId[] }) {
     const file = event.target.files?.[0] ?? null
     form.setData('file', file)
     form.clearErrors()
-    const bundle = file ? parseBundle(await file.text()) : null
+    const bundle = file ? await readBundle(file) : null
     setInvalidFile(Boolean(file) && !bundle)
     const next = bundle ? fileInventory(bundle, nodes) : null
     setInventory(next)
@@ -100,7 +101,7 @@ export function ImportPanel({ nodes }: { nodes: TransferNodeId[] }) {
     <div className="flex max-w-2xl flex-col gap-6">
       <div className="flex flex-col gap-2">
         <Label htmlFor="transfer-file">{t('transfer.import.file')}</Label>
-        <Input id="transfer-file" type="file" accept=".json,application/json" onChange={pickFile} />
+        <Input id="transfer-file" type="file" accept=".tar,application/x-tar" onChange={pickFile} />
         <p className="text-sm text-muted-foreground">{t('transfer.import.file_hint')}</p>
         {invalidFile && (
           <p className="text-sm text-destructive">{t('transfer.import.invalid_file')}</p>
@@ -159,6 +160,11 @@ export function ImportPanel({ nodes }: { nodes: TransferNodeId[] }) {
             </Button>
             {empty && (
               <span className="text-sm text-muted-foreground">{t('transfer.import.nothing')}</span>
+            )}
+            {form.progress?.percentage !== undefined && (
+              <span className="text-sm text-muted-foreground tabular-nums">
+                {form.progress.percentage}%
+              </span>
             )}
           </div>
         </>

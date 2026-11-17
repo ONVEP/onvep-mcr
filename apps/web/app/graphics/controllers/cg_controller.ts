@@ -1,8 +1,10 @@
 import { createRequire } from 'node:module'
+import { Readable } from 'node:stream'
 
 import type { HttpContext } from '@adonisjs/core/http'
 import app from '@adonisjs/core/services/app'
 
+import Asset from '#graphics/models/asset'
 import Layer from '#graphics/models/layer'
 import GetCustomCss from '#graphics/queries/get_custom_css'
 import ListCssVariables from '#graphics/queries/list_css_variables'
@@ -45,6 +47,17 @@ export default class CgController {
       contextEngineUrl: contextEngineUrl(),
       liveReload: { slug: null },
     })
+  }
+
+  // CORS: fonts and fetch() from the editor preview, a sandboxed (opaque origin) iframe.
+  // no-cache: replacing an asset keeps its URL.
+  public async file({ params, response }: HttpContext) {
+    const asset = await Asset.findByOrFail('name', params.name)
+
+    response.header('Cache-Control', 'no-cache')
+    response.header('Content-Type', asset.file.mimeType)
+    response.header('Access-Control-Allow-Origin', '*')
+    return response.stream(Readable.from(await asset.file.getStream()))
   }
 
   public async tailwind({ response }: HttpContext) {

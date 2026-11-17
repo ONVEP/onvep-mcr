@@ -1,6 +1,7 @@
 import vine from '@vinejs/vine'
 
 import { CSS_VARIABLE_KINDS } from '#graphics/enums/css_variable_kind'
+import { ASSET_EXTNAMES, ASSET_MAX_SIZE } from '#graphics/validators/assets'
 import { jsonString } from '#context/validators/rules'
 import { timeOfDay } from '#rundowns/validators/rundowns'
 import {
@@ -10,22 +11,31 @@ import {
   TRANSFER_SINGLETON_IDS,
 } from '#transfer/types/bundle'
 
+const allowedExtname = vine.createRule((value, _, field) => {
+  const ext = String(value).split('.').pop()!
+  if (!ASSET_EXTNAMES.includes(ext)) field.report('Unsupported file type', 'extname', field)
+})
+
 const selection = {
   // Unknown ids are dropped by the controller, which only keeps catalog entries.
   collections: vine.record(vine.array(vine.string())),
   singletons: vine.array(vine.enum(TRANSFER_SINGLETON_IDS)).distinct(),
 }
 
-export const exportValidator = vine.create(selection)
+// JSON-encoded: plain forms can't carry the nested selection with dotted ids.
+const encodedSelection = () => vine.string().use(jsonString())
+
+// A plain form post, so the browser streams the archive to disk instead of holding it in memory.
+export const exportValidator = vine.create({ selection: encodedSelection() })
 
 export const importValidator = vine.create({
-  file: vine.file({ size: '20mb', extnames: ['json'] }),
+  // Bounded by what it can hold: every asset may be as big as one.
+  file: vine.file({ size: ASSET_MAX_SIZE, extnames: ['tar'] }),
   mode: vine.enum(TRANSFER_MODES),
-  // JSON-encoded: multipart forms can't carry the nested selection with dotted ids.
-  selection: vine.string().use(jsonString()),
+  selection: encodedSelection(),
 })
 
-export const importSelectionValidator = vine.create(selection)
+export const selectionValidator = vine.create(selection)
 
 // The file never goes through the body parser: empty strings stay empty strings.
 // Rules mirror each module's own validators so an import can't store what the UI couldn't.
@@ -126,6 +136,18 @@ export const bundleValidator = vine.create({
         .string()
         .maxLength(200_000)
         .regex(/^(?![\s\S]*<\/style)/i)
+        .optional(),
+      assets: vine
+        .array(
+          vine.object({
+            // The shape the assets screen gives names: it ends up in /cg/files/:name URLs.
+            name: vine
+              .string()
+              .maxLength(255)
+              .regex(/^[a-z0-9]+(-[a-z0-9]+)*\.[a-z0-9]+$/)
+              .use(allowedExtname()),
+          })
+        )
         .optional(),
     })
     .optional(),

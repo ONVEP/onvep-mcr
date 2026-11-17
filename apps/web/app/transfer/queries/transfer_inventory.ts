@@ -1,3 +1,4 @@
+import Asset from '#graphics/models/asset'
 import CssVariable from '#graphics/models/css_variable'
 import CustomCss from '#graphics/models/custom_css'
 import Layer from '#graphics/models/layer'
@@ -40,6 +41,8 @@ export default class TransferInventoryQuery {
         ),
       'graphics.cssVariables': () =>
         items(CssVariable.query().orderBy('name').exec(), (row) => item(row.id, row.name)),
+      'graphics.assets': () =>
+        items(Asset.query().orderBy('name').exec(), (row) => item(row.id, row.name)),
       'context.mutators': () =>
         items(this.engine.listMutators(), (row) => item(row.name, row.name)),
       'context.validators': () =>

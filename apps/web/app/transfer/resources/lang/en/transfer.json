@@ -26,7 +26,8 @@
       "graphics": {
         "layers": "Layers",
         "cssVariables": "CSS variables",
-        "customCss": "Custom stylesheet"
+        "customCss": "Custom stylesheet",
+        "assets": "Assets"
       },
       "context": {
         "data": "Context data",
@@ -53,12 +54,11 @@
   "export": {
     "submit": "Download export",
     "nothing": "Select at least one item to export.",
-    "secrets": "The file will contain the network drive passwords in clear text. Store it safely.",
-    "failed": "Export failed."
+    "secrets": "The file will contain the network drive passwords in clear text. Store it safely."
   },
   "import": {
     "file": "Export file",
-    "file_hint": "A .json file downloaded from the Export tab.",
+    "file_hint": "A .tar archive downloaded from the Export tab.",
     "invalid_file": "This file isn't an ONVEP MCR export.",
     "mode": {
       "label": "Existing items",

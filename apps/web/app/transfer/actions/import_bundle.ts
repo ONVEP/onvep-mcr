@@ -1,6 +1,15 @@
+import { createWriteStream } from 'node:fs'
+import { unlink } from 'node:fs/promises'
+import { tmpdir } from 'node:os'
+import { join } from 'node:path'
+import { pipeline } from 'node:stream/promises'
+
+import string from '@adonisjs/core/helpers/string'
 import db from '@adonisjs/lucid/services/db'
+import { attachmentManager } from '@jrmc/adonis-attachment'
 import type { TransactionClientContract } from '@adonisjs/lucid/types/database'
 
+import Asset from '#graphics/models/asset'
 import CssVariable from '#graphics/models/css_variable'
 import CustomCss from '#graphics/models/custom_css'
 import Layer from '#graphics/models/layer'
@@ -14,7 +23,9 @@ import { ROLES } from '#users/enums/role'
 import Role from '#users/models/role'
 import type { ContextEngineClient } from '#context/services/context_engine_client'
 import type { JsonObject } from '#context/types/engine'
+import { forEachArchivedAsset } from '#transfer/services/bundle_archive'
 import type {
+  BundleAsset,
   BundleStepType,
   TransferBundle,
   TransferMode,
@@ -24,6 +35,8 @@ import type {
 
 export interface ImportBundleInput {
   bundle: TransferBundle
+  /** The uploaded archive, read again for the asset files */
+  archivePath: string
   /** Item keys are positions in the bundle's arrays */
   selection: TransferSelection
   mode: TransferMode
@@ -42,16 +55,22 @@ function pick<T>(items: T[] | undefined, keys: string[] | undefined): T[] {
  * untouched. Singletons (custom CSS, context data) only count as existing when
  * they have content.
  *
- * Database records are imported in one transaction. The context engine can't
- * join it: it runs afterwards, validators and mutators first so the data goes
- * through them.
+ * Database records are imported in one transaction. Assets come next, outside of
+ * it: copying gigabytes of files would hold it open. The context engine can't join
+ * it either: it runs last, validators and mutators first so the data goes through
+ * them.
  */
 export default class ImportBundle {
   #report: TransferReport = { created: 0, updated: 0, skipped: 0 }
 
   constructor(private engine: ContextEngineClient) {}
 
-  async handle({ bundle, selection, mode }: ImportBundleInput): Promise<TransferReport> {
+  async handle({
+    bundle,
+    archivePath,
+    selection,
+    mode,
+  }: ImportBundleInput): Promise<TransferReport> {
     const { collections: keys, singletons } = selection
     const overwrite = mode === 'overwrite'
 
@@ -85,7 +104,12 @@ export default class ImportBundle {
       }
       return this.#report.created + this.#report.updated > before
     })
-    if (graphicsChanged) reloadCgPages()
+    const assetsChanged = await this.#assets(
+      archivePath,
+      pick(bundle.graphics?.assets, keys['graphics.assets']),
+      overwrite
+    )
+    if (graphicsChanged || assetsChanged) reloadCgPages()
 
     await this.#validators(pick(bundle.context?.validators, keys['context.validators']), overwrite)
     await this.#mutators(pick(bundle.context?.mutators, keys['context.mutators']), overwrite)
@@ -268,6 +292,40 @@ export default class ImportBundle {
       },
       (target) => target.merge({ content }).save()
     )
+  }
+
+  /** Returns whether any asset was written. */
+  async #assets(archivePath: string, rows: BundleAsset[], overwrite: boolean) {
+    const pending = new Set(rows.map(({ name }) => name))
+    if (pending.size === 0) return false
+    const before = this.#report.created + this.#report.updated
+
+    await forEachArchivedAsset(archivePath, async (name, content) => {
+      if (!pending.delete(name)) return
+      const tmpPath = join(tmpdir(), string.uuid())
+      // Only extracted when written: skipped entries are never copied.
+      const extract = async () => {
+        await pipeline(content, createWriteStream(tmpPath))
+        return attachmentManager.createFromPath(tmpPath, name)
+      }
+      try {
+        await this.#upsert(
+          await Asset.findBy('name', name),
+          overwrite,
+          async () => Asset.create({ name, file: await extract() }),
+          async (target) => {
+            target.file = await extract()
+            await target.save()
+          }
+        )
+      } finally {
+        await unlink(tmpPath).catch(() => {})
+      }
+    })
+
+    // Listed in the manifest but missing from the archive.
+    this.#report.skipped += pending.size
+    return this.#report.created + this.#report.updated > before
   }
 
   async #validators(

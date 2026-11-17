@@ -41,7 +41,9 @@ const bodyParserConfig = defineConfig({
      */
     autoProcess: true,
     convertEmptyStringsToNull: true,
-    processManually: [],
+    // Uploads beyond `limit`: their controllers authorize first, then process with their own limit
+    // (see #common/services/large_multipart). A global limit would let anyone fill the disk.
+    processManually: ['/graphics/assets', '/graphics/assets/:id', '/transfer/import'],
 
     /**
      * Maximum limit of data to parse including all files

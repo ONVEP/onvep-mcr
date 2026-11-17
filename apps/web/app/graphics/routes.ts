@@ -3,7 +3,7 @@ import router from '@adonisjs/core/services/router'
 import { controllers } from '#generated/controllers'
 import { middleware } from '#start/kernel'
 
-const { Cg, CssVariables, CustomCss, Layers, TailwindClasses } = controllers.graphics
+const { Assets, Cg, CssVariables, CustomCss, Layers, TailwindClasses } = controllers.graphics
 
 router
   .group(() => {
@@ -30,6 +30,13 @@ router
   .use('*', middleware.auth())
   .as('css_variables')
 
+router
+  .resource('/graphics/assets', Assets)
+  .only(['index', 'store', 'update', 'destroy'])
+  .where('id', router.matchers.number())
+  .use('*', middleware.auth())
+  .as('assets')
+
 // Public: consumed by playout software, which can't log in.
 router
   .group(() => {
@@ -38,6 +45,7 @@ router
     router.get('/assets/tailwind.js', [Cg, 'tailwind']).as('tailwind')
     router.get('/assets/transmit.js', [Cg, 'transmit']).as('transmit')
     router.get('/assets/ctx.js', [Cg, 'ctx']).as('ctx')
+    router.get('/files/:name', [Cg, 'file']).as('file')
   })
   .prefix('/cg')
   .as('cg')

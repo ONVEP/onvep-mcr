@@ -10,6 +10,7 @@
 */
 
 import 'reflect-metadata'
+import { createServer } from 'node:http'
 import { Ignitor, prettyPrintError } from '@adonisjs/core'
 
 /**
@@ -38,7 +39,13 @@ new Ignitor(APP_ROOT, { importer: IMPORTER })
     app.listenIf(app.managedByPm2, 'SIGINT', () => app.terminate())
   })
   .httpServer()
-  .start()
+  .start((handler) => {
+    const server = createServer(handler)
+    // Node's 5 min default cuts off multi-GB uploads (assets, import archives).
+    // Slow clients are still bounded by headersTimeout.
+    server.requestTimeout = 0
+    return server
+  })
   .catch((error) => {
     process.exitCode = 1
     prettyPrintError(error)

@@ -840,6 +840,58 @@ export interface Registry {
       rawResponse: ExtractRawResponse<Awaited<ReturnType<import('#app/graphics/controllers/css_variables_controller').default['destroy']>>>
     }
   }
+  'assets.index': {
+    methods: ["GET","HEAD"]
+    pattern: '/graphics/assets'
+    types: {
+      body: {}
+      paramsTuple: []
+      params: {}
+      query: {}
+      response: ExtractResponse<Awaited<ReturnType<import('#app/graphics/controllers/assets_controller').default['index']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#app/graphics/controllers/assets_controller').default['index']>>>
+      rawResponse: ExtractRawResponse<Awaited<ReturnType<import('#app/graphics/controllers/assets_controller').default['index']>>>
+    }
+  }
+  'assets.store': {
+    methods: ["POST"]
+    pattern: '/graphics/assets'
+    types: {
+      body: ExtractBody<InferInput<(typeof import('#graphics/validators/assets').createAssetValidator)>>
+      paramsTuple: []
+      params: {}
+      query: ExtractQuery<InferInput<(typeof import('#graphics/validators/assets').createAssetValidator)>>
+      response: ExtractResponse<Awaited<ReturnType<import('#app/graphics/controllers/assets_controller').default['store']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#app/graphics/controllers/assets_controller').default['store']>>> | { status: 422; response: { errors: SimpleError[] } }
+      rawResponse: ExtractRawResponse<Awaited<ReturnType<import('#app/graphics/controllers/assets_controller').default['store']>>> | { status: 422; response: { errors: SimpleError[] } }
+    }
+  }
+  'assets.update': {
+    methods: ["PUT","PATCH"]
+    pattern: '/graphics/assets/:id'
+    types: {
+      body: ExtractBody<InferInput<(typeof import('#graphics/validators/assets').updateAssetValidator)>>
+      paramsTuple: [ParamValue]
+      params: { id: ParamValue }
+      query: ExtractQuery<InferInput<(typeof import('#graphics/validators/assets').updateAssetValidator)>>
+      response: ExtractResponse<Awaited<ReturnType<import('#app/graphics/controllers/assets_controller').default['update']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#app/graphics/controllers/assets_controller').default['update']>>> | { status: 422; response: { errors: SimpleError[] } }
+      rawResponse: ExtractRawResponse<Awaited<ReturnType<import('#app/graphics/controllers/assets_controller').default['update']>>> | { status: 422; response: { errors: SimpleError[] } }
+    }
+  }
+  'assets.destroy': {
+    methods: ["DELETE"]
+    pattern: '/graphics/assets/:id'
+    types: {
+      body: {}
+      paramsTuple: [ParamValue]
+      params: { id: ParamValue }
+      query: {}
+      response: ExtractResponse<Awaited<ReturnType<import('#app/graphics/controllers/assets_controller').default['destroy']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#app/graphics/controllers/assets_controller').default['destroy']>>>
+      rawResponse: ExtractRawResponse<Awaited<ReturnType<import('#app/graphics/controllers/assets_controller').default['destroy']>>>
+    }
+  }
   'cg.all': {
     methods: ["GET","HEAD"]
     pattern: '/cg/all'
@@ -903,6 +955,19 @@ export interface Registry {
       response: ExtractResponse<Awaited<ReturnType<import('#app/graphics/controllers/cg_controller').default['ctx']>>>
       errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#app/graphics/controllers/cg_controller').default['ctx']>>>
       rawResponse: ExtractRawResponse<Awaited<ReturnType<import('#app/graphics/controllers/cg_controller').default['ctx']>>>
+    }
+  }
+  'cg.file': {
+    methods: ["GET","HEAD"]
+    pattern: '/cg/files/:name'
+    types: {
+      body: {}
+      paramsTuple: [ParamValue]
+      params: { name: ParamValue }
+      query: {}
+      response: ExtractResponse<Awaited<ReturnType<import('#app/graphics/controllers/cg_controller').default['file']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#app/graphics/controllers/cg_controller').default['file']>>>
+      rawResponse: ExtractRawResponse<Awaited<ReturnType<import('#app/graphics/controllers/cg_controller').default['file']>>>
     }
   }
   'context.index': {
@@ -1169,10 +1234,10 @@ export interface Registry {
     methods: ["POST"]
     pattern: '/transfer/export'
     types: {
-      body: ExtractBody<InferInput<(typeof import('#transfer/validators/transfer').exportValidator)>>
+      body: ExtractBody<InferInput<(typeof import('#transfer/validators/transfer').exportValidator)>|InferInput<(typeof import('#transfer/validators/transfer').selectionValidator)>>
       paramsTuple: []
       params: {}
-      query: ExtractQuery<InferInput<(typeof import('#transfer/validators/transfer').exportValidator)>>
+      query: ExtractQuery<InferInput<(typeof import('#transfer/validators/transfer').exportValidator)>|InferInput<(typeof import('#transfer/validators/transfer').selectionValidator)>>
       response: ExtractResponse<Awaited<ReturnType<import('#app/transfer/controllers/exports_controller').default['handle']>>>
       errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#app/transfer/controllers/exports_controller').default['handle']>>> | { status: 422; response: { errors: SimpleError[] } }
       rawResponse: ExtractRawResponse<Awaited<ReturnType<import('#app/transfer/controllers/exports_controller').default['handle']>>> | { status: 422; response: { errors: SimpleError[] } }
@@ -1182,10 +1247,10 @@ export interface Registry {
     methods: ["POST"]
     pattern: '/transfer/import'
     types: {
-      body: ExtractBody<InferInput<(typeof import('#transfer/validators/transfer').importValidator)>|InferInput<(typeof import('#transfer/validators/transfer').importSelectionValidator)>|InferInput<(typeof import('#transfer/validators/transfer').bundleValidator)>>
+      body: ExtractBody<InferInput<(typeof import('#transfer/validators/transfer').importValidator)>|InferInput<(typeof import('#transfer/validators/transfer').selectionValidator)>|InferInput<(typeof import('#transfer/validators/transfer').bundleValidator)>>
       paramsTuple: []
       params: {}
-      query: ExtractQuery<InferInput<(typeof import('#transfer/validators/transfer').importValidator)>|InferInput<(typeof import('#transfer/validators/transfer').importSelectionValidator)>|InferInput<(typeof import('#transfer/validators/transfer').bundleValidator)>>
+      query: ExtractQuery<InferInput<(typeof import('#transfer/validators/transfer').importValidator)>|InferInput<(typeof import('#transfer/validators/transfer').selectionValidator)>|InferInput<(typeof import('#transfer/validators/transfer').bundleValidator)>>
       response: ExtractResponse<Awaited<ReturnType<import('#app/transfer/controllers/imports_controller').default['handle']>>>
       errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#app/transfer/controllers/imports_controller').default['handle']>>> | { status: 422; response: { errors: SimpleError[] } }
       rawResponse: ExtractRawResponse<Awaited<ReturnType<import('#app/transfer/controllers/imports_controller').default['handle']>>> | { status: 422; response: { errors: SimpleError[] } }

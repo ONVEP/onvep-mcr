@@ -68,11 +68,16 @@ export type ScannedRoutes = {
     'css_variables.store': { paramsTuple?: []; params?: {} }
     'css_variables.update': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'css_variables.destroy': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'assets.index': { paramsTuple?: []; params?: {} }
+    'assets.store': { paramsTuple?: []; params?: {} }
+    'assets.update': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'assets.destroy': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'cg.all': { paramsTuple?: []; params?: {} }
     'cg.layer': { paramsTuple: [ParamValue]; params: {'slug': ParamValue} }
     'cg.tailwind': { paramsTuple?: []; params?: {} }
     'cg.transmit': { paramsTuple?: []; params?: {} }
     'cg.ctx': { paramsTuple?: []; params?: {} }
+    'cg.file': { paramsTuple: [ParamValue]; params: {'name': ParamValue} }
     'context.index': { paramsTuple?: []; params?: {} }
     'context.values.update': { paramsTuple?: []; params?: {} }
     'context.values.store': { paramsTuple?: []; params?: {} }
@@ -131,11 +136,13 @@ export type ScannedRoutes = {
     'layers.show': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'graphics.tailwind_classes': { paramsTuple?: []; params?: {} }
     'css_variables.index': { paramsTuple?: []; params?: {} }
+    'assets.index': { paramsTuple?: []; params?: {} }
     'cg.all': { paramsTuple?: []; params?: {} }
     'cg.layer': { paramsTuple: [ParamValue]; params: {'slug': ParamValue} }
     'cg.tailwind': { paramsTuple?: []; params?: {} }
     'cg.transmit': { paramsTuple?: []; params?: {} }
     'cg.ctx': { paramsTuple?: []; params?: {} }
+    'cg.file': { paramsTuple: [ParamValue]; params: {'name': ParamValue} }
     'context.index': { paramsTuple?: []; params?: {} }
     'context.mutators.index': { paramsTuple?: []; params?: {} }
     'context.mutators.show': { paramsTuple: [ParamValue]; params: {'name': ParamValue} }
@@ -175,11 +182,13 @@ export type ScannedRoutes = {
     'layers.show': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'graphics.tailwind_classes': { paramsTuple?: []; params?: {} }
     'css_variables.index': { paramsTuple?: []; params?: {} }
+    'assets.index': { paramsTuple?: []; params?: {} }
     'cg.all': { paramsTuple?: []; params?: {} }
     'cg.layer': { paramsTuple: [ParamValue]; params: {'slug': ParamValue} }
     'cg.tailwind': { paramsTuple?: []; params?: {} }
     'cg.transmit': { paramsTuple?: []; params?: {} }
     'cg.ctx': { paramsTuple?: []; params?: {} }
+    'cg.file': { paramsTuple: [ParamValue]; params: {'name': ParamValue} }
     'context.index': { paramsTuple?: []; params?: {} }
     'context.mutators.index': { paramsTuple?: []; params?: {} }
     'context.mutators.show': { paramsTuple: [ParamValue]; params: {'name': ParamValue} }
@@ -209,6 +218,7 @@ export type ScannedRoutes = {
     'step_types.store': { paramsTuple?: []; params?: {} }
     'layers.store': { paramsTuple?: []; params?: {} }
     'css_variables.store': { paramsTuple?: []; params?: {} }
+    'assets.store': { paramsTuple?: []; params?: {} }
     'context.values.store': { paramsTuple?: []; params?: {} }
     'context.mutators.store': { paramsTuple?: []; params?: {} }
     'context.validators.store': { paramsTuple?: []; params?: {} }
@@ -233,6 +243,7 @@ export type ScannedRoutes = {
     'layers.update': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'custom_css.update': { paramsTuple?: []; params?: {} }
     'css_variables.update': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'assets.update': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'context.values.update': { paramsTuple?: []; params?: {} }
     'context.mutators.update': { paramsTuple: [ParamValue]; params: {'name': ParamValue} }
     'context.mutators.state.update': { paramsTuple: [ParamValue]; params: {'name': ParamValue} }
@@ -246,6 +257,7 @@ export type ScannedRoutes = {
     'rundowns.update': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'step_types.update': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'css_variables.update': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'assets.update': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
   }
   DELETE: {
     'users.destroy': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
@@ -257,6 +269,7 @@ export type ScannedRoutes = {
     'step_types.destroy': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'layers.destroy': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'css_variables.destroy': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'assets.destroy': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'context.values.destroy': { paramsTuple?: []; params?: {} }
     'context.mutators.destroy': { paramsTuple: [ParamValue]; params: {'name': ParamValue} }
     'context.validators.destroy': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }

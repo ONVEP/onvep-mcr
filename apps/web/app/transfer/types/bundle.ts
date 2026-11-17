@@ -21,6 +21,7 @@ export const TRANSFER_TREE = [
       { key: 'layers', kind: 'collection' },
       { key: 'cssVariables', kind: 'collection' },
       { key: 'customCss', kind: 'singleton' },
+      { key: 'assets', kind: 'collection' },
     ],
   },
   {
@@ -94,7 +95,15 @@ export type TransferReport = { created: number; updated: number; skipped: number
 // --- File format -----------------------------------------------------------
 
 export const BUNDLE_FORMAT = 'onvep-mcr'
-export const BUNDLE_VERSION = 1
+export const BUNDLE_VERSION = 2
+
+/**
+ * The export is an uncompressed tar (assets are already compressed media): this manifest
+ * first, so the import page can read it from the head of a multi-GB file, then one
+ * `assets/<name>` entry per asset listed in it.
+ */
+export const BUNDLE_MANIFEST = 'bundle.json'
+export const BUNDLE_ASSETS_DIR = 'assets/'
 
 type JsonValue = null | boolean | number | string | JsonValue[] | { [key: string]: JsonValue }
 
@@ -111,6 +120,7 @@ export type BundleRundown = { name: string; startTime: string; steps: BundleStep
 export type BundleNetworkDrive = { name: string; url: string; username: string; password: string }
 export type BundleLayer = { name: string; slug: string; enabled: boolean; content: string }
 export type BundleCssVariable = { name: string; kind: 'color' | 'value'; value: string }
+export type BundleAsset = { name: string }
 // `enabled` is absent from files exported before it existed: treat as enabled.
 export type BundleMutator = { name: string; source: string; enabled?: boolean }
 export type BundleValidator = {
@@ -126,7 +136,12 @@ export type TransferBundle = {
   exportedAt: string
   rundowns?: { stepTypes?: BundleStepType[]; rundowns?: BundleRundown[] }
   media?: { networkDrives?: BundleNetworkDrive[] }
-  graphics?: { layers?: BundleLayer[]; cssVariables?: BundleCssVariable[]; customCss?: string }
+  graphics?: {
+    layers?: BundleLayer[]
+    cssVariables?: BundleCssVariable[]
+    customCss?: string
+    assets?: BundleAsset[]
+  }
   context?: {
     data?: { [key: string]: JsonValue }
     mutators?: BundleMutator[]

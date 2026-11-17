@@ -120,12 +120,19 @@ export interface ApiDefinition {
     update: typeof routes['css_variables.update']
     destroy: typeof routes['css_variables.destroy']
   }
+  assets: {
+    index: typeof routes['assets.index']
+    store: typeof routes['assets.store']
+    update: typeof routes['assets.update']
+    destroy: typeof routes['assets.destroy']
+  }
   cg: {
     all: typeof routes['cg.all']
     layer: typeof routes['cg.layer']
     tailwind: typeof routes['cg.tailwind']
     transmit: typeof routes['cg.transmit']
     ctx: typeof routes['cg.ctx']
+    file: typeof routes['cg.file']
   }
   context: {
     index: typeof routes['context.index']

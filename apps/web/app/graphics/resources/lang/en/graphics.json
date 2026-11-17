@@ -71,5 +71,27 @@
     "saved": "CSS saved",
     "unsaved": "Unsaved changes",
     "leave_confirm": "Unsaved changes will be lost. Leave anyway?"
+  },
+  "assets": {
+    "page": {
+      "title": "Assets",
+      "description": "Images, fonts, videos… served to CG pages. Reference them in layers by their URL."
+    },
+    "table": {
+      "name": "Name",
+      "size": "Size",
+      "usage": "URL"
+    },
+    "actions": {
+      "upload": "Upload",
+      "replace": "Replace the file (keeps the URL)",
+      "delete": "Delete",
+      "copy": "Copy"
+    },
+    "replaced": "File replaced",
+    "delete": {
+      "title": "Delete the asset",
+      "description": "Delete <strong>{name}</strong>? Layers using it will no longer find it."
+    }
   }
 }

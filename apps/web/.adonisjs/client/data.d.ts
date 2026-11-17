@@ -6,6 +6,7 @@
 /// <reference path="./manifest.d.ts" />
 import type { InferData, InferVariants } from '@adonisjs/core/types/transformers'
 import type { InferSharedProps, InferFlashData } from '@adonisjs/inertia/types'
+import type GraphicsAssetTransformer from '#app/graphics/transformers/asset_transformer'
 import type GraphicsCssVariableTransformer from '#app/graphics/transformers/css_variable_transformer'
 import type GraphicsLayerTransformer from '#app/graphics/transformers/layer_transformer'
 import type MediaNetworkDriveTransformer from '#app/media/transformers/network_drive_transformer'
@@ -20,6 +21,10 @@ import type InertiaMiddleware from '#core/middleware/inertia_middleware'
 
 export namespace Data {
   export namespace Graphics {
+    export type Asset = InferData<GraphicsAssetTransformer>
+    export namespace Asset {
+      export type Variants = InferVariants<GraphicsAssetTransformer>
+    }
     export type CssVariable = InferData<GraphicsCssVariableTransformer>
     export namespace CssVariable {
       export type Variants = InferVariants<GraphicsCssVariableTransformer>

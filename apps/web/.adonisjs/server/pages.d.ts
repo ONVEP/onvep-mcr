@@ -22,6 +22,7 @@ declare module '@adonisjs/inertia/types' {
     'context/versions': ExtractProps<(typeof import('../../app/context/ui/pages/versions.tsx'))['default']>
     'core/errors/not_found': ExtractProps<(typeof import('../../app/core/ui/pages/errors/not_found.tsx'))['default']>
     'core/errors/server_error': ExtractProps<(typeof import('../../app/core/ui/pages/errors/server_error.tsx'))['default']>
+    'graphics/assets': ExtractProps<(typeof import('../../app/graphics/ui/pages/assets.tsx'))['default']>
     'graphics/css_variables': ExtractProps<(typeof import('../../app/graphics/ui/pages/css_variables.tsx'))['default']>
     'graphics/editor': ExtractProps<(typeof import('../../app/graphics/ui/pages/editor.tsx'))['default']>
     'marketing/show': ExtractProps<(typeof import('../../app/marketing/ui/pages/show.tsx'))['default']>

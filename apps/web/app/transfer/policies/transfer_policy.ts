@@ -14,6 +14,7 @@ const NODE_PERMISSIONS: Record<TransferNodeId, Permission> = {
   'graphics.layers': PERMISSIONS.graphicsManage,
   'graphics.cssVariables': PERMISSIONS.graphicsManage,
   'graphics.customCss': PERMISSIONS.graphicsManage,
+  'graphics.assets': PERMISSIONS.graphicsManage,
   'context.data': PERMISSIONS.contextManage,
   'context.mutators': PERMISSIONS.contextManage,
   'context.validators': PERMISSIONS.contextManage,

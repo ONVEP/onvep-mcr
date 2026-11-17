@@ -1,3 +1,4 @@
+import Asset from '#graphics/models/asset'
 import CssVariable from '#graphics/models/css_variable'
 import CustomCss from '#graphics/models/custom_css'
 import Layer from '#graphics/models/layer'
@@ -71,7 +72,8 @@ export default class ExportBundleQuery {
     const layers = collections['graphics.layers']
     const cssVariables = collections['graphics.cssVariables']
     const customCss = singletons.includes('graphics.customCss')
-    if (layers || cssVariables || customCss) {
+    const assets = collections['graphics.assets']
+    if (layers || cssVariables || customCss || assets) {
       bundle.graphics = {}
       if (layers) {
         const rows = await Layer.query().whereIn('id', ids(layers)).orderBy('name')
@@ -89,6 +91,11 @@ export default class ExportBundleQuery {
       if (customCss) {
         const row = await CustomCss.query().orderBy('id').first()
         bundle.graphics.customCss = row?.content ?? ''
+      }
+      if (assets) {
+        // Only the names: the files follow the manifest in the archive.
+        const rows = await Asset.query().whereIn('id', ids(assets)).orderBy('name')
+        bundle.graphics.assets = rows.map(({ name }) => ({ name }))
       }
     }
 

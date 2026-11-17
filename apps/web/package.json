@@ -54,6 +54,7 @@
     "@types/react": "^19.2.18",
     "@types/react-dom": "^19.2.4",
     "@types/sinon": "^22.0.0",
+    "@types/tar-stream": "^3.1.5",
     "@vitejs/plugin-react": "^6.0.5",
     "c8": "^11.0.0",
     "eslint": "^10.8.1",
@@ -115,6 +116,7 @@
     "recharts": "3.8.0",
     "reflect-metadata": "^0.2.2",
     "sharp": "^0.34.5",
+    "tar-stream": "^3.2.2",
     "usehooks-ts": "^3.1.1"
   },
   "hotHook": {
