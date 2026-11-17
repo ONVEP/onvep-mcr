@@ -1022,6 +1022,19 @@ export interface Registry {
       rawResponse: ExtractRawResponse<Awaited<ReturnType<import('#app/context/controllers/mutators_controller').default['destroy']>>>
     }
   }
+  'context.mutators.state.update': {
+    methods: ["PUT"]
+    pattern: '/context/mutators/:name/state'
+    types: {
+      body: ExtractBody<InferInput<(typeof import('#context/validators/states').stateValidator)>>
+      paramsTuple: [ParamValue]
+      params: { name: ParamValue }
+      query: ExtractQuery<InferInput<(typeof import('#context/validators/states').stateValidator)>>
+      response: ExtractResponse<Awaited<ReturnType<import('#app/context/controllers/mutator_states_controller').default['update']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#app/context/controllers/mutator_states_controller').default['update']>>> | { status: 422; response: { errors: SimpleError[] } }
+      rawResponse: ExtractRawResponse<Awaited<ReturnType<import('#app/context/controllers/mutator_states_controller').default['update']>>> | { status: 422; response: { errors: SimpleError[] } }
+    }
+  }
   'context.validators.index': {
     methods: ["GET","HEAD"]
     pattern: '/context/validators'
@@ -1085,6 +1098,19 @@ export interface Registry {
       response: ExtractResponse<Awaited<ReturnType<import('#app/context/controllers/validators_controller').default['destroy']>>>
       errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#app/context/controllers/validators_controller').default['destroy']>>>
       rawResponse: ExtractRawResponse<Awaited<ReturnType<import('#app/context/controllers/validators_controller').default['destroy']>>>
+    }
+  }
+  'context.validators.state.update': {
+    methods: ["PUT"]
+    pattern: '/context/validators/:id/state'
+    types: {
+      body: ExtractBody<InferInput<(typeof import('#context/validators/states').stateValidator)>>
+      paramsTuple: [ParamValue]
+      params: { id: ParamValue }
+      query: ExtractQuery<InferInput<(typeof import('#context/validators/states').stateValidator)>>
+      response: ExtractResponse<Awaited<ReturnType<import('#app/context/controllers/validator_states_controller').default['update']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#app/context/controllers/validator_states_controller').default['update']>>> | { status: 422; response: { errors: SimpleError[] } }
+      rawResponse: ExtractRawResponse<Awaited<ReturnType<import('#app/context/controllers/validator_states_controller').default['update']>>> | { status: 422; response: { errors: SimpleError[] } }
     }
   }
   'context.versions.index': {

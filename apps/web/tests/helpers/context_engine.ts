@@ -66,7 +66,11 @@ export class FakeContextEngine extends ContextEngineClient {
 
   override async listMutators() {
     this.#record('listMutators')
-    return this.mutators.map(({ name, subscriptions }) => ({ name, subscriptions }))
+    return this.mutators.map(({ name, subscriptions, enabled }) => ({
+      name,
+      subscriptions,
+      enabled,
+    }))
   }
 
   override async getMutator(name: string) {
@@ -78,6 +82,11 @@ export class FakeContextEngine extends ContextEngineClient {
 
   override async saveMutator(name: string, source: string) {
     this.#record('saveMutator', name, source)
+    return this.listMutators()
+  }
+
+  override async setMutatorEnabled(name: string, enabled: boolean) {
+    this.#record('setMutatorEnabled', name, enabled)
     return this.listMutators()
   }
 
@@ -100,12 +109,12 @@ export class FakeContextEngine extends ContextEngineClient {
 
   override async createValidator(definition: ContextValidatorDefinition) {
     this.#record('createValidator', definition)
-    return { id: 42, ...definition, createdAt: '', updatedAt: '' }
+    return { id: 42, enabled: true, ...definition, createdAt: '', updatedAt: '' }
   }
 
   override async updateValidator(id: number, definition: ContextValidatorDefinition) {
     this.#record('updateValidator', id, definition)
-    return { id, ...definition, createdAt: '', updatedAt: '' }
+    return { id, enabled: true, ...definition, createdAt: '', updatedAt: '' }
   }
 
   override async deleteValidator(id: number) {

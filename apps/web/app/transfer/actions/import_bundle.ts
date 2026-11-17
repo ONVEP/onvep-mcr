@@ -281,8 +281,8 @@ export default class ImportBundle {
       await this.#upsert(
         existing.get(row.path) ?? null,
         overwrite,
-        () => this.engine.createValidator(row),
-        (target) => this.engine.updateValidator(target.id, row)
+        () => this.engine.createValidator({ ...row, enabled: row.enabled ?? true }),
+        (target) => this.engine.updateValidator(target.id, { ...row, enabled: row.enabled ?? true })
       )
     }
   }
@@ -298,8 +298,16 @@ export default class ImportBundle {
       await this.#upsert(
         existing.has(row.name) ? row.name : null,
         overwrite,
-        () => this.engine.saveMutator(row.name, row.source),
-        () => this.engine.saveMutator(row.name, row.source)
+        async () => {
+          await this.engine.saveMutator(row.name, row.source)
+          // New mutators start enabled.
+          if (row.enabled === false) await this.engine.setMutatorEnabled(row.name, false)
+        },
+        async () => {
+          // A source update keeps the current state: apply the file's explicitly.
+          await this.engine.saveMutator(row.name, row.source)
+          await this.engine.setMutatorEnabled(row.name, row.enabled ?? true)
+        }
       )
     }
   }

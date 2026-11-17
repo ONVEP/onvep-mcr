@@ -18,7 +18,7 @@ test.group('mutators | api', (group) => {
   test('writes a mutator and runs it right away', async ({ client }) => {
     const write = await client.put('/mutators/upper.js').json({ source: SOURCE })
     write.assertStatus(200)
-    write.assertBody([{ name: 'upper.js', subscriptions: ['title'] }])
+    write.assertBody([{ name: 'upper.js', subscriptions: ['title'], enabled: true }])
 
     await client.put('/context/title').json({ value: 'abc' })
     const read = await client.get('/context/upper')
@@ -29,7 +29,12 @@ test.group('mutators | api', (group) => {
     await client.put('/mutators/folder/upper.js').json({ source: SOURCE })
 
     const response = await client.get('/mutators/folder/upper.js')
-    response.assertBody({ name: 'folder/upper.js', subscriptions: ['title'], source: SOURCE })
+    response.assertBody({
+      name: 'folder/upper.js',
+      subscriptions: ['title'],
+      enabled: true,
+      source: SOURCE,
+    })
   })
 
   test('refuses broken sources without touching the disk', async ({ client, assert }) => {
@@ -63,5 +68,39 @@ test.group('mutators | api', (group) => {
     missing.assertStatus(404)
     const missingDelete = await client.delete('/mutators/upper.js')
     missingDelete.assertStatus(404)
+  })
+
+  test('a disabled mutator stays listed but no longer runs', async ({ client }) => {
+    await client.put('/mutators/upper.js').json({ source: SOURCE })
+
+    const disabled = await client.put('/mutator-states/upper.js').json({ enabled: false })
+    disabled.assertStatus(200)
+    disabled.assertBody([{ name: 'upper.js', subscriptions: ['title'], enabled: false }])
+
+    await client.put('/context/title').json({ value: 'abc' })
+    const untouched = await client.get('/context/upper')
+    untouched.assertStatus(404)
+
+    await client.put('/mutator-states/upper.js').json({ enabled: true })
+    await client.put('/context/title').json({ value: 'def' })
+    const read = await client.get('/context/upper')
+    read.assertBody({ path: 'upper', value: 'DEF' })
+  })
+
+  test('the state survives a source update but not a deletion', async ({ client }) => {
+    await client.put('/mutators/upper.js').json({ source: SOURCE })
+    await client.put('/mutator-states/upper.js').json({ enabled: false })
+
+    const rewritten = await client.put('/mutators/upper.js').json({ source: SOURCE })
+    rewritten.assertBody([{ name: 'upper.js', subscriptions: ['title'], enabled: false }])
+
+    await client.delete('/mutators/upper.js')
+    const recreated = await client.put('/mutators/upper.js').json({ source: SOURCE })
+    recreated.assertBody([{ name: 'upper.js', subscriptions: ['title'], enabled: true }])
+  })
+
+  test('toggling an unknown mutator is a 404', async ({ client }) => {
+    const response = await client.put('/mutator-states/missing.js').json({ enabled: false })
+    response.assertStatus(404)
   })
 })

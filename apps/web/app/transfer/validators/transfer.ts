@@ -140,11 +140,18 @@ export const bundleValidator = vine.create({
               .trim()
               .regex(/^[\w-]+(\/[\w-]+)*(\.m?js)?$/),
             source: vine.string().maxLength(1_000_000),
+            enabled: vine.boolean().optional(),
           })
         )
         .optional(),
       validators: vine
-        .array(vine.object({ path: vine.string().trim().maxLength(255), schema: jsonObject() }))
+        .array(
+          vine.object({
+            path: vine.string().trim().maxLength(255),
+            schema: jsonObject(),
+            enabled: vine.boolean().optional(),
+          })
+        )
         .optional(),
     })
     .optional(),

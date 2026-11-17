@@ -17,6 +17,7 @@ async function admin() {
 const MUTATOR = {
   name: 'layers/sync.js',
   subscriptions: ['layers'],
+  enabled: true,
   source: 'export const subscriptions = ["layers"]\nexport default (o, n) => n',
 }
 
@@ -135,5 +136,39 @@ test.group('Endpoint /context/mutators', (group) => {
 
     assert.equal(response.header('location'), '/context/mutators')
     assert.deepEqual(engine.callsTo('deleteMutator'), [['x.js']])
+  })
+
+  test("PUT state active ou désactive le mutator et revient sur l'éditeur", async ({
+    client,
+    assert,
+  }) => {
+    const response = await client
+      .put('/context/mutators/layers%2Fsync.js/state')
+      .loginAs(await admin())
+      .withCsrfToken()
+      .redirects(0)
+      .json({ enabled: false })
+
+    response.assertStatus(302)
+    assert.equal(response.header('location'), '/context/mutators/layers%2Fsync.js')
+    assert.deepEqual(engine.callsTo('setMutatorEnabled'), [['layers/sync.js', false]])
+  })
+
+  test('PUT state sans la permission manage est refusé', async ({ client, assert }) => {
+    const user = await UserFactory.create()
+    await withPermissions(user, 'context-editor', [
+      PERMISSIONS.contextView,
+      PERMISSIONS.contextEdit,
+    ])
+
+    const response = await client
+      .put('/context/mutators/x.js/state')
+      .loginAs(user)
+      .withCsrfToken()
+      .redirects(0)
+      .json({ enabled: false })
+
+    assertForbiddenRedirect(response)
+    assert.lengthOf(engine.callsTo('setMutatorEnabled'), 0)
   })
 })

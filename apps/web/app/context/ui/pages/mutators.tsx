@@ -5,6 +5,7 @@ import { Trans } from 'react-i18next'
 
 import { Badge } from '@workspace/ui/components/badge'
 import { Button } from '@workspace/ui/components/button'
+import { Checkbox } from '@workspace/ui/components/checkbox'
 import { toast } from '@workspace/ui/hooks/use-toast'
 
 import type { InertiaProps } from '#core/ui/types'
@@ -23,6 +24,11 @@ type PageProps = InertiaProps<{
   mutators: ContextMutatorSummary[]
   mutator: ContextMutator | null
 }>
+
+function setEnabled(url: string, enabled: boolean) {
+  // Keeps unsaved edits: the workspace stays mounted with its local state.
+  router.put(url, { enabled }, { preserveScroll: true, preserveState: true })
+}
 
 function MutatorWorkspace({ mutator }: { mutator: ContextMutator }) {
   const { t } = useTranslation()
@@ -52,6 +58,18 @@ function MutatorWorkspace({ mutator }: { mutator: ContextMutator }) {
     <div className="flex min-w-0 flex-1 flex-col">
       <header className="flex flex-wrap items-center gap-3 border-b px-3 py-2">
         <span className="font-mono text-sm font-medium">{mutator.name}</span>
+        <label className="flex items-center gap-2 text-sm">
+          <Checkbox
+            checked={mutator.enabled}
+            onCheckedChange={(checked) =>
+              setEnabled(
+                urlFor('context.mutators.state.update', { name: mutator.name }),
+                checked === true
+              )
+            }
+          />
+          {t('context.mutators.enabled')}
+        </label>
         <div className="flex flex-wrap items-center gap-1">
           <span className="text-xs text-muted-foreground">
             {t('context.mutators.subscriptions')}:
@@ -129,12 +147,16 @@ export default function ContextMutatorsPage({ mutators, mutator }: PageProps) {
       <div className="flex min-h-0 flex-1 overflow-hidden">
         <AdminListSidebar
           title={t('context.mutators.title')}
-          items={mutators.map(({ name, subscriptions }) => ({
+          items={mutators.map(({ name, subscriptions, enabled }) => ({
             key: name,
             href: urlFor('context.mutators.show', { name }),
             label: name,
             hint: subscriptions.join(', '),
             active: name === mutator?.name,
+            status: {
+              enabled,
+              label: t(enabled ? 'context.mutators.enabled' : 'context.mutators.disabled'),
+            },
           }))}
           create={{
             url: urlFor('context.mutators.store'),

@@ -82,11 +82,13 @@ export type ScannedRoutes = {
     'context.mutators.show': { paramsTuple: [ParamValue]; params: {'name': ParamValue} }
     'context.mutators.update': { paramsTuple: [ParamValue]; params: {'name': ParamValue} }
     'context.mutators.destroy': { paramsTuple: [ParamValue]; params: {'name': ParamValue} }
+    'context.mutators.state.update': { paramsTuple: [ParamValue]; params: {'name': ParamValue} }
     'context.validators.index': { paramsTuple?: []; params?: {} }
     'context.validators.store': { paramsTuple?: []; params?: {} }
     'context.validators.show': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'context.validators.update': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'context.validators.destroy': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'context.validators.state.update': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'context.versions.index': { paramsTuple?: []; params?: {} }
     'context.versions.show': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'context.versions.restore': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
@@ -233,7 +235,9 @@ export type ScannedRoutes = {
     'css_variables.update': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'context.values.update': { paramsTuple?: []; params?: {} }
     'context.mutators.update': { paramsTuple: [ParamValue]; params: {'name': ParamValue} }
+    'context.mutators.state.update': { paramsTuple: [ParamValue]; params: {'name': ParamValue} }
     'context.validators.update': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'context.validators.state.update': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
   }
   PATCH: {
     'users.update': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }

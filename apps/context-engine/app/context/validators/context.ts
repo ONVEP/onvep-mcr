@@ -23,4 +23,9 @@ export const mutatorSourceValidator = vine.create({
 export const validatorDefinitionValidator = vine.create({
   path: vine.string(),
   schema: vine.object({}).allowUnknownProperties(),
+  enabled: vine.boolean().optional(),
+})
+
+export const enabledValidator = vine.create({
+  enabled: vine.boolean(),
 })

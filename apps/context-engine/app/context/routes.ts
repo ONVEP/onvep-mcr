@@ -34,6 +34,9 @@ router
   .prefix('/mutators')
   .as('mutators')
 
+// Separate prefix: under /mutators, a "state" segment would collide with mutator folders.
+router.put('/mutator-states/*', [MutatorsController, 'toggle']).as('mutator_states.update')
+
 router
   .group(() => {
     router.get('/', [VersionsController, 'index']).as('index')

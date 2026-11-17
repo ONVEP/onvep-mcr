@@ -54,7 +54,9 @@
     "leave_confirm": "You have unsaved changes. Leave anyway?",
     "delete": "Delete",
     "delete_title": "Delete this mutator?",
-    "delete_description": "The mutator <strong>{name}</strong> will be deleted and stop running immediately."
+    "delete_description": "The mutator <strong>{name}</strong> will be deleted and stop running immediately.",
+    "enabled": "Enabled",
+    "disabled": "Disabled"
   },
   "validators": {
     "title": "Validators",
@@ -72,7 +74,9 @@
     "leave_confirm": "You have unsaved changes. Leave anyway?",
     "delete": "Delete",
     "delete_title": "Delete this validator?",
-    "delete_description": "The validator on <strong>{path}</strong> will be deleted."
+    "delete_description": "The validator on <strong>{path}</strong> will be deleted.",
+    "enabled": "Enabled",
+    "disabled": "Disabled"
   },
   "schema": {
     "type": "Type",

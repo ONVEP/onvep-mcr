@@ -16,7 +16,9 @@ export const controllers = {
   context: {
     Context: () => import('#app/context/controllers/context_controller'),
     ContextValues: () => import('#app/context/controllers/context_values_controller'),
+    MutatorStates: () => import('#app/context/controllers/mutator_states_controller'),
     Mutators: () => import('#app/context/controllers/mutators_controller'),
+    ValidatorStates: () => import('#app/context/controllers/validator_states_controller'),
     Validators: () => import('#app/context/controllers/validators_controller'),
     Versions: () => import('#app/context/controllers/versions_controller'),
   },

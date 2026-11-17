@@ -294,10 +294,10 @@ test.group('context | mutators', (group) => {
 
     const reload = await client.post('/mutators/reload')
     reload.assertStatus(200)
-    reload.assertBody([{ name: 'nested/noop.js', subscriptions: ['a'] }])
+    reload.assertBody([{ name: 'nested/noop.js', subscriptions: ['a'], enabled: true }])
 
     const read = await client.get('/mutators')
-    read.assertBody([{ name: 'nested/noop.js', subscriptions: ['a'] }])
+    read.assertBody([{ name: 'nested/noop.js', subscriptions: ['a'], enabled: true }])
   })
 
   test('keeps the previous mutators when a reload fails', async ({ client }) => {
@@ -307,7 +307,7 @@ test.group('context | mutators', (group) => {
     const append = await client.post('/mutators/reload')
     append.assertStatus(500)
     const read = await client.get('/mutators')
-    read.assertBody([{ name: 'ok.js', subscriptions: [] }])
+    read.assertBody([{ name: 'ok.js', subscriptions: [], enabled: true }])
   })
 })
 

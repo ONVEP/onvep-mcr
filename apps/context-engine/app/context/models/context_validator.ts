@@ -14,6 +14,9 @@ export default class ContextValidator extends BaseModel {
   @column({ prepare: (value: JsonObject) => JSON.stringify(value) })
   declare schema: JsonObject
 
+  @column()
+  declare enabled: boolean
+
   @column.dateTime({ autoCreate: true })
   declare createdAt: DateTime
 

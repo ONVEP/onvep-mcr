@@ -12,6 +12,8 @@ export type SidebarItem = {
   label: ReactNode
   hint?: ReactNode
   active: boolean
+  /** Shows a status dot; its title is the matching label */
+  status?: { enabled: boolean; label: string }
 }
 
 interface Props {
@@ -45,7 +47,25 @@ export function AdminListSidebar({ title, items, create, footer }: Props) {
               item.active && 'bg-muted font-medium'
             )}
           >
-            <span className="truncate font-mono">{item.label}</span>
+            <span className="flex items-center gap-2">
+              {item.status && (
+                <span
+                  className={cn(
+                    'size-2 shrink-0 rounded-full',
+                    item.status.enabled ? 'bg-emerald-500' : 'bg-muted-foreground/40'
+                  )}
+                  title={item.status.label}
+                />
+              )}
+              <span
+                className={cn(
+                  'truncate font-mono',
+                  item.status?.enabled === false && 'text-muted-foreground'
+                )}
+              >
+                {item.label}
+              </span>
+            </span>
             {item.hint && (
               <span className="truncate text-xs font-normal text-muted-foreground">
                 {item.hint}

@@ -107,9 +107,9 @@ export default class ExportBundleQuery {
         const all = await this.engine.listMutators()
         const summaries = all.filter((row) => names.has(row.name))
         bundle.context.mutators = await Promise.all(
-          summaries.map(async ({ name }) => {
+          summaries.map(async ({ name, enabled }) => {
             const { source } = await this.engine.getMutator(name)
-            return { name, source }
+            return { name, source, enabled }
           })
         )
       }
@@ -118,7 +118,7 @@ export default class ExportBundleQuery {
         const all = await this.engine.listValidators()
         bundle.context.validators = all
           .filter((row) => keys.has(row.id))
-          .map(({ path, schema }) => ({ path, schema }))
+          .map(({ path, schema, enabled }) => ({ path, schema, enabled }))
       }
     }
 

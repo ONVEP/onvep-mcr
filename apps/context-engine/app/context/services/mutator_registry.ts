@@ -1,4 +1,5 @@
 import type { Disk } from '@adonisjs/drive'
+import ContextMutatorState from '#context/models/context_mutator_state'
 import InvalidMutatorException from '#context/exceptions/invalid_mutator_exception'
 import MutatorNotFoundException from '#context/exceptions/mutator_not_found_exception'
 import type { JsonObject, PathSegments } from '#context/lib/path'
@@ -13,6 +14,8 @@ export type Mutator = {
   /** Disk key of the source file — also defines the execution order */
   name: string
   subscriptions: string[]
+  /** Disabled mutators stay loaded (listed, editable) but never run */
+  enabled: boolean
   patterns: PathSegments[]
   handle: MutatorHandler
 }
@@ -47,9 +50,12 @@ export class MutatorRegistry {
    */
   async reload() {
     const keys = await this.#listKeys()
+    const states = await ContextMutatorState.all()
+    const disabled = new Set(states.filter((state) => !state.enabled).map((state) => state.name))
     const mutators: Mutator[] = []
     for (const key of keys) {
-      mutators.push(await this.#evaluate(key, await this.disk().get(key)))
+      const mutator = await this.#evaluate(key, await this.disk().get(key))
+      mutators.push({ ...mutator, enabled: !disabled.has(key) })
     }
     this.#mutators = mutators
     return this.#mutators
@@ -79,9 +85,17 @@ export class MutatorRegistry {
     return this.reload()
   }
 
+  async setEnabled(name: string, enabled: boolean) {
+    await this.read(name)
+    await ContextMutatorState.updateOrCreate({ name }, { enabled })
+    return this.reload()
+  }
+
   async remove(name: string) {
     await this.read(name)
     await this.disk().delete(name)
+    // A mutator recreated under the same name starts enabled.
+    await ContextMutatorState.query().where('name', name).delete()
     return this.reload()
   }
 
@@ -105,7 +119,7 @@ export class MutatorRegistry {
    * `status` is 500 for files already on the disk (server state is broken)
    * and 422 for sources submitted through the API.
    */
-  async #evaluate(key: string, source: string, status = 500): Promise<Mutator> {
+  async #evaluate(key: string, source: string, status = 500): Promise<Omit<Mutator, 'enabled'>> {
     let module: Record<string, unknown>
     try {
       module = await import(`data:text/javascript;base64,${Buffer.from(source).toString('base64')}`)

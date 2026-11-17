@@ -102,7 +102,9 @@ test.group('Endpoint /transfer', (group) => {
     const kept = await NetworkDriveFactory.merge({ name: 'NAS', password: 'secret' }).create()
     await NetworkDriveFactory.create()
     const rundown = await RundownFactory.with('steps', 2).create()
-    engine.mutators = [{ name: 'sync.js', subscriptions: [], source: 'export default 1' }]
+    engine.mutators = [
+      { name: 'sync.js', subscriptions: [], enabled: false, source: 'export default 1' },
+    ]
 
     const response = await client
       .post('/transfer/export')
@@ -129,7 +131,9 @@ test.group('Endpoint /transfer', (group) => {
     assert.lengthOf(body.rundowns!.rundowns![0].steps, 2)
     assert.properties(body.rundowns!.rundowns![0].steps[0].stepType, ['name', 'color'])
     assert.notProperty(body.rundowns!, 'stepTypes')
-    assert.deepEqual(body.context?.mutators, [{ name: 'sync.js', source: 'export default 1' }])
+    assert.deepEqual(body.context?.mutators, [
+      { name: 'sync.js', source: 'export default 1', enabled: false },
+    ])
     assert.notProperty(body, 'graphics')
   })
 
@@ -182,7 +186,7 @@ test.group('Endpoint /transfer', (group) => {
       context: {
         data: { score: { home: 1 } },
         validators: [{ path: 'score', schema: { type: 'object' } }],
-        mutators: [{ name: 'sync.js', source: 'export default 1' }],
+        mutators: [{ name: 'sync.js', source: 'export default 1', enabled: false }],
       },
     })
 
@@ -228,9 +232,10 @@ test.group('Endpoint /transfer', (group) => {
     assert.equal(drive.password, 'p')
 
     assert.deepEqual(engine.callsTo('createValidator'), [
-      [{ path: 'score', schema: { type: 'object' } }],
+      [{ path: 'score', schema: { type: 'object' }, enabled: true }],
     ])
     assert.deepEqual(engine.callsTo('saveMutator'), [['sync.js', 'export default 1']])
+    assert.deepEqual(engine.callsTo('setMutatorEnabled'), [['sync.js', false]])
     assert.deepEqual(engine.callsTo('setValue'), [['', { score: { home: 1 } }]])
   })
 

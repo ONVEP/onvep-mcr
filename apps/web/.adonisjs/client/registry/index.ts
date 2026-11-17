@@ -476,6 +476,12 @@ const routes = {
     tokens: [[0,"context"],[0,"mutators"],[1,"name"]],
     types: placeholder as Registry['context.mutators.destroy']['types'],
   },
+  'context.mutators.state.update': {
+    methods: ["PUT"],
+    pattern: '/context/mutators/:name/state',
+    tokens: [[0,"context"],[0,"mutators"],[1,"name"],[0,"state"]],
+    types: placeholder as Registry['context.mutators.state.update']['types'],
+  },
   'context.validators.index': {
     methods: ["GET","HEAD"],
     pattern: '/context/validators',
@@ -505,6 +511,12 @@ const routes = {
     pattern: '/context/validators/:id',
     tokens: [[0,"context"],[0,"validators"],[1,"id"]],
     types: placeholder as Registry['context.validators.destroy']['types'],
+  },
+  'context.validators.state.update': {
+    methods: ["PUT"],
+    pattern: '/context/validators/:id/state',
+    tokens: [[0,"context"],[0,"validators"],[1,"id"],[0,"state"]],
+    types: placeholder as Registry['context.validators.state.update']['types'],
   },
   'context.versions.index': {
     methods: ["GET","HEAD"],

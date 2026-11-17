@@ -17,6 +17,7 @@ const VALIDATOR = {
   id: 7,
   path: 'layers.*',
   schema: { type: 'object', properties: { name: { type: 'string' } } },
+  enabled: true,
   createdAt: '',
   updatedAt: '',
 }
@@ -110,5 +111,25 @@ test.group('Endpoint /context/validators', (group) => {
 
     assert.equal(response.header('location'), '/context/validators')
     assert.deepEqual(engine.callsTo('deleteValidator'), [[7]])
+  })
+
+  test('PUT state renvoie la définition au moteur avec le nouvel état', async ({
+    client,
+    assert,
+  }) => {
+    engine.validators = [VALIDATOR]
+
+    const response = await client
+      .put('/context/validators/7/state')
+      .loginAs(await admin())
+      .withCsrfToken()
+      .redirects(0)
+      .json({ enabled: false })
+
+    response.assertStatus(302)
+    assert.equal(response.header('location'), '/context/validators/7')
+    assert.deepEqual(engine.callsTo('updateValidator'), [
+      [7, { path: VALIDATOR.path, schema: VALIDATOR.schema, enabled: false }],
+    ])
   })
 })

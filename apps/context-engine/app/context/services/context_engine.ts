@@ -95,7 +95,9 @@ export class ContextEngine {
   }
 
   listMutators() {
-    return this.mutators.all().map(({ name, subscriptions }) => ({ name, subscriptions }))
+    return this.mutators
+      .all()
+      .map(({ name, subscriptions, enabled }) => ({ name, subscriptions, enabled }))
   }
 
   async reloadMutators() {
@@ -215,7 +217,7 @@ export class ContextEngine {
    * each other past `maxMutatorPasses` abort the update.
    */
   async #runMutators(previous: JsonObject, draft: JsonObject) {
-    const mutators = this.mutators.all()
+    const mutators = this.mutators.all().filter((mutator) => mutator.enabled)
     const lastSeen = new Map<Mutator, JsonObject>()
     let next = draft
     let ranInPreviousPass: string[] = []

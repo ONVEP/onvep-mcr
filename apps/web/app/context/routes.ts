@@ -3,7 +3,8 @@ import router from '@adonisjs/core/services/router'
 import { controllers } from '#generated/controllers'
 import { middleware } from '#start/kernel'
 
-const { Context, ContextValues, Mutators, Validators, Versions } = controllers.context
+const { Context, ContextValues, MutatorStates, Mutators, ValidatorStates, Validators, Versions } =
+  controllers.context
 
 router
   .group(() => {
@@ -19,12 +20,18 @@ router
     router.get('/mutators/:name', [Mutators, 'show']).as('context.mutators.show')
     router.put('/mutators/:name', [Mutators, 'update']).as('context.mutators.update')
     router.delete('/mutators/:name', [Mutators, 'destroy']).as('context.mutators.destroy')
+    router
+      .put('/mutators/:name/state', [MutatorStates, 'update'])
+      .as('context.mutators.state.update')
 
     router.get('/validators', [Validators, 'index']).as('context.validators.index')
     router.post('/validators', [Validators, 'store']).as('context.validators.store')
     router.get('/validators/:id', [Validators, 'show']).as('context.validators.show')
     router.put('/validators/:id', [Validators, 'update']).as('context.validators.update')
     router.delete('/validators/:id', [Validators, 'destroy']).as('context.validators.destroy')
+    router
+      .put('/validators/:id/state', [ValidatorStates, 'update'])
+      .as('context.validators.state.update')
 
     router.get('/versions', [Versions, 'index']).as('context.versions.index')
     router.get('/versions/:id', [Versions, 'show']).as('context.versions.show')

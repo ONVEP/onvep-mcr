@@ -140,6 +140,9 @@ export interface ApiDefinition {
       show: typeof routes['context.mutators.show']
       update: typeof routes['context.mutators.update']
       destroy: typeof routes['context.mutators.destroy']
+      state: {
+        update: typeof routes['context.mutators.state.update']
+      }
     }
     validators: {
       index: typeof routes['context.validators.index']
@@ -147,6 +150,9 @@ export interface ApiDefinition {
       show: typeof routes['context.validators.show']
       update: typeof routes['context.validators.update']
       destroy: typeof routes['context.validators.destroy']
+      state: {
+        update: typeof routes['context.validators.state.update']
+      }
     }
     versions: {
       index: typeof routes['context.versions.index']

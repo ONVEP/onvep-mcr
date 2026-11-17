@@ -63,6 +63,14 @@ export class ContextEngineClient {
     })
   }
 
+  setMutatorEnabled(name: string, enabled: boolean) {
+    return this.#request<ContextMutatorSummary[]>(
+      'PUT',
+      `/mutator-states/${encodeMutatorName(name)}`,
+      { enabled }
+    )
+  }
+
   deleteMutator(name: string) {
     return this.#request<ContextMutatorSummary[]>('DELETE', `/mutators/${encodeMutatorName(name)}`)
   }

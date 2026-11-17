@@ -4,6 +4,7 @@ import { Save, TrashIcon } from 'lucide-react'
 import { Trans } from 'react-i18next'
 
 import { Button } from '@workspace/ui/components/button'
+import { Checkbox } from '@workspace/ui/components/checkbox'
 import { Input } from '@workspace/ui/components/input'
 import { toast } from '@workspace/ui/hooks/use-toast'
 
@@ -24,6 +25,11 @@ type PageProps = InertiaProps<{
   validators: ContextValidator[]
   validator: ContextValidator | null
 }>
+
+function setEnabled(url: string, enabled: boolean) {
+  // Keeps unsaved edits: the workspace stays mounted with its local state.
+  router.put(url, { enabled }, { preserveScroll: true, preserveState: true })
+}
 
 function ValidatorWorkspace({ validator }: { validator: ContextValidator }) {
   const { t } = useTranslation()
@@ -61,6 +67,18 @@ function ValidatorWorkspace({ validator }: { validator: ContextValidator }) {
             placeholder={t('context.validators.root')}
             className="h-8 w-64 font-mono"
           />
+        </label>
+        <label className="flex items-center gap-2 text-sm">
+          <Checkbox
+            checked={validator.enabled}
+            onCheckedChange={(checked) =>
+              setEnabled(
+                urlFor('context.validators.state.update', { id: validator.id }),
+                checked === true
+              )
+            }
+          />
+          {t('context.validators.enabled')}
         </label>
 
         <div className="ml-auto flex items-center gap-2">
@@ -137,11 +155,15 @@ export default function ContextValidatorsPage({ validators, validator }: PagePro
       <div className="flex min-h-0 flex-1 overflow-hidden">
         <AdminListSidebar
           title={t('context.validators.title')}
-          items={validators.map(({ id, path }) => ({
+          items={validators.map(({ id, path, enabled }) => ({
             key: String(id),
             href: urlFor('context.validators.show', { id }),
             label: path || t('context.validators.root'),
             active: id === validator?.id,
+            status: {
+              enabled,
+              label: t(enabled ? 'context.validators.enabled' : 'context.validators.disabled'),
+            },
           }))}
           create={{
             url: urlFor('context.validators.store'),

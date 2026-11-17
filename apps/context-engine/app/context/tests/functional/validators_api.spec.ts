@@ -92,4 +92,28 @@ test.group('validators | api', (group) => {
     const accepted = await client.put('/context/email').json({ value: 'a@b.co' })
     accepted.assertStatus(200)
   })
+
+  test('a disabled validator is stored but not applied', async ({ client }) => {
+    const created = await client
+      .post('/validators')
+      .json({ path: 'layers.*', schema: layerSchema, enabled: false })
+    created.assertStatus(201)
+    created.assertBodyContains({ enabled: false })
+
+    const accepted = await client.put('/context/layers.0.name').json({ value: '' })
+    accepted.assertStatus(200)
+
+    const { id } = created.body()
+    // Omitting `enabled` on update keeps the current state.
+    const updated = await client
+      .put(`/validators/${id}`)
+      .json({ path: 'layers.*', schema: layerSchema })
+    updated.assertBodyContains({ enabled: false })
+
+    await client
+      .put(`/validators/${id}`)
+      .json({ path: 'layers.*', schema: layerSchema, enabled: true })
+    const rejected = await client.put('/context/layers.0').json({ value: {} })
+    rejected.assertStatus(422)
+  })
 })

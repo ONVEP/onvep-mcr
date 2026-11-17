@@ -111,8 +111,13 @@ export type BundleRundown = { name: string; startTime: string; steps: BundleStep
 export type BundleNetworkDrive = { name: string; url: string; username: string; password: string }
 export type BundleLayer = { name: string; slug: string; enabled: boolean; content: string }
 export type BundleCssVariable = { name: string; kind: 'color' | 'value'; value: string }
-export type BundleMutator = { name: string; source: string }
-export type BundleValidator = { path: string; schema: { [key: string]: JsonValue } }
+// `enabled` is absent from files exported before it existed: treat as enabled.
+export type BundleMutator = { name: string; source: string; enabled?: boolean }
+export type BundleValidator = {
+  path: string
+  schema: { [key: string]: JsonValue }
+  enabled?: boolean
+}
 export type BundleRole = { name: string; permissions: string[] }
 
 export type TransferBundle = {

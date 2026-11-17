@@ -10,6 +10,8 @@ export type JsonObject = { [key: string]: JsonValue }
 export type ContextMutatorSummary = {
   name: string
   subscriptions: string[]
+  /** Disabled mutators are kept but never run */
+  enabled: boolean
 }
 
 export type ContextMutator = ContextMutatorSummary & {
@@ -23,11 +25,15 @@ export type ContextValidator = {
   id: number
   path: string
   schema: JsonSchema
+  /** Disabled validators are kept but not applied */
+  enabled: boolean
   createdAt: string
   updatedAt: string
 }
 
-export type ContextValidatorDefinition = Pick<ContextValidator, 'path' | 'schema'>
+/** `enabled` omitted: enabled on create, unchanged on update */
+export type ContextValidatorDefinition = Pick<ContextValidator, 'path' | 'schema'> &
+  Partial<Pick<ContextValidator, 'enabled'>>
 
 export type ContextVersionSummary = {
   id: number

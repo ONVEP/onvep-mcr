@@ -20,6 +20,8 @@ import ContextValidator from '#context/models/context_validator'
 export type ValidatorDefinition = {
   path: string
   schema: JsonObject
+  /** Omitted: enabled on create, unchanged on update */
+  enabled?: boolean
 }
 
 type CompiledValidator = {
@@ -58,7 +60,7 @@ export class ValidatorRegistry {
   #validators: CompiledValidator[] = []
 
   async reload() {
-    const rows = await ContextValidator.query().orderBy('path')
+    const rows = await ContextValidator.query().where('enabled', true).orderBy('path')
     const ajv = createAjv()
     this.#validators = rows.map((row) => ({
       pattern: parsePath(row.path),
@@ -78,7 +80,10 @@ export class ValidatorRegistry {
 
   async create(definition: ValidatorDefinition) {
     await this.#check(definition)
-    const validator = await ContextValidator.create(definition)
+    const validator = await ContextValidator.create({
+      ...definition,
+      enabled: definition.enabled ?? true,
+    })
     await this.reload()
     return validator
   }
@@ -86,7 +91,8 @@ export class ValidatorRegistry {
   async update(id: number, definition: ValidatorDefinition) {
     const validator = await this.find(id)
     await this.#check(definition, id)
-    await validator.merge(definition).save()
+    const { enabled, ...fields } = definition
+    await validator.merge(enabled === undefined ? fields : { ...fields, enabled }).save()
     await this.reload()
     return validator
   }

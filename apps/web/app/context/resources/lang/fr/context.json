@@ -54,7 +54,9 @@
     "leave_confirm": "Vous avez des modifications non enregistrées. Quitter quand même ?",
     "delete": "Supprimer",
     "delete_title": "Supprimer ce mutator ?",
-    "delete_description": "Le mutator <strong>{name}</strong> sera supprimé et cessera immédiatement de s'exécuter."
+    "delete_description": "Le mutator <strong>{name}</strong> sera supprimé et cessera immédiatement de s'exécuter.",
+    "enabled": "Activé",
+    "disabled": "Désactivé"
   },
   "validators": {
     "title": "Validators",
@@ -72,7 +74,9 @@
     "leave_confirm": "Vous avez des modifications non enregistrées. Quitter quand même ?",
     "delete": "Supprimer",
     "delete_title": "Supprimer ce validator ?",
-    "delete_description": "Le validator sur <strong>{path}</strong> sera supprimé."
+    "delete_description": "Le validator sur <strong>{path}</strong> sera supprimé.",
+    "enabled": "Activé",
+    "disabled": "Désactivé"
   },
   "schema": {
     "type": "Type",

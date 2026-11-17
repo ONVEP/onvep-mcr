@@ -5,8 +5,8 @@ import type { JsonObject } from '#context/lib/path'
 import { ContextEngine } from '#context/services/context_engine'
 import { validatorDefinitionValidator } from '#context/validators/context'
 
-function serialize({ id, path, schema, createdAt, updatedAt }: ContextValidator) {
-  return { id, path, schema, createdAt, updatedAt }
+function serialize({ id, path, schema, enabled, createdAt, updatedAt }: ContextValidator) {
+  return { id, path, schema, enabled, createdAt, updatedAt }
 }
 
 @inject()
@@ -23,16 +23,21 @@ export default class ValidatorsController {
   }
 
   async store({ request, response }: HttpContext) {
-    const { path, schema } = await request.validateUsing(validatorDefinitionValidator)
-    const validator = await this.engine.validators.create({ path, schema: schema as JsonObject })
+    const { path, schema, enabled } = await request.validateUsing(validatorDefinitionValidator)
+    const validator = await this.engine.validators.create({
+      path,
+      schema: schema as JsonObject,
+      enabled,
+    })
     return response.created(serialize(validator))
   }
 
   async update({ params, request }: HttpContext) {
-    const { path, schema } = await request.validateUsing(validatorDefinitionValidator)
+    const { path, schema, enabled } = await request.validateUsing(validatorDefinitionValidator)
     const validator = await this.engine.validators.update(params.id, {
       path,
       schema: schema as JsonObject,
+      enabled,
     })
     return serialize(validator)
   }
