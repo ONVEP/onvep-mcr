@@ -162,6 +162,10 @@ export default defineConfig({
       reloadServer: false,
     },
     {
+      pattern: 'app/**/ui/**/*.edge',
+      reloadServer: false,
+    },
+    {
       pattern: 'app/**/resources/cg/**',
       reloadServer: false,
     },
