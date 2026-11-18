@@ -699,7 +699,7 @@ export interface Registry {
   }
   'layers.index': {
     methods: ["GET","HEAD"]
-    pattern: '/graphics'
+    pattern: '/graphics/layers'
     types: {
       body: {}
       paramsTuple: []
@@ -712,7 +712,7 @@ export interface Registry {
   }
   'layers.store': {
     methods: ["POST"]
-    pattern: '/graphics'
+    pattern: '/graphics/layers'
     types: {
       body: ExtractBody<InferInput<(typeof import('#graphics/validators/layers').createLayerValidator)>>
       paramsTuple: []
@@ -725,7 +725,7 @@ export interface Registry {
   }
   'layers.show': {
     methods: ["GET","HEAD"]
-    pattern: '/graphics/:id'
+    pattern: '/graphics/layers/:id'
     types: {
       body: {}
       paramsTuple: [ParamValue]
@@ -738,7 +738,7 @@ export interface Registry {
   }
   'layers.update': {
     methods: ["PUT"]
-    pattern: '/graphics/:id'
+    pattern: '/graphics/layers/:id'
     types: {
       body: ExtractBody<InferInput<(typeof import('#graphics/validators/layers').updateLayerValidator)>>
       paramsTuple: [ParamValue]
@@ -751,7 +751,7 @@ export interface Registry {
   }
   'layers.destroy': {
     methods: ["DELETE"]
-    pattern: '/graphics/:id'
+    pattern: '/graphics/layers/:id'
     types: {
       body: {}
       paramsTuple: [ParamValue]

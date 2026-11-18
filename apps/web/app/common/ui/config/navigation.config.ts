@@ -145,7 +145,7 @@ export function getAdminNav(t: SimpleTFunction): NavMainItem[] {
       items: [
         {
           title: t('common.layout.navMain.layers'),
-          url: '/graphics',
+          url: '/graphics/layers',
           icon: Layers,
           can: 'manageGraphics',
         },

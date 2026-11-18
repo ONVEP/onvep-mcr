@@ -7,11 +7,11 @@ const { Assets, Cg, CssVariables, CustomCss, Layers, TailwindClasses } = control
 
 router
   .group(() => {
-    router.get('/', [Layers, 'index']).as('layers.index')
-    router.post('/', [Layers, 'store']).as('layers.store')
-    router.get('/:id', [Layers, 'show']).as('layers.show')
-    router.put('/:id', [Layers, 'update']).as('layers.update')
-    router.delete('/:id', [Layers, 'destroy']).as('layers.destroy')
+    router.get('/layers/', [Layers, 'index']).as('layers.index')
+    router.post('/layers/', [Layers, 'store']).as('layers.store')
+    router.get('/layers/:id', [Layers, 'show']).as('layers.show')
+    router.put('/layers/:id', [Layers, 'update']).as('layers.update')
+    router.delete('/layers/:id', [Layers, 'destroy']).as('layers.destroy')
     router.get('/tailwind-classes', [TailwindClasses]).as('graphics.tailwind_classes')
   })
   .prefix('/graphics')
