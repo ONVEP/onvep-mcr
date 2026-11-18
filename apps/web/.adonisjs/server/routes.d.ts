@@ -88,6 +88,7 @@ export type ScannedRoutes = {
     'context.mutators.update': { paramsTuple: [ParamValue]; params: {'name': ParamValue} }
     'context.mutators.destroy': { paramsTuple: [ParamValue]; params: {'name': ParamValue} }
     'context.mutators.state.update': { paramsTuple: [ParamValue]; params: {'name': ParamValue} }
+    'context.mutators.run.store': { paramsTuple: [ParamValue]; params: {'name': ParamValue} }
     'context.validators.index': { paramsTuple?: []; params?: {} }
     'context.validators.store': { paramsTuple?: []; params?: {} }
     'context.validators.show': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
@@ -221,6 +222,7 @@ export type ScannedRoutes = {
     'assets.store': { paramsTuple?: []; params?: {} }
     'context.values.store': { paramsTuple?: []; params?: {} }
     'context.mutators.store': { paramsTuple?: []; params?: {} }
+    'context.mutators.run.store': { paramsTuple: [ParamValue]; params: {'name': ParamValue} }
     'context.validators.store': { paramsTuple?: []; params?: {} }
     'context.versions.restore': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'transfer.export': { paramsTuple?: []; params?: {} }

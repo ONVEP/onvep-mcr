@@ -1100,6 +1100,19 @@ export interface Registry {
       rawResponse: ExtractRawResponse<Awaited<ReturnType<import('#app/context/controllers/mutator_states_controller').default['update']>>> | { status: 422; response: { errors: SimpleError[] } }
     }
   }
+  'context.mutators.run.store': {
+    methods: ["POST"]
+    pattern: '/context/mutators/:name/run'
+    types: {
+      body: {}
+      paramsTuple: [ParamValue]
+      params: { name: ParamValue }
+      query: {}
+      response: ExtractResponse<Awaited<ReturnType<import('#app/context/controllers/mutator_runs_controller').default['store']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#app/context/controllers/mutator_runs_controller').default['store']>>>
+      rawResponse: ExtractRawResponse<Awaited<ReturnType<import('#app/context/controllers/mutator_runs_controller').default['store']>>>
+    }
+  }
   'context.validators.index': {
     methods: ["GET","HEAD"]
     pattern: '/context/validators'

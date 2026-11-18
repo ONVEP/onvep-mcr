@@ -90,6 +90,11 @@ export class FakeContextEngine extends ContextEngineClient {
     return this.listMutators()
   }
 
+  override async runMutator(name: string) {
+    this.#record('runMutator', name)
+    return { changes: ['upper'], version: 999 }
+  }
+
   override async deleteMutator(name: string) {
     this.#record('deleteMutator', name)
     return this.listMutators()

@@ -154,6 +154,48 @@ test.group('Endpoint /context/mutators', (group) => {
     assert.deepEqual(engine.callsTo('setMutatorEnabled'), [['layers/sync.js', false]])
   })
 
+  test("POST run exécute le mutator et revient sur l'éditeur", async ({ client, assert }) => {
+    const response = await client
+      .post('/context/mutators/layers%2Fsync.js/run')
+      .loginAs(await admin())
+      .withCsrfToken()
+      .redirects(0)
+
+    response.assertStatus(302)
+    assert.equal(response.header('location'), '/context/mutators/layers%2Fsync.js')
+    response.assertFlashMessage('success', 'Mutator run: 1 change')
+    assert.deepEqual(engine.callsTo('runMutator'), [['layers/sync.js']])
+  })
+
+  test('POST run relaie le refus du moteur', async ({ client }) => {
+    engine.rejectNext(422, 'Mutator "x.js" rejected the update: boom')
+
+    const response = await client
+      .post('/context/mutators/x.js/run')
+      .loginAs(await admin())
+      .withCsrfToken()
+      .redirects(0)
+
+    response.assertFlashMessage('error', 'Mutator "x.js" rejected the update: boom')
+  })
+
+  test('POST run sans la permission manage est refusé', async ({ client, assert }) => {
+    const user = await UserFactory.create()
+    await withPermissions(user, 'context-editor', [
+      PERMISSIONS.contextView,
+      PERMISSIONS.contextEdit,
+    ])
+
+    const response = await client
+      .post('/context/mutators/x.js/run')
+      .loginAs(user)
+      .withCsrfToken()
+      .redirects(0)
+
+    assertForbiddenRedirect(response)
+    assert.lengthOf(engine.callsTo('runMutator'), 0)
+  })
+
   test('PUT state sans la permission manage est refusé', async ({ client, assert }) => {
     const user = await UserFactory.create()
     await withPermissions(user, 'context-editor', [

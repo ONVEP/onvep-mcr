@@ -36,6 +36,7 @@ router
 
 // Separate prefix: under /mutators, a "state" segment would collide with mutator folders.
 router.put('/mutator-states/*', [MutatorsController, 'toggle']).as('mutator_states.update')
+router.post('/mutator-runs/*', [MutatorsController, 'run']).as('mutator_runs.store')
 
 router
   .group(() => {

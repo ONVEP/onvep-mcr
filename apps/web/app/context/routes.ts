@@ -3,8 +3,16 @@ import router from '@adonisjs/core/services/router'
 import { controllers } from '#generated/controllers'
 import { middleware } from '#start/kernel'
 
-const { Context, ContextValues, MutatorStates, Mutators, ValidatorStates, Validators, Versions } =
-  controllers.context
+const {
+  Context,
+  ContextValues,
+  MutatorRuns,
+  MutatorStates,
+  Mutators,
+  ValidatorStates,
+  Validators,
+  Versions,
+} = controllers.context
 
 router
   .group(() => {
@@ -23,6 +31,7 @@ router
     router
       .put('/mutators/:name/state', [MutatorStates, 'update'])
       .as('context.mutators.state.update')
+    router.post('/mutators/:name/run', [MutatorRuns, 'store']).as('context.mutators.run.store')
 
     router.get('/validators', [Validators, 'index']).as('context.validators.index')
     router.post('/validators', [Validators, 'store']).as('context.validators.store')

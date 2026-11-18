@@ -51,6 +51,6 @@ export type ContextVersionPage = {
 
 export type ContextUpdate = {
   changes: string[]
-  /** Absent when the restored content equals the live context */
+  /** Absent when the update left the live context unchanged */
   version?: number
 }

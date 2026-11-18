@@ -150,6 +150,9 @@ export interface ApiDefinition {
       state: {
         update: typeof routes['context.mutators.state.update']
       }
+      run: {
+        store: typeof routes['context.mutators.run.store']
+      }
     }
     validators: {
       index: typeof routes['context.validators.index']

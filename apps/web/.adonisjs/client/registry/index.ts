@@ -512,6 +512,12 @@ const routes = {
     tokens: [[0,"context"],[0,"mutators"],[1,"name"],[0,"state"]],
     types: placeholder as Registry['context.mutators.state.update']['types'],
   },
+  'context.mutators.run.store': {
+    methods: ["POST"],
+    pattern: '/context/mutators/:name/run',
+    tokens: [[0,"context"],[0,"mutators"],[1,"name"],[0,"run"]],
+    types: placeholder as Registry['context.mutators.run.store']['types'],
+  },
   'context.validators.index': {
     methods: ["GET","HEAD"],
     pattern: '/context/validators',

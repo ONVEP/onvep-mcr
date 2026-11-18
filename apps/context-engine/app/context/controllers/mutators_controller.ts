@@ -43,6 +43,10 @@ export default class MutatorsController {
     return this.engine.listMutators()
   }
 
+  async run({ params }: HttpContext) {
+    return this.engine.runMutator(mutatorName(params))
+  }
+
   async destroy({ params }: HttpContext) {
     await this.engine.mutators.remove(mutatorName(params))
     return this.engine.listMutators()

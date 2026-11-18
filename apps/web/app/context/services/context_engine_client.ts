@@ -71,6 +71,10 @@ export class ContextEngineClient {
     )
   }
 
+  runMutator(name: string) {
+    return this.#request<ContextUpdate>('POST', `/mutator-runs/${encodeMutatorName(name)}`)
+  }
+
   deleteMutator(name: string) {
     return this.#request<ContextMutatorSummary[]>('DELETE', `/mutators/${encodeMutatorName(name)}`)
   }

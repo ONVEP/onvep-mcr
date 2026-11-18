@@ -3,6 +3,7 @@ import type { ContextConfig } from '#context/define_config'
 import InvalidPathException from '#context/exceptions/invalid_path_exception'
 import MutatorException from '#context/exceptions/mutator_exception'
 import MutatorLoopException from '#context/exceptions/mutator_loop_exception'
+import MutatorNotFoundException from '#context/exceptions/mutator_not_found_exception'
 import PathNotFoundException from '#context/exceptions/path_not_found_exception'
 import VersionNotFoundException from '#context/exceptions/version_not_found_exception'
 import type { JsonObject, JsonValue, PathSegments } from '#context/lib/path'
@@ -105,6 +106,17 @@ export class ContextEngine {
     return this.listMutators()
   }
 
+  /**
+   * Runs one mutator on the committed context even though nothing changed —
+   * disabled ones included, since the run is explicit. What it changes then
+   * flows through the regular pipeline: other mutators, validators, persist.
+   */
+  runMutator(name: string) {
+    const mutator = this.mutators.all().find((candidate) => candidate.name === name)
+    if (!mutator) throw new MutatorNotFoundException(name)
+    return this.#update('', (draft) => draft, {}, mutator)
+  }
+
   set(path: string, value: JsonValue) {
     return this.#update(path, (draft, segments) => {
       if (segments.length === 0) {
@@ -180,14 +192,19 @@ export class ContextEngine {
     return this.#update('', () => structuredClone(version.context), options)
   }
 
-  #update(path: string, operation: Operation, options: UpdateOptions = {}): Promise<ContextUpdate> {
+  #update(
+    path: string,
+    operation: Operation,
+    options: UpdateOptions = {},
+    forced?: Mutator
+  ): Promise<ContextUpdate> {
     const segments = parsePath(path)
     return this.#serialize(async () => {
       const previous = this.#context
       let next = operation(structuredClone(previous), segments)
 
-      if (!options.bypassMutators && diffPaths(previous, next).length > 0) {
-        next = await this.#runMutators(previous, next)
+      if (!options.bypassMutators && (forced || diffPaths(previous, next).length > 0)) {
+        next = await this.#runMutators(previous, next, forced)
       }
 
       const changes = diffPaths(previous, next)
@@ -214,10 +231,11 @@ export class ContextEngine {
    * A mutator is triggered by what changed since it last ran (or since the
    * committed context), so it reacts to other mutators — earlier or later in
    * the order — but never to its own output. Mutators that keep re-triggering
-   * each other past `maxMutatorPasses` abort the update.
+   * each other past `maxMutatorPasses` abort the update. A `forced` mutator
+   * runs in the first pass whatever changed.
    */
-  async #runMutators(previous: JsonObject, draft: JsonObject) {
-    const mutators = this.mutators.all().filter((mutator) => mutator.enabled)
+  async #runMutators(previous: JsonObject, draft: JsonObject, forced?: Mutator) {
+    const mutators = this.mutators.all().filter((mutator) => mutator.enabled || mutator === forced)
     const lastSeen = new Map<Mutator, JsonObject>()
     let next = draft
     let ranInPreviousPass: string[] = []
@@ -225,10 +243,12 @@ export class ContextEngine {
     for (let pass = 1; ; pass++) {
       const triggered = []
       for (const mutator of mutators) {
+        const isForced = pass === 1 && mutator === forced
+        if (!mutator.enabled && !isForced) continue
         const changes = diffPaths(lastSeen.get(mutator) ?? previous, next)
-        const isTriggered = mutator.patterns.some((pattern) =>
-          changes.some((change) => isRelated(pattern, change))
-        )
+        const isTriggered =
+          isForced ||
+          mutator.patterns.some((pattern) => changes.some((change) => isRelated(pattern, change)))
         if (!isTriggered) continue
         triggered.push(mutator.name)
         if (pass > this.config.maxMutatorPasses) continue

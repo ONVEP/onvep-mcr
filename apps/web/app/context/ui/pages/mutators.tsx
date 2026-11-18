@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { router } from '@inertiajs/react'
-import { Save, TrashIcon } from 'lucide-react'
+import { Play, Save, TrashIcon } from 'lucide-react'
 import { Trans } from 'react-i18next'
 
 import { Badge } from '@workspace/ui/components/badge'
@@ -91,6 +91,23 @@ function MutatorWorkspace({ mutator }: { mutator: ContextMutator }) {
           {dirty && (
             <span className="text-xs text-muted-foreground">{t('context.mutators.unsaved')}</span>
           )}
+          <Button
+            size="sm"
+            variant="outline"
+            // Runs what the engine has: unsaved edits would silently not apply.
+            disabled={dirty}
+            title={t(dirty ? 'context.mutators.run_unsaved_hint' : 'context.mutators.run_hint')}
+            onClick={() =>
+              router.post(
+                urlFor('context.mutators.run.store', { name: mutator.name }),
+                {},
+                { preserveScroll: true, preserveState: true }
+              )
+            }
+          >
+            <Play size={16} />
+            {t('context.mutators.run')}
+          </Button>
           <Button size="sm" onClick={save} disabled={!dirty} title="Ctrl+S">
             <Save size={16} />
             {t('context.mutators.save')}
