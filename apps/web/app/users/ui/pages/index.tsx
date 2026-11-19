@@ -34,7 +34,14 @@ type PageProps = InertiaProps<{
   order: string | null
 }>
 
-export default function ListUsersPage({ roleOptions, users, q, selectedRoles, sort, order }: PageProps) {
+export default function ListUsersPage({
+  roleOptions,
+  users,
+  q,
+  selectedRoles,
+  sort,
+  order,
+}: PageProps) {
   const { t } = useTranslation()
 
   const roles = userRoles(t, roleOptions)

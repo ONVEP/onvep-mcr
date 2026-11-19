@@ -1,9 +1,11 @@
 import router from '@adonisjs/core/services/router'
+import transmit from '@adonisjs/transmit/services/main'
 
 import { controllers } from '#generated/controllers'
 import { middleware } from '#start/kernel'
+import RundownPolicy from '#rundowns/policies/rundown_policy'
 
-const { Live, Rundowns, Steps, StepMoves, StepTypes } = controllers.rundowns
+const { CompanionServers, Live, Rundowns, Steps, StepMoves, StepTypes } = controllers.rundowns
 
 router.get('/live', [Live]).middleware(middleware.auth()).as('live.show')
 
@@ -35,3 +37,18 @@ router
   .where('id', router.matchers.number())
   .use('*', middleware.auth())
   .as('step_types')
+
+router
+  .resource('/rundowns/companion-servers', CompanionServers)
+  .only(['index', 'store', 'show', 'update', 'destroy'])
+  .where('id', router.matchers.number())
+  .use('*', middleware.auth())
+  .as('companion_servers')
+
+// Must match companionChannel() in #rundowns/services/companion_live.
+transmit.authorize('companion_servers/:id', async (ctx) => {
+  await ctx.auth.check()
+  return (
+    !!ctx.auth.user && (await new RundownPolicy().manageCompanionServers(ctx.auth.user)) === true
+  )
+})

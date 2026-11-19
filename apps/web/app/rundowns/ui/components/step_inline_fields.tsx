@@ -194,7 +194,7 @@ export function NewStepRow({
     <>
       <TableRow
         className={cn(
-          'hover:bg-transparent bg-neutral-100',
+          'bg-muted hover:bg-muted',
           form.data.waitUntilEnabled && 'border-t-2 border-t-primary'
         )}
       >

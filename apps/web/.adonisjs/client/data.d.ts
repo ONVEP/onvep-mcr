@@ -11,6 +11,7 @@ import type GraphicsCssVariableTransformer from '#app/graphics/transformers/css_
 import type GraphicsLayerTransformer from '#app/graphics/transformers/layer_transformer'
 import type MediaNetworkDriveTransformer from '#app/media/transformers/network_drive_transformer'
 import type NotificationsNotificationTransformer from '#app/notifications/transformers/notification_transformer'
+import type RundownsCompanionServerTransformer from '#app/rundowns/transformers/companion_server_transformer'
 import type RundownsRundownTransformer from '#app/rundowns/transformers/rundown_transformer'
 import type RundownsStepTransformer from '#app/rundowns/transformers/step_transformer'
 import type RundownsStepTypeTransformer from '#app/rundowns/transformers/step_type_transformer'
@@ -47,6 +48,10 @@ export namespace Data {
     }
   }
   export namespace Rundowns {
+    export type CompanionServer = InferData<RundownsCompanionServerTransformer>
+    export namespace CompanionServer {
+      export type Variants = InferVariants<RundownsCompanionServerTransformer>
+    }
     export type Rundown = InferData<RundownsRundownTransformer>
     export namespace Rundown {
       export type Variants = InferVariants<RundownsRundownTransformer>

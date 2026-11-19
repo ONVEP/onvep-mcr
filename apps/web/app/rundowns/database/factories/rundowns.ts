@@ -1,5 +1,6 @@
 import Factory from '@adonisjs/lucid/factories'
 
+import CompanionServer from '#rundowns/models/companion_server'
 import Rundown from '#rundowns/models/rundown'
 import Step from '#rundowns/models/step'
 import StepType from '#rundowns/models/step_type'
@@ -39,3 +40,11 @@ export const RundownFactory = Factory.define(Rundown, ({ faker }) => {
 })
   .relation('steps', () => StepFactory)
   .build()
+
+export const CompanionServerFactory = Factory.define(CompanionServer, ({ faker }) => {
+  return {
+    name: faker.string.alphanumeric(10),
+    url: 'http://127.0.0.1:1',
+    technicalPages: [],
+  }
+}).build()

@@ -298,6 +298,7 @@
     "rundownsViewList": "View rundowns",
     "rundownsManage": "Manage rundowns and steps",
     "rundownsManageStepTypes": "Manage step types",
+    "rundownsManageCompanionServers": "Manage Companion servers",
     "graphicsManage": "Manage graphics layers",
     "contextView": "View the context",
     "contextEdit": "Edit context values",

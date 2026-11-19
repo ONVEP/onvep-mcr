@@ -41,22 +41,6 @@ export type ScannedRoutes = {
     'network_drives.edit': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'network_drives.update': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'network_drives.destroy': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
-    'live.show': { paramsTuple?: []; params?: {} }
-    'rundowns.index': { paramsTuple?: []; params?: {} }
-    'rundowns.create': { paramsTuple?: []; params?: {} }
-    'rundowns.store': { paramsTuple?: []; params?: {} }
-    'rundowns.show': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
-    'rundowns.edit': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
-    'rundowns.update': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
-    'rundowns.destroy': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
-    'steps.store': { paramsTuple: [ParamValue]; params: {'rundown_id': ParamValue} }
-    'steps.update': { paramsTuple: [ParamValue,ParamValue]; params: {'rundown_id': ParamValue,'id': ParamValue} }
-    'steps.destroy': { paramsTuple: [ParamValue,ParamValue]; params: {'rundown_id': ParamValue,'id': ParamValue} }
-    'steps.move': { paramsTuple: [ParamValue,ParamValue]; params: {'rundown_id': ParamValue,'id': ParamValue} }
-    'step_types.index': { paramsTuple?: []; params?: {} }
-    'step_types.store': { paramsTuple?: []; params?: {} }
-    'step_types.update': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
-    'step_types.destroy': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'layers.index': { paramsTuple?: []; params?: {} }
     'layers.store': { paramsTuple?: []; params?: {} }
     'layers.show': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
@@ -108,6 +92,27 @@ export type ScannedRoutes = {
     'event_stream': { paramsTuple?: []; params?: {} }
     'subscribe': { paramsTuple?: []; params?: {} }
     'unsubscribe': { paramsTuple?: []; params?: {} }
+    'live.show': { paramsTuple?: []; params?: {} }
+    'rundowns.index': { paramsTuple?: []; params?: {} }
+    'rundowns.create': { paramsTuple?: []; params?: {} }
+    'rundowns.store': { paramsTuple?: []; params?: {} }
+    'rundowns.show': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'rundowns.edit': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'rundowns.update': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'rundowns.destroy': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'steps.store': { paramsTuple: [ParamValue]; params: {'rundown_id': ParamValue} }
+    'steps.update': { paramsTuple: [ParamValue,ParamValue]; params: {'rundown_id': ParamValue,'id': ParamValue} }
+    'steps.destroy': { paramsTuple: [ParamValue,ParamValue]; params: {'rundown_id': ParamValue,'id': ParamValue} }
+    'steps.move': { paramsTuple: [ParamValue,ParamValue]; params: {'rundown_id': ParamValue,'id': ParamValue} }
+    'step_types.index': { paramsTuple?: []; params?: {} }
+    'step_types.store': { paramsTuple?: []; params?: {} }
+    'step_types.update': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'step_types.destroy': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'companion_servers.index': { paramsTuple?: []; params?: {} }
+    'companion_servers.store': { paramsTuple?: []; params?: {} }
+    'companion_servers.show': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'companion_servers.update': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'companion_servers.destroy': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
   }
   GET: {
     'drive.fs.serve': { paramsTuple: [...ParamValue[]]; params: {'*': ParamValue[]} }
@@ -127,12 +132,6 @@ export type ScannedRoutes = {
     'network_drives.index': { paramsTuple?: []; params?: {} }
     'network_drives.create': { paramsTuple?: []; params?: {} }
     'network_drives.edit': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
-    'live.show': { paramsTuple?: []; params?: {} }
-    'rundowns.index': { paramsTuple?: []; params?: {} }
-    'rundowns.create': { paramsTuple?: []; params?: {} }
-    'rundowns.show': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
-    'rundowns.edit': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
-    'step_types.index': { paramsTuple?: []; params?: {} }
     'layers.index': { paramsTuple?: []; params?: {} }
     'layers.show': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'graphics.tailwind_classes': { paramsTuple?: []; params?: {} }
@@ -154,6 +153,14 @@ export type ScannedRoutes = {
     'transfer.index': { paramsTuple?: []; params?: {} }
     'notifications.index': { paramsTuple?: []; params?: {} }
     'event_stream': { paramsTuple?: []; params?: {} }
+    'live.show': { paramsTuple?: []; params?: {} }
+    'rundowns.index': { paramsTuple?: []; params?: {} }
+    'rundowns.create': { paramsTuple?: []; params?: {} }
+    'rundowns.show': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'rundowns.edit': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'step_types.index': { paramsTuple?: []; params?: {} }
+    'companion_servers.index': { paramsTuple?: []; params?: {} }
+    'companion_servers.show': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
   }
   HEAD: {
     'drive.fs.serve': { paramsTuple: [...ParamValue[]]; params: {'*': ParamValue[]} }
@@ -173,12 +180,6 @@ export type ScannedRoutes = {
     'network_drives.index': { paramsTuple?: []; params?: {} }
     'network_drives.create': { paramsTuple?: []; params?: {} }
     'network_drives.edit': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
-    'live.show': { paramsTuple?: []; params?: {} }
-    'rundowns.index': { paramsTuple?: []; params?: {} }
-    'rundowns.create': { paramsTuple?: []; params?: {} }
-    'rundowns.show': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
-    'rundowns.edit': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
-    'step_types.index': { paramsTuple?: []; params?: {} }
     'layers.index': { paramsTuple?: []; params?: {} }
     'layers.show': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'graphics.tailwind_classes': { paramsTuple?: []; params?: {} }
@@ -200,6 +201,14 @@ export type ScannedRoutes = {
     'transfer.index': { paramsTuple?: []; params?: {} }
     'notifications.index': { paramsTuple?: []; params?: {} }
     'event_stream': { paramsTuple?: []; params?: {} }
+    'live.show': { paramsTuple?: []; params?: {} }
+    'rundowns.index': { paramsTuple?: []; params?: {} }
+    'rundowns.create': { paramsTuple?: []; params?: {} }
+    'rundowns.show': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'rundowns.edit': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'step_types.index': { paramsTuple?: []; params?: {} }
+    'companion_servers.index': { paramsTuple?: []; params?: {} }
+    'companion_servers.show': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
   }
   POST: {
     'auth.sign_in.handle': { paramsTuple?: []; params?: {} }
@@ -213,10 +222,6 @@ export type ScannedRoutes = {
     'roles.store': { paramsTuple?: []; params?: {} }
     'tokens.store': { paramsTuple?: []; params?: {} }
     'network_drives.store': { paramsTuple?: []; params?: {} }
-    'rundowns.store': { paramsTuple?: []; params?: {} }
-    'steps.store': { paramsTuple: [ParamValue]; params: {'rundown_id': ParamValue} }
-    'steps.move': { paramsTuple: [ParamValue,ParamValue]; params: {'rundown_id': ParamValue,'id': ParamValue} }
-    'step_types.store': { paramsTuple?: []; params?: {} }
     'layers.store': { paramsTuple?: []; params?: {} }
     'css_variables.store': { paramsTuple?: []; params?: {} }
     'assets.store': { paramsTuple?: []; params?: {} }
@@ -232,6 +237,11 @@ export type ScannedRoutes = {
     'notifications.markAllRead': { paramsTuple?: []; params?: {} }
     'subscribe': { paramsTuple?: []; params?: {} }
     'unsubscribe': { paramsTuple?: []; params?: {} }
+    'rundowns.store': { paramsTuple?: []; params?: {} }
+    'steps.store': { paramsTuple: [ParamValue]; params: {'rundown_id': ParamValue} }
+    'steps.move': { paramsTuple: [ParamValue,ParamValue]; params: {'rundown_id': ParamValue,'id': ParamValue} }
+    'step_types.store': { paramsTuple?: []; params?: {} }
+    'companion_servers.store': { paramsTuple?: []; params?: {} }
   }
   PUT: {
     'users.update': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
@@ -239,9 +249,6 @@ export type ScannedRoutes = {
     'profile.update': { paramsTuple?: []; params?: {} }
     'password.update': { paramsTuple?: []; params?: {} }
     'network_drives.update': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
-    'rundowns.update': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
-    'steps.update': { paramsTuple: [ParamValue,ParamValue]; params: {'rundown_id': ParamValue,'id': ParamValue} }
-    'step_types.update': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'layers.update': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'custom_css.update': { paramsTuple?: []; params?: {} }
     'css_variables.update': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
@@ -251,30 +258,36 @@ export type ScannedRoutes = {
     'context.mutators.state.update': { paramsTuple: [ParamValue]; params: {'name': ParamValue} }
     'context.validators.update': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'context.validators.state.update': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'rundowns.update': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'steps.update': { paramsTuple: [ParamValue,ParamValue]; params: {'rundown_id': ParamValue,'id': ParamValue} }
+    'step_types.update': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'companion_servers.update': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
   }
   PATCH: {
     'users.update': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'roles.update': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'network_drives.update': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
-    'rundowns.update': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
-    'step_types.update': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'css_variables.update': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'assets.update': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'rundowns.update': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'step_types.update': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'companion_servers.update': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
   }
   DELETE: {
     'users.destroy': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'roles.destroy': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'tokens.destroy': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'network_drives.destroy': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
-    'rundowns.destroy': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
-    'steps.destroy': { paramsTuple: [ParamValue,ParamValue]; params: {'rundown_id': ParamValue,'id': ParamValue} }
-    'step_types.destroy': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'layers.destroy': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'css_variables.destroy': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'assets.destroy': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'context.values.destroy': { paramsTuple?: []; params?: {} }
     'context.mutators.destroy': { paramsTuple: [ParamValue]; params: {'name': ParamValue} }
     'context.validators.destroy': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'rundowns.destroy': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'steps.destroy': { paramsTuple: [ParamValue,ParamValue]; params: {'rundown_id': ParamValue,'id': ParamValue} }
+    'step_types.destroy': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'companion_servers.destroy': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
   }
 }
 declare module '@adonisjs/core/types/http' {

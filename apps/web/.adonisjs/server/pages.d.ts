@@ -29,6 +29,8 @@ declare module '@adonisjs/inertia/types' {
     'media/network_drives/create': ExtractProps<(typeof import('../../app/media/ui/pages/network_drives/create.tsx'))['default']>
     'media/network_drives/edit': ExtractProps<(typeof import('../../app/media/ui/pages/network_drives/edit.tsx'))['default']>
     'media/network_drives/index': ExtractProps<(typeof import('../../app/media/ui/pages/network_drives/index.tsx'))['default']>
+    'rundowns/companion_servers/index': ExtractProps<(typeof import('../../app/rundowns/ui/pages/companion_servers/index.tsx'))['default']>
+    'rundowns/companion_servers/show': ExtractProps<(typeof import('../../app/rundowns/ui/pages/companion_servers/show.tsx'))['default']>
     'rundowns/create': ExtractProps<(typeof import('../../app/rundowns/ui/pages/create.tsx'))['default']>
     'rundowns/edit': ExtractProps<(typeof import('../../app/rundowns/ui/pages/edit.tsx'))['default']>
     'rundowns/index': ExtractProps<(typeof import('../../app/rundowns/ui/pages/index.tsx'))['default']>

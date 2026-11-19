@@ -82,5 +82,46 @@
       "description": "Delete the step type <strong>{name}</strong>? This cannot be undone.",
       "in_use": "This type is used by at least one step and cannot be deleted."
     }
+  },
+  "companion_servers": {
+    "page": {
+      "title": "Companion servers",
+      "description": "Bitfocus Companion instances and the technical pages whose buttons the app can trigger"
+    },
+    "table": {
+      "name": "Name",
+      "url": "URL",
+      "technical_pages": "Technical pages"
+    },
+    "actions": {
+      "add": "Add server",
+      "open": "Open"
+    },
+    "new": {
+      "name_placeholder": "New server name…",
+      "url_placeholder": "http://192.168.1.10:8000"
+    },
+    "show": {
+      "pages_title": "Pages",
+      "pages_description": "Select the technical pages that hold the buttons to expose",
+      "page_label": "Page {number}",
+      "buttons_count": "{count, plural, =0 {no button} one {# button} other {# buttons}}",
+      "buttons_title": "Available buttons",
+      "buttons_description": "Live rendering of the buttons on the selected technical pages",
+      "no_pages": "No pages found on this Companion.",
+      "no_selection": "Select at least one technical page to list its buttons.",
+      "no_buttons": "No buttons on the selected pages.",
+      "missing_page": "Page no longer exists in Companion ({id})",
+      "connecting": "Connecting to Companion…",
+      "live": "Live",
+      "offline": "Disconnected"
+    },
+    "delete": {
+      "title": "Delete Companion server",
+      "description": "Delete the server <strong>{name}</strong>? This action cannot be undone."
+    },
+    "errors": {
+      "unavailable": "Companion is unreachable: {reason}"
+    }
   }
 }

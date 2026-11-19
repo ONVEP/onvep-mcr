@@ -47,6 +47,23 @@ export class AuthAccessTokenSchema extends BaseModel {
   declare updatedAt: DateTime | null
 }
 
+export class CompanionServerSchema extends BaseModel {
+  static $columns = ['createdAt', 'id', 'name', 'technicalPages', 'updatedAt', 'url'] as const
+  $columns = CompanionServerSchema.$columns
+  @column.dateTime({ autoCreate: true })
+  declare createdAt: DateTime | null
+  @column({ isPrimary: true })
+  declare id: number
+  @column()
+  declare name: string
+  @column()
+  declare technicalPages: any
+  @column.dateTime({ autoCreate: true, autoUpdate: true })
+  declare updatedAt: DateTime | null
+  @column()
+  declare url: string
+}
+
 export class CssVariableSchema extends BaseModel {
   static $columns = ['createdAt', 'id', 'kind', 'name', 'updatedAt', 'value'] as const
   $columns = CssVariableSchema.$columns

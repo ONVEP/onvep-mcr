@@ -41,6 +41,7 @@ export const controllers = {
     Notifications: () => import('#app/notifications/controllers/notifications_controller'),
   },
   rundowns: {
+    CompanionServers: () => import('#app/rundowns/controllers/companion_servers_controller'),
     Live: () => import('#app/rundowns/controllers/live_controller'),
     Rundowns: () => import('#app/rundowns/controllers/rundowns_controller'),
     StepMoves: () => import('#app/rundowns/controllers/step_moves_controller'),

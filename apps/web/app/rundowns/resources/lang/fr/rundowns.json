@@ -82,5 +82,46 @@
       "description": "Supprimer le type <strong>{name}</strong> ? Cette action est irréversible.",
       "in_use": "Ce type est utilisé par au moins un pas et ne peut pas être supprimé."
     }
+  },
+  "companion_servers": {
+    "page": {
+      "title": "Serveurs Companion",
+      "description": "Instances Bitfocus Companion et pages techniques dont l'application peut déclencher les boutons"
+    },
+    "table": {
+      "name": "Nom",
+      "url": "URL",
+      "technical_pages": "Pages techniques"
+    },
+    "actions": {
+      "add": "Ajouter un serveur",
+      "open": "Ouvrir"
+    },
+    "new": {
+      "name_placeholder": "Nom du nouveau serveur…",
+      "url_placeholder": "http://192.168.1.10:8000"
+    },
+    "show": {
+      "pages_title": "Pages",
+      "pages_description": "Sélectionnez les pages techniques contenant les boutons à exposer",
+      "page_label": "Page {number}",
+      "buttons_count": "{count, plural, =0 {aucun bouton} one {# bouton} other {# boutons}}",
+      "buttons_title": "Boutons disponibles",
+      "buttons_description": "Rendu en direct des boutons des pages techniques sélectionnées",
+      "no_pages": "Aucune page trouvée sur ce Companion.",
+      "no_selection": "Sélectionnez au moins une page technique pour lister ses boutons.",
+      "no_buttons": "Aucun bouton sur les pages sélectionnées.",
+      "missing_page": "Page absente de Companion ({id})",
+      "connecting": "Connexion à Companion…",
+      "live": "En direct",
+      "offline": "Déconnecté"
+    },
+    "delete": {
+      "title": "Supprimer le serveur Companion",
+      "description": "Supprimer le serveur <strong>{name}</strong> ? Cette action est irréversible."
+    },
+    "errors": {
+      "unavailable": "Companion est injoignable : {reason}"
+    }
   }
 }

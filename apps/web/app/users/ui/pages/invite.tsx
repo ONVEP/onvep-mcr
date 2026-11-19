@@ -84,10 +84,7 @@ export default function InviteUserPage({ roleOptions }: PageProps) {
 
             <Field>
               <FieldLabel htmlFor="role">{t('users.invite.form.role.label')}</FieldLabel>
-              <Select
-                value={data.role}
-                onValueChange={(value) => setData('role', value)}
-              >
+              <Select value={data.role} onValueChange={(value) => setData('role', value)}>
                 <SelectTrigger className={errors?.role ? 'border-destructive' : ''}>
                   <SelectValue placeholder={t('users.invite.form.role.placeholder')} />
                 </SelectTrigger>

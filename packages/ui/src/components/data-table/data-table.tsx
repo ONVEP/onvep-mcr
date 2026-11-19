@@ -121,11 +121,11 @@ export function DataTable<TData, TValue>({
   return (
     <div className="space-y-4">
       {Toolbar && <Toolbar table={table} />}
-      <div className="rounded-md border">
+      <div className="overflow-hidden rounded-md border">
         <Table className={className}>
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
-              <TableRow key={headerGroup.id} className="bg-neutral-100">
+              <TableRow key={headerGroup.id} className="bg-muted hover:bg-muted">
                 {headerGroup.headers.map((header) => {
                   const canSort = header.column.getCanSort();
                   const sortDir = header.column.getIsSorted();

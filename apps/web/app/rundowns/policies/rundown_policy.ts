@@ -21,4 +21,8 @@ export default class RundownPolicy extends BasePolicy {
   async manageStepTypes(currentUser: User): Promise<AuthorizerResponse> {
     return currentUser.hasPermission(PERMISSIONS.rundownsManageStepTypes)
   }
+
+  async manageCompanionServers(currentUser: User): Promise<AuthorizerResponse> {
+    return currentUser.hasPermission(PERMISSIONS.rundownsManageCompanionServers)
+  }
 }
